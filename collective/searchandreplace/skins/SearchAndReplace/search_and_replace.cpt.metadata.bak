@@ -1,0 +1,8 @@
+[validators]
+validators = validate_search_and_replace
+validators..Cancel=
+
+[actions]
+action.success=traverse_to:string:search_and_replace
+action.success..Cancel=redirect_to_action:string:view
+action.failure=traverse_to:string:search_and_replace

@@ -1,0 +1,26 @@
+## Controller Python Script "validate_search_and_replace"
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind state=state
+##bind subpath=traverse_subpath
+##parameters=find_what='', paths=[], use_regex=False
+##title=Validate search and replace form
+##
+
+from Products.CMFCore.utils import getToolByName
+
+sr = getToolByName(context, 'portal_search_and_replace')
+if not find_what:
+    state.setError('find_what', 'This field is required.', 'find_what_missing')
+elif use_regex and not sr.isValidRegex(find_what):
+    state.setError('find_what', 'Not a valid regular expression', 'find_what_regex_invalid')
+
+if not paths:
+    state.setError('paths', 'One or more items must be selected', 'paths_missing')
+
+if state.getErrors():
+    return state.set(status='failure', portal_status_message='Please correct the indicated errors.')
+else:
+    return state

@@ -1,0 +1,329 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+  <metal:block fill-slot="top_slot"
+         tal:define="errors options/state/getErrors;
+                     is_preview python:not errors and request.get('form.button.PreviewResults',None);
+                     is_replace python:not errors and request.get('form.button.ReplaceAll',None);
+                     paths python:request.get('paths', ['/'.join(here.getPhysicalPath())]);
+                     global find_what request/find_what|nothing;
+                     global replace_where request/replace_where|nothing;
+                     global replace_with request/replace_with|nothing;
+                     global include_children request/include_children|nothing;
+                     global file_extensions request/file_extensions|nothing;
+                     global match_case request/match_case|nothing;
+                     global match_case python:test(not is_preview and match_case is None,True,match_case);
+                     global use_regex request/use_regex|nothing;
+                     global srtool here/portal_search_and_replace;
+                     batch python:(is_preview or is_replace) and
+                         srtool.searchAndReplace(request, paths, find_what, replace_where, replace_with, 
+                             useRegex=use_regex, matchCase=match_case, includeChildren=include_children,
+                             fileExtensions=file_extensions, batch=True, preview=is_preview);
+                     dummy python:request.set('portal_status_message', test((is_preview or is_replace) and not batch,'No matches found',None));
+                     global is_preview python:is_preview and batch;
+                     global is_replace python:is_replace and batch;
+                     global batch python:((is_preview or is_replace) and batch) or
+                         here.getObjectsFromPathList(paths,batch=True,b_size=2147483647); 
+                      ">
+    <metal:block tal:define="dummy python:request.RESPONSE.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0');
+                             dummy python:request.set('enable_border', 1);" />
+  </metal:block>
+
+  <body>
+
+    <div metal:fill-slot="main"
+         tal:define="errors options/state/getErrors;
+                     paths python:request.get('paths', ['/'.join(here.getPhysicalPath())]);
+                     folders_in_selection python:not is_preview and [o.getId for o in batch if o.isPrincipiaFolderish];
+                     all_file_extensions python:srtool.getFileExtensions(paths);
+        ">
+      <metal:block tal:condition="python: not batch"
+                   tal:replace="python:here.redirectToReferrer('The item(s) you selected are no longer available.')"/>
+      <!--
+      <metal:block tal:condition="python: is_replace"
+                   tal:replace="python:request.RESPONSE.redirect('%s?portal_status_message=Replaced %s' % (context.search_and_replace_results(batch), str(len(batch)) + test(len(batch) > 1,' occurrences',' occurrence')))"/>
+      -->
+      
+      <metal:results tal:condition="is_replace">
+      			<metal:block tal:define="batch python:modules['Products.SearchAndReplace.getSearchandReplaceFiles'].getFiles(batch)">
+	      			<div tal:define="b_size python:1000">
+		      			<metal:block metal:use-macro="here/old_folder_contents/macros/contents">
+				            <metal:block metal:fill-slot="actions" />
+				            <metal:block metal:fill-slot="title"><h1><tal:title tal:replace="python:'Replaced %s' % str(len(batch)) + test(len(batch) > 1,' occurrences',' occurrence')"/></h1></metal:block>
+				            <metal:block metal:fill-slot="noitems" />			       
+		        		</metal:block>
+		        	</div>
+		        </metal:block>
+      </metal:results>
+     
+      <metal:noresults tal:condition="not:is_replace">
+	      <h1 i18n:translate="heading_search_and_replace">Multiple File Search And Replace</h1>
+	
+	      <p i18n:translate="description_search_and_replace">
+	        
+	      </p>
+	
+	      <form id="edit_form"
+	            name="edit_form"
+	            method="post"
+	            action="search_and_replace"
+	            tal:attributes="action string:$here_url/$template_id"
+	            tal:condition="not:python:paths and not batch">
+	
+	        <fieldset>
+	
+	          <legend i18n:translate="legend_details">Details</legend>
+	
+	          <div class="field" tal:condition="batch"
+	               tal:define="error errors/paths | nothing;"
+	               tal:attributes="class python:test(error, 'field error', 'field')">
+	
+	            <label for="" i18n:translate="label_affected_content">Affected content</label>
+	
+	            <div tal:content="error">Validation error output</div>
+	
+	            <div tal:define="dummy python:request.set('ids_checked', 1);">
+	              <metal:selection tal:condition="not:is_preview">
+	                <table summary="Affected content" i18n:attributes="summary summary_affected_content;"
+	                     metal:use-macro="here/old_folder_contents/macros/folder_listing">
+	                </table>
+	              </metal:selection>
+	              <metal:preview tal:condition="is_preview">
+	                <table summary="Affected content" i18n:attributes="summary summary_affected_content;"
+	                     metal:use-macro="here/old_folder_contents/macros/folder_listing">
+	                  <div metal:fill-slot="listingheader">
+	                    <th>&nbsp;<tal:line i18n:translate="previewheader_line"
+	                        >Line</tal:line>&nbsp;</th>
+	                    <th>&nbsp;<tal:before i18n:translate="previewheader_before"
+	                        >Before</tal:before>&nbsp;</th>
+	                    <th>&nbsp;<tal:after i18n:translate="previewheader_after"
+	                        >After</tal:after>&nbsp;</th>
+	                  </div>
+	                  <div metal:fill-slot="item_display">
+	                    <td tal:define="beginPosition item/beginPosition|nothing;
+	                                    endPosition item/beforeEndPosition|nothing;
+	                                    beginLine python:len(beginPosition) > 0 and (beginPosition[0]+1);
+	                                    endLine python:len(endPosition) > 0 and (endPosition[0]+1);
+	                                    line python:test(beginLine==endLine,beginLine,'%s-%s' % (beginLine,endLine));"
+	                        tal:content="line">
+	                        line
+	                    </td>
+	                    <td tal:define="beforeText item/beforeText|python:['','','','',''];">
+                                <tal:ellipsis tal:replace="python:beforeText[0]"/><tal:snippet tal:replace="python:beforeText[1]"/><b style="color: red;"><tal:before tal:replace="python:beforeText[2]"/></b><tal:snippet tal:replace="python:beforeText[3]"/><tal:ellipsis tal:replace="python:beforeText[4]"/>
+	                    </td>
+	                    <td tal:define="afterText item/afterText|python:['','','','',''];">
+                                <tal:ellipsis tal:replace="python:afterText[0]"/><tal:snippet tal:replace="python:afterText[1]"/><b style="color: green;"><tal:after tal:replace="python:afterText[2]"/></b><tal:snippet tal:replace="python:afterText[3]"/><tal:ellipsis tal:replace="python:afterText[4]"/>
+	                    </td>
+	                  </div>
+	                </table>
+	              </metal:preview>
+	            </div>
+	          </div>
+	
+	          <div class="field formSingleCheckbox"
+	               tal:condition="folders_in_selection|nothing">
+	
+	            <label for="search_subfolders" i18n:translate="label_search_subfolders">
+	              Search subfolders
+	            </label>
+	
+	            <div class="formHelp"
+	                 i18n:translate="help_search_subfolders">
+	              If checked, this will recursively search through any selected folders and their
+	              children, replacing at each level.
+	            </div>
+	
+	            <input type="checkbox"
+	                   class="formElement"
+	                   id="include_children"
+	                   name="include_children"
+	                   tabindex=""
+	                   tal:attributes="tabindex tabindex/next;
+	                                   checked include_children"
+	                   />
+	          </div>
+	
+	
+	          <div class="field" tal:condition="python:len(all_file_extensions) > 1">
+	
+	            <label for="file_extensions" i18n:translate="label_file_extensions">
+	              File extensions
+	            </label>
+	
+	            <div class="formHelp" i18n:translate="help_file_extensions">
+	              Select the extensions of the files you wish to search in, or leave unselected to search all files,
+	              regardless of extension.
+	            </div>
+	
+	            <select class="formElement"
+	                   id="list:file_extensions"
+	                   multiple="true"
+	                   size="5"
+	                   name="file_extensions"
+	                   tabindex=""
+	                   tal:attributes="tabindex tabindex/next;
+	                                   size python:min(len(all_file_extensions), 5);">
+	              <option value="" 
+	                   tal:repeat="extension all_file_extensions"
+	                   tal:content="extension"
+	                   tal:attributes="value extension;
+	                                   selected python:file_extensions and extension in file_extensions;">extension</option>
+	            </select>
+	          </div>
+	
+	          <div class="field"
+	               tal:define="error errors/find_what | nothing;"
+	               tal:attributes="class python:test(error, 'field error', 'field')">
+	            <label i18n:translate="label_find_what">Find what</label>
+	
+	            <span class="fieldRequired" title="Required"
+	                  i18n:attributes="title title_required;"
+	                  i18n:translate="label_required">(Required)</span>
+	
+	            <div class="formHelp"
+	                 i18n:translate="help_find_what">
+	              Enter the text to find
+	            </div>
+	
+	            <div tal:content="error">Validation error output</div>
+	
+	            <textarea id="find_what"
+	                      name="find_what"
+	                      cols="60"
+	                      rows="5"
+	                      tabindex=""
+	                      tal:attributes="tabindex tabindex/next;"
+	                      tal:content="find_what"
+	                      ></textarea>
+	          </div>
+	
+	          <div class="field formSingleCheckbox">
+	
+	            <label for="match_case" i18n:translate="label_match_case">
+	              Match case
+	            </label>
+	
+	            <div class="formHelp">
+	            </div>
+	
+	            <input type="checkbox"
+	                   class="formElement"
+	                   id="match_case"
+	                   name="match_case"
+	                   tabindex=""
+	                   tal:attributes="tabindex tabindex/next;
+	                                   checked match_case;"
+	                   />
+	          </div>
+	
+	          <div class="field formSingleCheckbox">
+	
+	            <label for="use_regex" i18n:translate="label_use_regex">
+	              Use Regular Expression
+	            </label>
+	
+	            <div class="formHelp"
+	                 i18n:translate="help_use_regex">
+	              If checked, the text in the "Find what" field will be used as a python-syntaxed regular expression.
+	              <a href="http://en.wikipedia.org/wiki/Regular_expression">Click here</a> for more information about regular expressions.
+	            </div>
+	
+	            <input type="checkbox"
+	                   class="formElement"
+	                   id="use_regex"
+	                   name="use_regex"
+	                   tabindex=""
+	                   tal:attributes="tabindex tabindex/next;
+	                                   checked use_regex"
+	                   />
+	          </div>
+
+                  <div class="field">
+                    <label i18n:translate="label_replace_where">Replace where</label>
+	            <div class="formHelp"
+	                 i18n:translate="help_replace_where">
+	              Enter the destination field for the replacement text. 
+                      "Attachment File" will make replacements in the file.
+                      "Title" or "Description" only make sense to
+                      use if you are using regular expressions.  With regular
+                      expressions, you can match text in the file using
+                      parentheses and then set the text in the title or
+                      description using \1, \2, etc.
+	            </div>
+                    <select name="replace_where"
+                            tal:define="options python:[('text','Document Text'),('title','Title'),('description','Description')];">
+                      <option tal:repeat="option options"
+                              tal:attributes="value python:option[0];
+                                              selected python:option[0] == replace_where;"
+                              tal:content="python:option[1]">option</option>
+                    </select>
+                  </div>
+
+	          <div class="field">
+	            <label i18n:translate="label_replace_with">Replace with</label>
+	
+	            <div class="formHelp"
+	                 i18n:translate="help_replace_with">
+	              Enter the text to replace the original text with
+	            </div>
+	            <textarea id="replace_with"
+	                      name="replace_with"
+	                      cols="60"
+	                      rows="5"
+	                      tabindex=""
+	                      tal:attributes="tabindex tabindex/next;"
+	                      tal:content="replace_with"
+	                      ></textarea>
+	          </div>
+	
+	          <div class="formControls">
+	            <input class="context"
+	                   type="submit"
+	                   name="form.button.PreviewResults"
+	                   value="Preview Results"
+	                   i18n:attributes="value label_preview;"
+	                   tal:attributes="tabindex tabindex/next;"/>
+	            <input class="context"
+	                   type="submit"
+	                   name="form.button.ReplaceAll"
+	                   value="Replace All"
+	                   i18n:attributes="value label_replace_all;"
+	                   tal:attributes="tabindex tabindex/next;"/>
+	            <input class="standalone"
+	                   type="submit"
+	                   name="form.button.Cancel"
+	                   value="Cancel"
+	                   i18n:attributes="value label_cancel;"
+	                   tal:attributes="tabindex tabindex/next;"/>
+	          </div>
+	
+	
+	          <span tal:replace="nothing">
+	            ##### HIDDEN VARIABLES FOR THE FORM_TOOL -- CUT AND PASTE
+	            THESE INTO YOUR FORM ####
+	          </span>
+	          <input type="hidden" name="form.submitted" value="1" />
+	          <input type="hidden" name="orig_template"
+	                 tal:condition="request/orig_template|nothing"
+	                 tal:attributes="value request/orig_template"/>
+	
+	        </fieldset>            
+	
+	      </form>
+	
+	      <div tal:condition="not: request/paths|nothing">
+	
+	        <div metal:use-macro="here/document_byline/macros/byline">
+	            Get the byline - contains details about author and modification date.
+	        </div>
+	
+      </div>
+                 
+      </metal:noresults>
+
+    </div>
+
+  </body>
+</html>

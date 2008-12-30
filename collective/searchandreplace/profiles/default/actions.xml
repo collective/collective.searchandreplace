@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+	xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+  <object name="object" meta_type="CMF Action Category">
+    <property name="title"></property>
+    <object name="search_and_replace" meta_type="CMF Action" i18n:domain="SearchAndReplace">
+      <property name="title" i18n:translate="">Search/Replace</property>
+      <property name="description" i18n:translate="">Search and Replace text</property>
+      <property name="url_expr">string:$object_url/@@search_and_replace</property>
+      <property name="permissions">
+	<element value="Modify portal content" />
+      </property>
+      <property name="visible">True</property>
+    </object>
+  </object>
+
+
+
+</object>
+
+
+

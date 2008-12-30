@@ -1,0 +1,14 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="SearchAndReplace">
+
+
+  <browser:page
+    for="*"
+    name="search_and_replace"
+    class=".searcher.SearcherForm"
+    template="search_form.pt"
+    permission="cmf.ModifyPortalContent"
+    />
+
+</configure>

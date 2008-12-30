@@ -1,0 +1,14 @@
+README.txt
+setup.cfg
+setup.py
+collective/__init__.py
+collective.searchandreplace.egg-info/PKG-INFO
+collective.searchandreplace.egg-info/SOURCES.txt
+collective.searchandreplace.egg-info/dependency_links.txt
+collective.searchandreplace.egg-info/entry_points.txt
+collective.searchandreplace.egg-info/namespace_packages.txt
+collective.searchandreplace.egg-info/not-zip-safe
+collective.searchandreplace.egg-info/requires.txt
+collective.searchandreplace.egg-info/top_level.txt
+collective/searchandreplace/__init__.py
+collective/searchandreplace/tests.py

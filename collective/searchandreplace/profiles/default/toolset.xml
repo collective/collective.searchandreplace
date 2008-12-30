@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool-setup>
+	<required tool_id="portal_search_and_replace" 
+		  class="collective.searchandreplace.SearchAndReplaceTool"
+		  />
+</tool-setup>
