@@ -1,0 +1,42 @@
+==============================================================================
+A basic search and replace test
+==============================================================================
+
+Create the browser object we'll be using.
+
+    >>> from Products.Five.testbrowser import Browser
+    >>> from Products.PloneTestCase.setup import portal_owner, default_password
+    >>> browser = Browser()
+    >>> portal_url = self.portal.absolute_url()
+
+Open the portal and login
+
+    >>> browser.open(portal_url)
+    >>> browser.getControl(name='__ac_name').value = portal_owner
+    >>> browser.getControl(name='__ac_password').value = default_password
+    >>> browser.getControl(name='submit').click()
+    
+
+Test to ensure basic search and replace works. Search for 'get' and check preview page
+for results.
+
+    >>> browser.getLink('Search/Replace').click()
+    >>> browser.getControl(name='find_what').value = 'get'
+    >>> browser.getControl('Preview Results').click()
+    >>> 'Get' in browser.contents
+    True
+
+Replace "get" with "Don't get".
+
+    >>> browser.getControl(name='replace_with').value = "Don't get"
+    >>> browser.getControl('Replace All').click()
+
+View page to verify replacement was made.
+    >>> browser.open(portal_url)
+    >>> "Don't get" in browser.contents
+    True
+
+
+
+
+

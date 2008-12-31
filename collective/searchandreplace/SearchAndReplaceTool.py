@@ -131,7 +131,7 @@ class SearchAndReplaceTool(UniqueObject, Folder):
             "my/folder/path/file.txt[4]", where the "[4]" indicates that this represents
             the fourth match in file.txt.  We need to split out the 4 (or the "index") from
             the path."""
-            
+
         pathsAndIndexes = {}
         for path in paths:
             mo = pathIndexMatcher.match(path)
@@ -151,12 +151,9 @@ class SearchAndReplaceTool(UniqueObject, Folder):
         return pathsAndIndexes
         
     def getPageContents(self, obj):
-#        return str(obj.getFile())
         return str(obj.getText())
     
     def setPageContents(self, obj, contents):
-        print "called SearchAndReplaceTool.setFileContents"
-#        obj.setFile(contents)
         obj.setText(contents)
 
     def searchAndReplace(self, request, paths, searchText, replaceField, replaceText, useRegex=True, matchCase=True,
@@ -164,7 +161,7 @@ class SearchAndReplaceTool(UniqueObject, Folder):
                          batch=False,b_size=sys.maxint, preview=False):
         #logger.info("batch = %s preview = %s" % (batch, preview))
         user = getSecurityManager().getUser()
-         
+
         if not searchText:
             IStatusMessage(request).addStatusMessage(u'Search text is required.',type='error')
             url = getMultiAdapter((self.aq_parent, request), name='absolute_url')()

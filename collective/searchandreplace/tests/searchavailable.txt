@@ -1,0 +1,54 @@
+==============================================================================
+A basic search and replace test
+==============================================================================
+
+Create the browser object we'll be using.
+
+    >>> from Products.Five.testbrowser import Browser
+    >>> from Products.PloneTestCase.setup import portal_owner, default_password
+    >>> browser = Browser()
+    >>> portal_url = self.portal.absolute_url()
+
+
+Open the portal as anonymous and check is action available
+
+    >>> self.setRoles(['Anonymous'])
+    >>> browser.open(portal_url)
+    >>> 'Search/Replace' in browser.contents
+    False
+
+
+Open the portal and login is Member
+    >>> self.portal.portal_membership.addMember('member','secret',('Member',),())
+    >>> self.setRoles(['Member'])
+    >>> browser.open(portal_url)
+    >>> browser.getControl(name='__ac_name').value = 'member'
+    >>> browser.getControl(name='__ac_password').value = 'secret'
+    >>> browser.getControl(name='submit').click()    
+
+Check if action is available for Member
+    >>> 'Search/Replace' in browser.contents
+    False
+
+
+Open the portal and login as Contributor
+    >>> browser.getLink('Log out').click()
+    >>> self.portal.portal_membership.addMember('contrib','secret',('Contributor',),())
+    >>> self.setRoles(['Contributor'])
+    >>> browser.open(portal_url)
+    >>> browser.getControl(name='__ac_name').value = 'contrib'
+    >>> browser.getControl(name='__ac_password').value = 'secret'
+    >>> browser.getControl(name='submit').click()    
+
+Check if action is available for Contributor that doesn't have permissions on front-page
+    >>> 'Search/Replace' in browser.contents
+    False
+
+Check if action is available for Contributor that creates an object
+    >>> browser.getLink('Page').click()
+    >>> browser.getControl('Title').value = 'Test Page'
+    >>> browser.getControl('Save').click()
+    >>> browser.getLink('Search/Replace').click()
+    >>> 'Search/Replace' in browser.contents
+    True
+    
