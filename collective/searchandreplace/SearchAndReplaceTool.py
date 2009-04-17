@@ -35,9 +35,9 @@ import sys
 import traceback
 import re
 
-import logging
-logger = logging.getLogger("SearchAndReplaceTool")
-logger.info("***********  Inside of search and replace *********")
+#import logging
+#logger = logging.getLogger("SearchAndReplaceTool")
+#logger.info("***********  Inside of search and replace *********")
 
 pathIndexMatcher = re.compile(r'^(.*)\[([\d]+)\]$')
 
