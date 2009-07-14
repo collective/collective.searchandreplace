@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0.1
+----------------
+
+  * Updating licensing information
+
+
 1.0
 ----------------
 
