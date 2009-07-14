@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <object name="portal_skins" meta_type="Plone Skins Tool" allow_any="False"
-   cookie_persistence="False" default_skin="Plone Default"
+   cookie_persistence="False"
    request_varname="plone_skin">
  <object name="SearchAndReplace" meta_type="Filesystem Directory View"
     directory="SearchAndReplace/skins/SearchAndReplace"/>
