@@ -1,0 +1,149 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2009-07-21 23:45+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: SearchAndReplace\n"
+
+#. Default: "(Required)"
+#: ./browser/search_form.pt:163
+msgid "(Required)"
+msgstr ""
+
+#. Default: "Affected content"
+#: ./browser/search_form.pt:68
+msgid "Affected content"
+msgstr ""
+
+#. Default: "After"
+#: ./browser/search_form.pt:84
+msgid "After"
+msgstr ""
+
+#. Default: "Before"
+#: ./browser/search_form.pt:83
+msgid "Before"
+msgstr ""
+
+#. Default: "Click here"
+#: ./browser/search_form.pt:212
+msgid "Click here"
+msgstr ""
+
+#. Default: "Details"
+#: ./browser/search_form.pt:63
+msgid "Details"
+msgstr ""
+
+#. Default: "Enter the destination field for the replacement text. 'Attachment File' will make replacements in the file. 'Title' or 'Description' only make sense to use if you are using regular expressions. With regular expressions, you can match text in the file using parentheses and then set the text in the title or description using \1, \2, etc."
+#: ./browser/search_form.pt:227
+msgid "Enter the destination field for the replacement text. 'Attachment File' will make replacements in the file. 'Title' or 'Description' only make sense to use if you are using regular expressions. With regular expressions, you can match text in the file using parentheses and then set the text in the title or description using \1, \2, etc."
+msgstr ""
+
+#. Default: "Enter the text to find"
+#: ./browser/search_form.pt:167
+msgid "Enter the text to find"
+msgstr ""
+
+#. Default: "Enter the text to replace the original text with"
+#: ./browser/search_form.pt:249
+msgid "Enter the text to replace the original text with"
+msgstr ""
+
+#. Default: "File extensions"
+#: ./browser/search_form.pt:133
+msgid "File extensions"
+msgstr ""
+
+#. Default: "Find what"
+#: ./browser/search_form.pt:161
+msgid "Find what"
+msgstr ""
+
+#. Default: "If checked, the text in the 'Find what' field will be used as a python-syntaxed regular expression. ${link} for more information about regular expressions."
+#: ./browser/search_form.pt:212
+msgid "If checked, the text in the 'Find what' field will be used as a python-syntaxed regular expression. ${link} for more information about regular expressions."
+msgstr ""
+
+#. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
+#: ./browser/search_form.pt:114
+msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
+msgstr ""
+
+#. Default: "Line"
+#: ./browser/search_form.pt:82
+msgid "Line"
+msgstr ""
+
+#. Default: "Match case"
+#: ./browser/search_form.pt:186
+msgid "Match case"
+msgstr ""
+
+#. Default: "Multiple File Search And Replace"
+#: ./browser/search_form.pt:48
+msgid "Multiple File Search And Replace"
+msgstr ""
+
+#. Default: "Preview Results"
+#: ./browser/search_form.pt:264
+msgid "Preview Results"
+msgstr ""
+
+#. Default: "Replace All"
+#: ./browser/search_form.pt:270
+msgid "Replace All"
+msgstr ""
+
+#. Default: "Replace where"
+#: ./browser/search_form.pt:226
+msgid "Replace where"
+msgstr ""
+
+#. Default: "Replace with"
+#: ./browser/search_form.pt:247
+msgid "Replace with"
+msgstr ""
+
+#. Default: "Required"
+#: ./browser/search_form.pt:163
+msgid "Required"
+msgstr ""
+
+#. Default: "Search and Replace text"
+#: ./profiles/default/actions.xml
+msgid "Search and Replace text"
+msgstr ""
+
+#. Default: "Search subfolders"
+#: ./browser/search_form.pt:110
+msgid "Search subfolders"
+msgstr ""
+
+#. Default: "Search/Replace"
+#: ./profiles/default/actions.xml
+msgid "Search/Replace"
+msgstr ""
+
+#. Default: "Select the extensions of the files you wish to search in, or leave unselected to search all files, regardless of extension."
+#: ./browser/search_form.pt:137
+msgid "Select the extensions of the files you wish to search in, or leave unselected to search all files, regardless of extension."
+msgstr ""
+
+#. Default: "Use Regular Expression"
+#: ./browser/search_form.pt:205
+msgid "Use Regular Expression"
+msgstr ""
+
