@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="SearchAndReplace">
 
   <body>
 
@@ -45,9 +45,9 @@
       </metal:results>
      
       <metal:noresults tal:condition="not:is_replace">
-	      <h1 i18n:translate="heading_search_and_replace">Multiple File Search And Replace</h1>
+	      <h1 i18n:translate="">Multiple File Search And Replace</h1>
 	
-	      <p i18n:translate="description_search_and_replace">
+	      <p i18n:translate="">
 	        
 	      </p>
 	
@@ -60,12 +60,12 @@
 	
 	        <fieldset>
 	
-	          <legend i18n:translate="legend_details">Details</legend>
+	          <legend i18n:translate="">Details</legend>
 	
 	          <div class="field" tal:condition="batch"
 	               tal:define="error errors/paths | nothing;">
 
-	            <label for="" i18n:translate="label_affected_content">Affected content</label>
+	            <label for="" i18n:translate="">Affected content</label>
 	
 	            <div tal:content="error">Validation error output</div>
 	
@@ -79,12 +79,9 @@
 	                <table summary="Affected content" i18n:attributes="summary summary_affected_content;"
 	                     metal:use-macro="here/old_folder_contents/macros/folder_listing">
 	                  <div metal:fill-slot="listingheader">
-	                    <th>&nbsp;<tal:line i18n:translate="previewheader_line"
-	                        >Line</tal:line>&nbsp;</th>
-	                    <th>&nbsp;<tal:before i18n:translate="previewheader_before"
-	                        >Before</tal:before>&nbsp;</th>
-	                    <th>&nbsp;<tal:after i18n:translate="previewheader_after"
-	                        >After</tal:after>&nbsp;</th>
+	                    <th>&nbsp;<tal:line i18n:translate="">Line</tal:line>&nbsp;</th>
+	                    <th>&nbsp;<tal:before i18n:translate="">Before</tal:before>&nbsp;</th>
+	                    <th>&nbsp;<tal:after i18n:translate="">After</tal:after>&nbsp;</th>
 	                  </div>
 	                  <div metal:fill-slot="item_display">
 	                    <td tal:define="beginPosition item/beginPosition|nothing;
@@ -110,12 +107,12 @@
 	          <div class="field formSingleCheckbox"
 	               tal:condition="folders_in_selection|nothing">
 	
-	            <label for="search_subfolders" i18n:translate="label_search_subfolders">
+	            <label for="search_subfolders" i18n:translate="">
 	              Search subfolders
 	            </label>
 	
 	            <div class="formHelp"
-	                 i18n:translate="help_search_subfolders">
+	                 i18n:translate="">
 	              If checked, this will recursively search through any selected folders and their
 	              children, replacing at each level.
 	            </div>
@@ -133,11 +130,11 @@
 	
 	          <div class="field" tal:condition="python:len(all_file_extensions) > 1">
 	
-	            <label for="file_extensions" i18n:translate="label_file_extensions">
+	            <label for="file_extensions" i18n:translate="">
 	              File extensions
 	            </label>
 	
-	            <div class="formHelp" i18n:translate="help_file_extensions">
+	            <div class="formHelp" i18n:translate="">
 	              Select the extensions of the files you wish to search in, or leave unselected to search all files,
 	              regardless of extension.
 	            </div>
@@ -161,14 +158,14 @@
 	          <div class="field"
 	               tal:define="error errors/find_what | nothing;">
 
-	            <label i18n:translate="label_find_what">Find what</label>
+	            <label i18n:translate="">Find what</label>
 	
 	            <span class="fieldRequired" title="Required"
-	                  i18n:attributes="title title_required;"
-	                  i18n:translate="label_required">(Required)</span>
+	                  i18n:attributes="title;"
+	                  i18n:translate="">(Required)</span>
 	
 	            <div class="formHelp"
-	                 i18n:translate="help_find_what">
+	                 i18n:translate="">
 	              Enter the text to find
 	            </div>
 	
@@ -186,7 +183,7 @@
 	
 	          <div class="field formSingleCheckbox">
 	
-	            <label for="match_case" i18n:translate="label_match_case">
+	            <label for="match_case" i18n:translate="">
 	              Match case
 	            </label>
 	
@@ -205,14 +202,14 @@
 	
 	          <div class="field formSingleCheckbox">
 	
-	            <label for="use_regex" i18n:translate="label_use_regex">
+	            <label for="use_regex" i18n:translate="">
 	              Use Regular Expression
 	            </label>
 	
 	            <div class="formHelp"
-	                 i18n:translate="help_use_regex">
-	              If checked, the text in the "Find what" field will be used as a python-syntaxed regular expression.
-	              <a href="http://en.wikipedia.org/wiki/Regular_expression">Click here</a> for more information about regular expressions.
+	                 i18n:translate="">
+	              If checked, the text in the 'Find what' field will be used as a python-syntaxed regular expression.
+	              <a href="http://en.wikipedia.org/wiki/Regular_expression" i18n:name="link" i18n:translate="">Click here</a> for more information about regular expressions.
 	            </div>
 	
 	            <input type="checkbox"
@@ -226,12 +223,12 @@
 	          </div>
 
                   <div class="field">
-                    <label i18n:translate="label_replace_where">Replace where</label>
+                    <label i18n:translate="">Replace where</label>
 	            <div class="formHelp"
-	                 i18n:translate="help_replace_where">
+	                 i18n:translate="">
 	              Enter the destination field for the replacement text. 
-                      "Attachment File" will make replacements in the file.
-                      "Title" or "Description" only make sense to
+                      'Attachment File' will make replacements in the file.
+                      'Title' or 'Description' only make sense to
                       use if you are using regular expressions.  With regular
                       expressions, you can match text in the file using
                       parentheses and then set the text in the title or
@@ -247,10 +244,10 @@
                   </div>
 
 	          <div class="field">
-	            <label i18n:translate="label_replace_with">Replace with</label>
+	            <label i18n:translate="">Replace with</label>
 	
 	            <div class="formHelp"
-	                 i18n:translate="help_replace_with">
+	                 i18n:translate="">
 	              Enter the text to replace the original text with
 	            </div>
 	            <textarea id="replace_with"
@@ -268,13 +265,13 @@
 	                   type="submit"
 	                   name="form.button.PreviewResults"
 	                   value="Preview Results"
-	                   i18n:attributes="value label_preview;"
+	                   i18n:attributes="value;"
 	                   tal:attributes="tabindex tabindex/next;"/>
 	            <input class="context"
 	                   type="submit"
 	                   name="form.button.ReplaceAll"
 	                   value="Replace All"
-	                   i18n:attributes="value label_replace_all;"
+	                   i18n:attributes="value;"
 	                   tal:attributes="tabindex tabindex/next;"/>
 	            <input class="standalone"
 	                   type="submit"
