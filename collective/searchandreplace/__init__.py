@@ -68,7 +68,6 @@ import permissions
 
 ADD_CONTENT_PERMISSIONS = 'Manage Portal'
 GLOBALS = globals()
-registerDirectory('skins', GLOBALS)
 
 allow_module('collective.searchandreplace.getSearchandReplaceFiles')
 
