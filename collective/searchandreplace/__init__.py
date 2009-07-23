@@ -78,6 +78,11 @@ from Products.Archetypes.ClassGen import generateMethods
 
 tools = (SearchAndReplaceTool,)
 
+from zope.i18nmessageid import MessageFactory
+
+SearchAndReplaceMessageFactory = MessageFactory('SearchAndReplace')
+allow_module('collective.contentlicensing.SearchAndReplaceMessageFactory')
+
 def initialize(context):
     ##code-section custom-init-top #fill in your manual code here
     ##/code-section custom-init-top
