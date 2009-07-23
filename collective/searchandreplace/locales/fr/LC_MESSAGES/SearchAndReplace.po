@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-07-21 23:45+0000\n"
+"POT-Creation-Date: 2009-07-22 20:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,7 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 
 #. Default: "(Required)"
 #: ./browser/search_form.pt:163
@@ -44,9 +45,13 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#. Default: "Enter the destination field for the replacement text. 'Attachment File' will make replacements in the file. 'Title' or 'Description' only make sense to use if you are using regular expressions. With regular expressions, you can match text in the file using parentheses and then set the text in the title or description using \1, \2, etc."
+#: ./browser/searcher.py:40
+msgid "Document Text"
+msgstr ""
+
+#. Default: "Enter the destination field for the replacement text. 'Attachment File' will make replacements in the file. 'Title' or 'Description' only make sense to use if you are using regular expressions. With regular expressions, you can match text in the file using parentheses and then set the text in the title or description ."
 #: ./browser/search_form.pt:227
-msgid "Enter the destination field for the replacement text. 'Attachment File' will make replacements in the file. 'Title' or 'Description' only make sense to use if you are using regular expressions. With regular expressions, you can match text in the file using parentheses and then set the text in the title or description using \1, \2, etc."
+msgid "Enter the destination field for the replacement text. 'Attachment File' will make replacements in the file. 'Title' or 'Description' only make sense to use if you are using regular expressions. With regular expressions, you can match text in the file using parentheses and then set the text in the title or description ."
 msgstr ""
 
 #. Default: "Enter the text to find"
