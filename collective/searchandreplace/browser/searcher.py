@@ -24,6 +24,8 @@ __version__   = '$ Revision 0.0 $'[11:-2]
 from zope.publisher.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import getMultiAdapter
+from Products.CMFPlone import PloneMessageFactory
+from collective.searchandreplace import SearchAndReplaceMessageFactory as _
 
 class SearcherForm(BrowserView):
 
@@ -33,5 +35,6 @@ class SearcherForm(BrowserView):
         self.context = context
         self.request = request
 
-        
-
+    def getFields(self):
+	""" Return a tuple of fields for replace where drop down """
+	return [('text',_(u'Document Text')),('title',PloneMessageFactory(u'Title')),('description',PloneMessageFactory(u'Description'))]

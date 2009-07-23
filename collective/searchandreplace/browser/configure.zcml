@@ -8,6 +8,7 @@
     name="search_and_replace"
     class=".searcher.SearcherForm"
     template="search_form.pt"
+    allowed_attributes="getFields"
     permission="cmf.ModifyPortalContent"
     />
 
