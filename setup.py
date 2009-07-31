@@ -4,8 +4,7 @@
 #                                                                                 
 #    This program is free software; you can redistribute it and/or modify         
 #    it under the terms of the GNU General Public License as published by         
-#    the Free Software Foundation; either version 2 of the License, or            
-#    (at your option) any later version.                                          
+#    the Free Software Foundation, version 2.                                      
 #                                                                                 
 #    This program is distributed in the hope that it will be useful,              
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of               
@@ -24,7 +23,7 @@ __version__   = '$ Revision 0.0 $'[11:-2]
 from setuptools import setup, find_packages
 import os
 
-version = '1.0.1'
+version = '1.0.1-rc1'
 
 setup(name='collective.searchandreplace',
       version=version,
