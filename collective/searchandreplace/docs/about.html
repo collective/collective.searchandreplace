@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title></title>
+<link rel="stylesheet" href="web.css" type="text/css" />
+</head>
+<body>
+<div class="document">
+
+
+<div class="section" id="searchandreplace-product">
+<h1>SearchAndReplace Product</h1>
+<p>The SearchAndReplace product is a Plone Add-on designed to find and replace text in Plone titles, descriptions, and document text.</p>
+</div>
+<div class="section" id="installing-searchandreplace">
+<h1>Installing SearchAndReplace</h1>
+<p>To install SearchAndReplace you must first setup up <a class="reference external" href="http://peak.telecommunity.com/DevCenter/EasyInstall">easy_install</a>. After installing easy_install, you can install the SearchAndReplace product by running:</p>
+<blockquote>
+easy_install collective.searchandreplace</blockquote>
+<p>To add the <em>SearchAndReplace</em> product to your Plone site, start your Plone site and enter the control panel. Then click on the <em>Add-on products</em> link in your Plone control panel. Select the <em>SearchAndReplace</em> checkbox and click the <em>install</em> button. The product will appear in the list of installed products.</p>
+<img alt="Install SearchAndReplace checkbox" src="images/install_searchandreplace.png" />
+</div>
+<div class="section" id="using-the-search-and-replace-product">
+<h1>Using the Search and Replace Product</h1>
+<p>To use the Search and Replace product, click on the <em>Search/Replace</em> tab. The Search and Replace from will be displayed.</p>
+<img alt="The Search and Replace form" src="images/searchandreplace_form.png" />
+<div class="section" id="search-and-replace-form">
+<h2>Search And Replace Form</h2>
+<p>There are several fields on the Search and Replace form:</p>
+<dl class="docutils">
+<dt>Affected content</dt>
+<dd>Displays the objects that the Search and Replace will process. Unchecking an object will prevent the SearchAndReplace product from processing that particular object.</dd>
+<dt>Search subfolders</dt>
+<dd>If checked, this will recursively search through any selected folders and their children, replacing at each level.</dd>
+<dt>Find what</dt>
+<dd>The text to be replaced</dd>
+<dt>Match case</dt>
+<dd>If selected the product will match the case of the string in the 'Find what' field, otherwise case will be ignored.</dd>
+<dt>Use Regular Expression</dt>
+<dd>If checked, the text in the 'Find what' field will be used as a python-syntaxed <a class="reference external" href="http://en.wikipedia.org/wiki/Regular_expression">regular expression</a>.</dd>
+<dt>Replace where</dt>
+<dd>Enter the destination field for the replacement text. 'Attachment File' will make replacements in the file. 'Title' or 'Description' only make sense to use if you are using regular expressions. With regular expressions, you can match text in the file using parentheses and then set the text in the title or description.</dd>
+<dt>Replace with</dt>
+<dd>The text that will replace the original text</dd>
+<dt>Replace All button</dt>
+<dd>The Replace All button runs the request.</dd>
+<dt>Preview Results button</dt>
+<dd>The Preview Results button allows you to view the phrases that will be replaced before processing the request.</dd>
+</dl>
+<img alt="Preview of text to be replaced" src="images/previewresults_display.png" />
+</div>
+</div>
+</div>
+</body>
+</html>
