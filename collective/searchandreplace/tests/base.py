@@ -20,7 +20,7 @@
 __author__  = '''Brent Lambert, David Ray, Jon Thomas'''
 __version__   = '$ Revision 0.0 $'[11:-2]
 
-from zope.testing import doctest
+import doctest
 from Products.PloneTestCase.PloneTestCase import setupPloneSite, installProduct
 from Products.PloneTestCase.PloneTestCase import PloneTestCase, FunctionalTestCase
 from setuptools import find_packages

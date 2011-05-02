@@ -42,7 +42,11 @@ try:
 except ImportError:
     CustomizationPolicy=None
 
-from Globals import package_home
+try:
+    from App.Common import package_home
+except ImportError:
+    from Globals import package_home
+
 from AccessControl import allow_module
 from Products.CMFCore import utils, DirectoryView
 from Products.CMFCore.DirectoryView import registerDirectory

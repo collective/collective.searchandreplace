@@ -4,7 +4,10 @@
 
 from Products.CMFCore.ActionProviderBase import ActionProviderBase
 from Products.CMFCore.ActionInformation import ActionInformation
-from Globals import  InitializeClass
+try:
+    from App.class_init import InitializeClass
+except ImportError:
+    from Globals import InitializeClass
 from OFS.SimpleItem import SimpleItem
 from OFS.Folder import Folder, ObjectManager
 from AccessControl import ClassSecurityInfo
