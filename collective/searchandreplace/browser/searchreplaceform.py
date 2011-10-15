@@ -11,6 +11,7 @@ from customwidgets import TwoLineTextAreaWidget, MultiPreSelectCheckBoxWidget
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
+from Products.statusmessages.interfaces import IStatusMessage
 
 
 def validate_searchreplaceform(form, action, data):
@@ -70,8 +71,9 @@ class SearchReplaceForm(AddForm):
         srutil = getUtility(ISearchReplaceUtility)
         if self.request.has_key('form.affectedContent'):
             # Do only the selected items
+            nitems = len(self.request['form.affectedContent'])
             items = srutil.parseItems(self.request['form.affectedContent'])
-            srutil.searchObjects(
+            replaced = srutil.searchObjects(
                 self.context,
                 data['findWhat'],
                 searchSubFolders=data['searchSubfolders'],
@@ -79,15 +81,21 @@ class SearchReplaceForm(AddForm):
                 replaceText=data['replaceWith'],
                 doReplace=True,
                 searchItems=items)
+            IStatusMessage(self.request).addStatusMessage(
+                _(u'Search text replaced in %d of %d instance(s).' %(replaced, nitems)), 
+                  type='info')
         else:
             # Do everything you can find
-            srutil.searchObjects(
+            replaced = srutil.searchObjects(
                 self.context,
                 data['findWhat'],
                 searchSubFolders=data['searchSubfolders'],
                 matchCase=data['matchCase'],
                 replaceText=data['replaceWith'],
-                doReplace=True)            
+                doReplace=True)
+            IStatusMessage(self.request).addStatusMessage(_(u'Search text replaced.'), type='info')
+        self.request.response.redirect(self.context.absolute_url())
+        return ''
         
     @action(_(u'Reset'),
             validator=None,

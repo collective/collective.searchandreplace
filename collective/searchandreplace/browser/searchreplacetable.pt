@@ -31,8 +31,8 @@
       <tal:block tal:repeat="item items">
 	<tr tal:define="oddrow repeat/item/odd;
 			itempath item/path;
-			itemrelpath python:view.getRelativePath(item['path']);
-			itemurl python:item['url'];
+			itemrelpath python:view.getRelativePath(itempath);
+			itemurl item/url;
 			itemline item/line;
 			itempos item/pos;
 			itemBeforeText python:item['text'][0];

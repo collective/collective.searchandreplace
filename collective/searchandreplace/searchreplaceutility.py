@@ -41,6 +41,7 @@ class SearchReplaceUtility(object):
         brains = context.portal_catalog(path=query)
         # Match objects
         results = []
+        replaced = 0
         for b in brains:
             ipath = b.getPath()
             if not sitems or sitems.has_key(ipath):
@@ -53,17 +54,21 @@ class SearchReplaceUtility(object):
                         sitem = sitems[ipath]
                     else:
                         sitem = None
-                    self._replaceObject(matcher, 
-                                        b, 
-                                        cpath, 
-                                        rtext,
-                                        sitem)
+                    rep = self._replaceObject(matcher, 
+                                              b, 
+                                              cpath, 
+                                              rtext,
+                                              sitem)
+                    replaced += rep
                 elif not replace:
                     # Just find the matches and return info
                     result = self._searchObject(matcher, b) 
                     if result:
                         results += result
-        return results
+        if replace:
+            return replaced
+        else:
+            return results
 
     def _replaceObject(self, matcher, brain, cpath, rtext, mobjs):
         """ Replace text in objects """
@@ -130,6 +135,7 @@ class SearchReplaceUtility(object):
                     obj.aq_base.setText(result[1])
         if replaced:
             obj.reindexObject()                
+        return replaced
 
     def _replaceText(self, matcher, text, rtext, indexes):
         """ Replace instances """
