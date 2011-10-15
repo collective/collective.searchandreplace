@@ -1,0 +1,65 @@
+<div class="field"
+     tal:condition="python: request.has_key('form.actions.Preview')"
+     tal:define="isFolderish context/isPrincipiaFolderish|nothing;
+		 items view/getItems;
+		 findText request/form.findWhat|nothing;
+		 replaceText request/form.replaceWith|nothing;">
+
+  <label for="form.affectedContent">
+    <span i18n:translate="">Affected Content</span>
+  </label>
+
+  <table id="sortable" class="listing" summary="Affected content" i18n:attributes="summary summary_affected_content;">
+    <thead>
+      <tr>
+	<th class="nosort">
+	  <input class="noborder" 
+		 src="select_all_icon.gif" 
+		 name="selectButton" 
+		 title="Select all items" 
+		 onclick="toggleSelect(this,'form.affectedContent');" 
+		 alt="Select all items" 
+		 type="checkbox">
+	</th>
+	<th class="nosort" tal:condition="isFolderish">Path</th>
+	<th class="nosort"><tal:line i18n:translate="">Line</tal:line></th>
+	<th class="nosort"><tal:before i18n:translate="">Before</tal:before></th>
+	<th class="nosort"><tal:after i18n:translate="">After</tal:after></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tal:block tal:repeat="item items">
+	<tr tal:define="oddrow repeat/item/odd;
+			itempath item/path;
+			itemrelpath python:view.getRelativePath(item['path']);
+			itemurl python:item['url'];
+			itemline item/line;
+			itempos item/pos;
+			itemBeforeText python:item['text'][0];
+			itemFindText python:item['text'][1];
+			itemAfterText python:item['text'][2];"
+	    tal:attributes="class python:oddrow and 'odd' or 'even';">
+	  <td><input type="checkbox" 
+		     id="form.affectedContent" 
+		     checked="checked"
+		     name="form.affectedContent"
+		     tal:attributes="value string:$itemline:$itempos:$itempath;"/></td>
+	  <td tal:condition="isFolderish">
+	    <a href="" alt=""
+	       tal:attributes="href itemurl;
+			       alt itemrelpath;" 
+	       tal:content="itemrelpath" />
+	  </td>
+	  <td tal:content="itemline">1</td>
+	  <td>
+	    <span tal:replace="itemBeforeText" /><i><span style="color: red" tal:content="itemFindText" /></i><span tal:replace="itemAfterText" />
+	  </td>
+	  <td>
+	    <span tal:replace="itemBeforeText" /><i><span style="color: green" tal:content="replaceText" /></i><span tal:replace="itemAfterText" />
+	  </td>
+	</tr>
+      </tal:block>
+    </tbody>
+  </table>
+  
+</div>

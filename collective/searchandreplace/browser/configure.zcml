@@ -2,14 +2,19 @@
   xmlns:browser="http://namespaces.zope.org/browser"
   i18n_domain="SearchAndReplace">
 
+  <browser:page
+     name="searchreplaceform"
+     for="..interfaces.ISearchReplaceable"
+     class=".searchreplaceform.SearchReplaceForm"
+     permission="cmf.ModifyPortalContent"
+     />
 
   <browser:page
-    for="*"
-    name="search_and_replace"
-    class=".searcher.SearcherForm"
-    template="search_form.pt"
-    allowed_attributes="getFields"
-    permission="cmf.ModifyPortalContent"
-    />
+     name="searchreplacetable"
+     for="*"
+     class=".searchreplacetable.SearchReplaceTable"
+     template="searchreplacetable.pt"
+     permission="cmf.ModifyPortalContent"
+     />
 
 </configure>
