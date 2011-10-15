@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0
+---
+
+  * Updated for Plone 4. All forms and functionality completely refactored and brought up to date.
+
 1.0.1
 ----------------
 

@@ -47,6 +47,7 @@ setup(name='collective.searchandreplace',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'five.grok',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
