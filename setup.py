@@ -23,7 +23,7 @@ __version__   = '$ Revision 0.0 $'[11:-2]
 from setuptools import setup, find_packages
 import os
 
-version = '1.0.1-final'
+version = '2.0'
 
 setup(name='collective.searchandreplace',
       version=version,
@@ -47,7 +47,6 @@ setup(name='collective.searchandreplace',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'five.grok',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
