@@ -1,10 +1,17 @@
 Changelog
 =========
 
-2.0
----
+2.1.1
+-----
 
-  * Updated for Plone 4. All forms and functionality completely refactored and brought up to date.
+  * Updated translation files [blambert555]
+  * Added updated Spanish translation [blambert555] 
+  * Added updated Brazilian Porteguese translations [blambert555]
+
+2.0/2.1
+-------
+
+  * Updated for Plone 4. All forms and functionality completely refactored and brought up to date. [blambert555]
 
 1.0.1
 ----------------
