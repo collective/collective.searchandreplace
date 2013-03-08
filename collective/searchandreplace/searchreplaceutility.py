@@ -33,7 +33,14 @@ __version__ = '$ Revision 0.0 $'[11:-2]
 import re
 
 
-searchflags = re.DOTALL | re.UNICODE | re.MULTILINE 
+searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
+
+
+def _to_unicode(s):
+    assert isinstance(s, basestring)
+    if not isinstance(s, unicode):
+        s = s.decode('utf-8')
+    return s
 
 
 class SearchReplaceUtility(object):
@@ -105,11 +112,12 @@ class SearchReplaceUtility(object):
     def _replaceObject(self, matcher, brain, cpath, rtext, mobjs):
         """ Replace text in objects """
         replaced = 0
+        # rtext is already unicode
         obj = brain.getObject()
         if mobjs:
             # Replace only the objects specified in mobjs
             if mobjs.has_key('title'):
-                title = obj.aq_base.Title()
+                title = _to_unicode(obj.aq_base.Title())
                 result = self._replaceText(matcher, 
                                            title, 
                                            rtext, 
@@ -118,7 +126,7 @@ class SearchReplaceUtility(object):
                     replaced += result[0]
                     obj.aq_base.setTitle(result[1])
             if mobjs.has_key('description'):
-                desc = obj.aq_base.getRawDescription()
+                desc = _to_unicode(obj.aq_base.getRawDescription())
                 if desc:
                     result = self._replaceText(matcher,
                                                desc,
@@ -128,7 +136,7 @@ class SearchReplaceUtility(object):
                         replaced += result[0]
                         obj.aq_base.setDescription(result[1])
             if mobjs.has_key('body'):
-                body = obj.aq_base.getText()
+                body = _to_unicode(obj.aq_base.getText())
                 if body:
                     result = self._replaceText(matcher,
                                                body,
@@ -139,7 +147,7 @@ class SearchReplaceUtility(object):
                         obj.aq_base.setText(result[1])
         else:
             # Replace all occurences
-            title = obj.aq_base.Title()
+            title = _to_unicode(obj.aq_base.Title())
             result = self._replaceText(matcher,
                                        title,
                                        rtext,
@@ -147,7 +155,7 @@ class SearchReplaceUtility(object):
             if result[0]:
                 replaced += result[0]
                 obj.aq_base.setTitle(result[1])
-            desc = obj.getRawDescription()
+            desc = _to_unicode(obj.aq_base.getRawDescription())
             if desc:
                 result = self._replaceText(matcher,
                                            desc,
@@ -156,7 +164,7 @@ class SearchReplaceUtility(object):
                 if result[0]:
                     replaced += result[0]
                     obj.setDescription(result[1])
-            body = obj.aq_base.getText()
+            body = _to_unicode(obj.aq_base.getText())
             if body:
                 result = self._replaceText(matcher,
                                            body,
@@ -165,8 +173,9 @@ class SearchReplaceUtility(object):
                 if result[0]:
                     replaced += result[0]
                     obj.aq_base.setText(result[1])
+        # don't have to utf-8 encoding
         if replaced:
-            obj.reindexObject()                
+            obj.reindexObject()
         return replaced
 
     def _replaceText(self, matcher, text, rtext, indexes):
@@ -190,7 +199,7 @@ class SearchReplaceUtility(object):
         results = []
         obj = brain.getObject()
         path = '/'.join(obj.getPhysicalPath())
-        title = obj.aq_base.Title()
+        title = _to_unicode(obj.aq_base.Title())
         mobj = matcher.finditer(title)
         for x in mobj:
             start, end = x.span()
@@ -202,7 +211,7 @@ class SearchReplaceUtility(object):
                     'text':self._getLinePreview(title, 
                                                 start, 
                                                 end),})
-        desc = obj.aq_base.getRawDescription()
+        desc = _to_unicode(obj.aq_base.getRawDescription())
         if desc:
             mobj = matcher.finditer(desc)
             for x in mobj:
@@ -216,7 +225,7 @@ class SearchReplaceUtility(object):
                                                     start, 
                                                     end),})
         if getattr(obj.aq_base, 'getText', None):
-            text = obj.aq_base.getText()
+            text = _to_unicode(obj.aq_base.getText())
             mobj = matcher.finditer(text)
             for x in mobj:
                 start, end = x.span()
