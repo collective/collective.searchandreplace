@@ -1,6 +1,13 @@
 Changelog
 =========
 
+3.2 (unreleased)
+-----
+
+  * Make the plugin appears in quick installer [ivanteoh]
+  * Support unicode [ivanteoh] 
+  * Fix the total of replaced instances [ivanteoh]
+
 3.1
 -----
 
