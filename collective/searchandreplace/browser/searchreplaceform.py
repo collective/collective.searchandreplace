@@ -103,8 +103,12 @@ class SearchReplaceForm(AddForm):
         srutil = getUtility(ISearchReplaceUtility)
         if self.request.has_key('form.affectedContent'):
             # Do only the selected items
-            nitems = len(self.request['form.affectedContent'])
+            #nitems = len(self.request['form.affectedContent'])
             items = srutil.parseItems(self.request['form.affectedContent'])
+            nitems = 0
+            for page_url, page_result in items.items():
+                for field, indexes in page_result.items():
+                    nitems += len(indexes)
             replaced = srutil.searchObjects(
                 self.context,
                 data['findWhat'],
@@ -114,7 +118,7 @@ class SearchReplaceForm(AddForm):
                 doReplace=True,
                 searchItems=items)
             IStatusMessage(self.request).addStatusMessage(
-                _(u'Search text replaced in %d of %d instance(s).' %(replaced, nitems)), 
+                _(u'Search text replaced in %d of %d instance(s).' % (replaced, nitems)),
                   type='info')
         else:
             # Do everything you can find
