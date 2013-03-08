@@ -51,5 +51,7 @@ setup(name='collective.searchandreplace',
       ],
       entry_points="""
       # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )
