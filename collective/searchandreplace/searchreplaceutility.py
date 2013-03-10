@@ -164,15 +164,16 @@ class SearchReplaceUtility(object):
                 if result[0]:
                     replaced += result[0]
                     obj.setDescription(result[1])
-            body = _to_unicode(obj.aq_base.getText())
-            if body:
-                result = self._replaceText(matcher,
-                                           body,
-                                           rtext,
-                                           None)
-                if result[0]:
-                    replaced += result[0]
-                    obj.aq_base.setText(result[1])
+            if getattr(obj.aq_base, 'getText', None):
+                body = _to_unicode(obj.aq_base.getText())
+                if body:
+                    result = self._replaceText(matcher,
+                                               body,
+                                               rtext,
+                                               None)
+                    if result[0]:
+                        replaced += result[0]
+                        obj.aq_base.setText(result[1])
         # don't have to utf-8 encoding
         if replaced:
             obj.reindexObject()
