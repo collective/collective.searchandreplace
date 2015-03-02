@@ -4,6 +4,9 @@ Changelog
 3.2 (unreleased)
 -----
 
+  * Use the unicode value stored in the Archetypes BaseUnit to avoid
+    UnicodeDecodeErrors when the BaseUnit's encoding is not utf8. [davisagli]
+  * Enable searching the entire site. [davisagli]
   * Make the plugin appears in quick installer [ivanteoh]
   * Support unicode [ivanteoh] 
   * Fix the total of replaced instances [ivanteoh]
