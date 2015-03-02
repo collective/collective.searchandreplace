@@ -30,6 +30,8 @@
 __author__ = 'Brent Lambert <brent@enpraxis.net>'
 __version__ = '$ Revision 0.0 $'[11:-2]
 
+from Acquisition import aq_parent
+from plone.app.layout.navigation.defaultpage import isDefaultPage
 import re
 
 
@@ -77,6 +79,9 @@ class SearchReplaceUtility(object):
         query = {'query':'/'.join(cpath)}
         if context.isPrincipiaFolderish and not ssf:
             query['depth'] = 1
+        container = aq_parent(context)
+        if isDefaultPage(container, context) and ssf:
+            query['query'] = '/'.join(container.getPhysicalPath())
         brains = context.portal_catalog(path=query)
         # Match objects
         results = []
