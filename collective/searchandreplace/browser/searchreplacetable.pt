@@ -13,12 +13,12 @@
     <thead>
       <tr>
 	<th class="nosort">
-	  <input class="noborder" 
-		 src="select_all_icon.gif" 
-		 name="selectButton" 
-		 title="Select all items" 
-		 onclick="toggleSelect(this,'form.affectedContent');" 
-		 alt="Select all items" 
+	  <input class="noborder"
+		 src="select_all_icon.gif"
+		 name="selectButton"
+		 title="Select all items"
+		 onclick="toggleSelect(this,'form.affectedContent');"
+		 alt="Select all items"
 		 type="checkbox">
 	</th>
 	<th class="nosort" tal:condition="isFolderish">Path</th>
@@ -39,15 +39,15 @@
 			itemFindText python:item['text'][1];
 			itemAfterText python:item['text'][2];"
 	    tal:attributes="class python:oddrow and 'odd' or 'even';">
-	  <td><input type="checkbox" 
-		     id="form.affectedContent" 
+	  <td><input type="checkbox"
+		     id="form.affectedContent"
 		     checked="checked"
 		     name="form.affectedContent"
 		     tal:attributes="value string:$itemline:$itempos:$itempath;"/></td>
 	  <td tal:condition="isFolderish">
 	    <a href="" alt=""
 	       tal:attributes="href itemurl;
-			       alt itemrelpath;" 
+			       alt itemrelpath;"
 	       tal:content="itemrelpath" />
 	  </td>
 	  <td tal:content="itemline">1</td>
@@ -61,5 +61,5 @@
       </tal:block>
     </tbody>
   </table>
-  
+
 </div>

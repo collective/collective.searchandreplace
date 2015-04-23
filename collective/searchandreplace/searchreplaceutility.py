@@ -1,13 +1,13 @@
 # -*- coding: us-ascii -*-
 # _______________________________________________________________________
-#              __________                      .__        
+#              __________                      .__
 #   ____   ____\______   \____________  ___  __|__| ______
 # _/ __ \ /    \|     ___/\_  __ \__  \ \  \/  /  |/  ___/
-# \  ___/|   |  \    |     |  | \// __ \_>    <|  |\___ \ 
+# \  ___/|   |  \    |     |  | \// __ \_>    <|  |\___ \
 #  \___  >___|  /____|     |__|  (____  /__/\_ \__/____  >
-#      \/     \/                      \/      \/       \/ 
+#      \/     \/                      \/      \/       \/
 # _______________________________________________________________________
-# 
+#
 #    This file is part of the eduCommons software package.
 #
 #    Copyright (c) 2011 enPraxis, LLC
@@ -15,16 +15,16 @@
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, version 2.8  
+#    the Free Software Foundation, version 2.8
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
-# 
+#
 #    You should have received a copy of the GNU General Public License
 #    along with this program; if not, write to the Free Software
-#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 # _______________________________________________________________________
 
 __author__ = 'Brent Lambert <brent@enpraxis.net>'
@@ -93,15 +93,15 @@ class SearchReplaceUtility(object):
                         sitem = sitems[ipath]
                     else:
                         sitem = None
-                    rep = self._replaceObject(matcher, 
-                                              b, 
-                                              cpath, 
+                    rep = self._replaceObject(matcher,
+                                              b,
+                                              cpath,
                                               rtext,
                                               sitem)
                     replaced += rep
                 elif not replace:
                     # Just find the matches and return info
-                    result = self._searchObject(matcher, b) 
+                    result = self._searchObject(matcher, b)
                     if result:
                         results += result
         if replace:
@@ -118,9 +118,9 @@ class SearchReplaceUtility(object):
             # Replace only the objects specified in mobjs
             if mobjs.has_key('title'):
                 title = _to_unicode(obj.aq_base.Title())
-                result = self._replaceText(matcher, 
-                                           title, 
-                                           rtext, 
+                result = self._replaceText(matcher,
+                                           title,
+                                           rtext,
                                            mobjs['title'])
                 if result[0]:
                     replaced += result[0]
@@ -209,8 +209,8 @@ class SearchReplaceUtility(object):
                     'url':obj.absolute_url(),
                     'line':'title',
                     'pos':'%d' %start,
-                    'text':self._getLinePreview(title, 
-                                                start, 
+                    'text':self._getLinePreview(title,
+                                                start,
                                                 end),})
         desc = _to_unicode(obj.aq_base.getRawDescription())
         if desc:
@@ -220,10 +220,10 @@ class SearchReplaceUtility(object):
                 results.append({
                         'path':path,
                         'url':obj.absolute_url(),
-                        'line':'description', 
+                        'line':'description',
                         'pos':'%d' %start,
-                        'text':self._getLinePreview(desc, 
-                                                    start, 
+                        'text':self._getLinePreview(desc,
+                                                    start,
                                                     end),})
         if getattr(obj.aq_base, 'getText', None):
             text = _to_unicode(obj.aq_base.getText())
@@ -233,11 +233,11 @@ class SearchReplaceUtility(object):
                 results.append({
                         'path':path,
                         'url':obj.absolute_url(),
-                        'line':'%d' %self._getLineNumber(text, 
+                        'line':'%d' %self._getLineNumber(text,
                                                          start),
                         'pos':'%d' %start,
-                        'text':self._getLinePreview(text, 
-                                                    start, 
+                        'text':self._getLinePreview(text,
+                                                    start,
                                                     end),})
         return results
 
