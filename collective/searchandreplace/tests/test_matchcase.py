@@ -27,13 +27,15 @@ from Testing.ZopeTestCase import user_name
 from AccessControl import Unauthorized
 from base import SearchAndReplaceTestCase
 from Products.Archetypes.tests.test_fields import FakeRequest
+from zope.component import getUtility
+from collective.searchandreplace.interfaces import ISearchReplaceUtility
 
 
 class testMatchCase(SearchAndReplaceTestCase):
     """ Ensure that the match case flag works   """
 
     def afterSetUp(self):
-        self.srtool = self.portal.portal_search_and_replace
+        self.srutil = getUtility(ISearchReplaceUtility)
         self.request = FakeRequest()
 
     def testNoMatchCase(self):
@@ -43,14 +45,12 @@ class testMatchCase(SearchAndReplaceTestCase):
         doc1.setTitle('Test Title')
         doc1.setText('Test Case')
         path = ['/'.join(doc1.getPhysicalPath())]
-        results = self.srtool.searchAndReplace(self.request,
-                                               path,
-                                               'test case',
-                                               'text',
-                                               'foo',
-                                               matchCase=False,
-                                               preview=True)
-        assert(len(results) == 1)
+        results = self.srutil.searchObjects(
+            doc1,
+            'test case',
+            replaceText='foo',
+            matchCase=False)
+        self.assertEqual(len(results), 1)
 
     def testMatchCase(self):
         self.setRoles(['Manager'])
@@ -59,15 +59,12 @@ class testMatchCase(SearchAndReplaceTestCase):
         doc2.setTitle('test title')
         doc2.setText('Test Case')
         path = ['/'.join(doc2.getPhysicalPath())]
-        results = self.srtool.searchAndReplace(self.request,
-                                               path,
-                                               'test case',
-                                               'text',
-                                               'foo',
-                                               matchCase=True,
-                                               preview=True)
-        assert(len(results) == 0)
-
+        results = self.srutil.searchObjects(
+            doc2,
+            'test case',
+            replaceText='foo',
+            matchCase=True)
+        self.assertEqual(len(results), 0)
 
     def testOneMatch(self):
         self.setRoles(['Manager'])
@@ -79,17 +76,17 @@ class testMatchCase(SearchAndReplaceTestCase):
         doc2 = getattr(self.portal, 'doc2')
         doc2.setTitle('test title')
         doc2.setText('test case')
-        path1 = '%s[0]' %  '/'.join(doc1.getPhysicalPath())
-        path2 = '%s[0]' % '/'.join(doc2.getPhysicalPath())
-        paths = [path1, path2]
-        results = self.srtool.searchAndReplace(self.request,
-                                               paths,
-                                               'test case',
-                                               'text',
-                                               'foo',
-                                               matchCase=True,
-                                               preview=True)
-        assert(len(results) == 1)
+        # path1 = '%s' %  '/'.join(doc1.getPhysicalPath())
+        # path2 = '%s' % '/'.join(doc2.getPhysicalPath())
+        # paths = {path1: {'body': [0]}, path2: {'body': [0]}}
+        results = self.srutil.searchObjects(
+            self.portal,
+            'test case',
+            replaceText='foo',
+            matchCase=True,
+            #searchItems=paths
+            )
+        self.assertEqual(len(results), 1)
 
 
 
