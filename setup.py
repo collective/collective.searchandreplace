@@ -29,7 +29,7 @@ setup(name='collective.searchandreplace',
       description="Batch Search and Replace",
       long_description=open("README.rst").read() + "\n" +
                        open("CHANGES.rst").read(),
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
+      # Get more strings from https://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
@@ -38,7 +38,7 @@ setup(name='collective.searchandreplace',
       keywords='batch regex search replace',
       author='enPraxis',
       author_email='info@enpraxis.net',
-      url='https://svn.plone.org/svn/collective/collective.searchandreplace',
+      url='https://github.com/collective/collective.searchandreplace',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective'],
