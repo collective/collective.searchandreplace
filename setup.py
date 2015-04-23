@@ -17,25 +17,26 @@
 #
 ##################################################################################
 
-__author__  = '''Brent Lambert, David Ray, Jon Thomas'''
-__version__   = '$ Revision 0.0 $'[11:-2]
+__author__ = '''Brent Lambert, David Ray, Jon Thomas'''
+__version__ = '$ Revision 0.0 $'[11:-2]
 
 from setuptools import setup, find_packages
 
-version = '3.1'
+version = '3.2.dev.0'
 
 setup(name='collective.searchandreplace',
       version=version,
       description="Batch Search and Replace",
-      long_description=open("README.rst").read() + "\n" +
-                       open("CHANGES.rst").read(),
-      # Get more strings from https://pypi.python.org/pypi?%3Aaction=list_classifiers
+      long_description=(open("README.rst").read() + "\n" +
+                        open("CHANGES.rst").read()),
+      # Get more strings from
+      # https://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-        "Framework :: Plone",
-        "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
-        ],
-      keywords='batch regex search replace',
+          "Framework :: Plone",
+          "Programming Language :: Python",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+          ],
+      keywords='batch search replace',
       author='enPraxis',
       author_email='info@enpraxis.net',
       url='https://github.com/collective/collective.searchandreplace',
