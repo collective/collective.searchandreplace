@@ -100,7 +100,7 @@ class SearchReplaceForm(AddForm):
         srutil = getUtility(ISearchReplaceUtility)
         if 'form.affectedContent' in self.request:
             # Do only the selected items
-            #nitems = len(self.request['form.affectedContent'])
+            # nitems = len(self.request['form.affectedContent'])
             items = srutil.parseItems(self.request['form.affectedContent'])
             nitems = 0
             for page_url, page_result in items.items():
