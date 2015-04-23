@@ -48,6 +48,12 @@ setup(name='collective.searchandreplace',
           'setuptools',
           # -*- Extra requirements: -*-
       ],
+      extras_require={
+          'test': [
+              'Products.CMFTestCase',
+              'Products.PloneTestCase',
+          ],
+      },
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
