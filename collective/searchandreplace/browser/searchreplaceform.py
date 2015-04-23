@@ -32,6 +32,8 @@ __version__ = '$ Revision 0.0 $'[11:-2]
 
 from zope.interface import Interface
 from zope.schema import Text, Bool
+from Acquisition import aq_parent
+from plone.app.layout.navigation.defaultpage import isDefaultPage
 from collective.searchandreplace import SearchAndReplaceMessageFactory as _
 from five.formlib.formbase import AddForm
 from zope.formlib.form import FormFields, action
@@ -77,9 +79,15 @@ class ISearchReplaceForm(Interface):
 class SearchReplaceForm(AddForm):
     """ """
 
-    form_fields = FormFields(ISearchReplaceForm)
-    form_fields['findWhat'].custom_widget = TwoLineTextAreaWidget
-    form_fields['replaceWith'].custom_widget = TwoLineTextAreaWidget
+    @property
+    def form_fields(self):
+        form_fields = FormFields(ISearchReplaceForm)
+        container = aq_parent(self.context)
+        if not self.context.isPrincipiaFolderish and not isDefaultPage(container, self.context):
+            form_fields = form_fields.omit('searchSubfolders')
+        form_fields['findWhat'].custom_widget = TwoLineTextAreaWidget
+        form_fields['replaceWith'].custom_widget = TwoLineTextAreaWidget
+        return form_fields
 
     label = _(u'Search and Replace')
     description = _(u'Search and replace text found in documents.')
@@ -109,7 +117,7 @@ class SearchReplaceForm(AddForm):
             replaced = srutil.searchObjects(
                 self.context,
                 data['findWhat'],
-                searchSubFolders=data['searchSubfolders'],
+                searchSubFolders=data.get('searchSubfolders', False),
                 matchCase=data['matchCase'],
                 replaceText=data['replaceWith'],
                 doReplace=True,
@@ -123,7 +131,7 @@ class SearchReplaceForm(AddForm):
             replaced = srutil.searchObjects(
                 self.context,
                 data['findWhat'],
-                searchSubFolders=data['searchSubfolders'],
+                searchSubFolders=data.get('searchSubfolders', False),
                 matchCase=data['matchCase'],
                 replaceText=data['replaceWith'],
                 doReplace=True)

@@ -4,6 +4,17 @@ Changelog
 3.2 (unreleased)
 ----------------
 
+- Hide 'search subfolders' option for items that are not folderish or
+  a default page. [davisagli]
+
+- Also support 'search subfolders' for default pages. [davisagli]
+
+- Use the unicode value stored in the Archetypes BaseUnit to avoid
+  UnicodeDecodeErrors when the BaseUnit's encoding is not utf8.
+  [davisagli]
+
+- Enable searching the entire site. [davisagli]
+
 - Cleanup.  Fix tests.  Add buildout for testing with Plone 4.3.
   [maurits]
 
