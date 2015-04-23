@@ -12,7 +12,7 @@
   <i18n:registerTranslations directory="locales" />
   
   <genericsetup:registerProfile
-     name="collective.searchandreplace"
+     name="default"
      title="collective.searchandreplace"
      directory="profiles/default"
      description="Installs the collective.searchandreplace package"
