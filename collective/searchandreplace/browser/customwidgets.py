@@ -32,7 +32,6 @@ __version__ = '$ Revision 0.0 $'[11:-2]
 
 from zope.app.form.browser import TextAreaWidget
 from plone.app.controlpanel.widgets import MultiCheckBoxVocabularyWidget
-from zope.app.form.browser.widget import renderElement
 
 
 class TwoLineTextAreaWidget(TextAreaWidget):

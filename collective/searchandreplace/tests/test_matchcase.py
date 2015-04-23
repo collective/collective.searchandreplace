@@ -17,14 +17,9 @@
 #
 ##################################################################################
 
-__author__  = '''Brent Lambert, David Ray, Jon Thomas'''
-__version__   = '$ Revision 0.0 $'[11:-2]
+__author__ = '''Brent Lambert, David Ray, Jon Thomas'''
+__version__ = '$ Revision 0.0 $'[11:-2]
 
-from Products.CMFPlone.tests import PloneTestCase
-from unittest import TestSuite, makeSuite
-from Testing import ZopeTestCase
-from Testing.ZopeTestCase import user_name
-from AccessControl import Unauthorized
 from base import SearchAndReplaceTestCase
 from Products.Archetypes.tests.test_fields import FakeRequest
 from zope.component import getUtility
@@ -44,7 +39,6 @@ class testMatchCase(SearchAndReplaceTestCase):
         doc1 = getattr(self.portal, 'doc1')
         doc1.setTitle('Test Title')
         doc1.setText('Test Case')
-        path = ['/'.join(doc1.getPhysicalPath())]
         results = self.srutil.searchObjects(
             doc1,
             'test case',
@@ -58,7 +52,6 @@ class testMatchCase(SearchAndReplaceTestCase):
         doc2 = getattr(self.portal, 'doc2')
         doc2.setTitle('test title')
         doc2.setText('Test Case')
-        path = ['/'.join(doc2.getPhysicalPath())]
         results = self.srutil.searchObjects(
             doc2,
             'test case',
@@ -84,10 +77,9 @@ class testMatchCase(SearchAndReplaceTestCase):
             'test case',
             replaceText='foo',
             matchCase=True,
-            #searchItems=paths
+            # searchItems=paths
             )
         self.assertEqual(len(results), 1)
-
 
 
 def test_suite():

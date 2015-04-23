@@ -30,16 +30,12 @@
 __author__ = 'Brent Lambert <brent@enpraxis.net>'
 __version__ = '$ Revision 0.0 $'[11:-2]
 
-from zope.interface import Interface, implements
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-from zope.schema import Text, Bool, Choice, Tuple, Set
+from zope.interface import Interface
+from zope.schema import Text, Bool
 from collective.searchandreplace import SearchAndReplaceMessageFactory as _
-from Products.CMFDefault.formlib.schema import SchemaAdapterBase
-from zope.component import adapts
-from collective.searchandreplace.interfaces import ISearchReplaceable
 from five.formlib.formbase import AddForm
 from zope.formlib.form import FormFields, action
-from customwidgets import TwoLineTextAreaWidget, MultiPreSelectCheckBoxWidget
+from customwidgets import TwoLineTextAreaWidget
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
 from collective.searchandreplace.interfaces import ISearchReplaceUtility

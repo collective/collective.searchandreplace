@@ -21,9 +21,8 @@ __author__  = '''Brent Lambert, David Ray, Jon Thomas'''
 __version__   = '$ Revision 0.0 $'[11:-2]
 
 import doctest
-from Products.PloneTestCase.PloneTestCase import setupPloneSite, installProduct
+from Products.PloneTestCase.PloneTestCase import setupPloneSite
 from Products.PloneTestCase.PloneTestCase import PloneTestCase, FunctionalTestCase
-from setuptools import find_packages
 
 from Products.Five import fiveconfigure
 from Products.Five import zcml

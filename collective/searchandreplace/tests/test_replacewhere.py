@@ -20,11 +20,6 @@
 __author__  = '''Brent Lambert, David Ray, Jon Thomas'''
 __version__   = '$ Revision 0.0 $'[11:-2]
 
-from Products.CMFPlone.tests import PloneTestCase
-from unittest import TestSuite, makeSuite
-from Testing import ZopeTestCase
-from Testing.ZopeTestCase import user_name
-from AccessControl import Unauthorized
 from base import SearchAndReplaceTestCase
 from Products.Archetypes.tests.test_fields import FakeRequest
 
