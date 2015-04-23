@@ -21,7 +21,6 @@ __author__ = '''Brent Lambert, David Ray, Jon Thomas'''
 __version__ = '$ Revision 0.0 $'[11:-2]
 
 from base import SearchAndReplaceTestCase
-from Products.Archetypes.tests.test_fields import FakeRequest
 from zope.component import getUtility
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
 
@@ -31,7 +30,6 @@ class testMatchCase(SearchAndReplaceTestCase):
 
     def afterSetUp(self):
         self.srutil = getUtility(ISearchReplaceUtility)
-        self.request = FakeRequest()
 
     def testNoMatchCase(self):
         self.setRoles(['Manager'])
