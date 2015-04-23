@@ -21,15 +21,15 @@ __author__ = '''Brent Lambert, David Ray, Jon Thomas'''
 __version__ = '$ Revision 0.0 $'[11:-2]
 
 from base import SearchAndReplaceTestCase
-from Products.Archetypes.tests.test_fields import FakeRequest
+from zope.component import getUtility
+from collective.searchandreplace.interfaces import ISearchReplaceUtility
 
 
 class testReplaceWhere(SearchAndReplaceTestCase):
-    """ Ensure that the match case flag works   """
+    """Ensure that we can replace in title, descripion and text."""
 
     def afterSetUp(self):
-        self.srtool = self.portal.portal_search_and_replace
-        self.request = FakeRequest()
+        self.srutil = getUtility(ISearchReplaceUtility)
 
     def testReplaceText(self):
         self.setRoles(['Manager'])
@@ -38,15 +38,12 @@ class testReplaceWhere(SearchAndReplaceTestCase):
         doc1.setTitle('Test Title')
         doc1.setDescription('Test Description')
         doc1.setText('Test Case')
-        path = ['/'.join(doc1.getPhysicalPath())]
-        results = self.srtool.searchAndReplace(self.request,
-                                               path,
-                                               'test case',
-                                               'text',
-                                               'foo',
-                                               matchCase=False,
-                                               preview=True)
-        assert(len(results) == 1)
+        results = self.srutil.searchObjects(
+            doc1,
+            'test case',
+            replaceText='foo',
+            matchCase=False)
+        self.assertEqual(len(results), 1)
 
     def testReplaceTitle(self):
         self.setRoles(['Manager'])
@@ -55,15 +52,12 @@ class testReplaceWhere(SearchAndReplaceTestCase):
         doc1.setTitle('Test Title')
         doc1.setDescription('Test Description')
         doc1.setText('Test Case')
-        path = ['/'.join(doc1.getPhysicalPath())]
-        results = self.srtool.searchAndReplace(self.request,
-                                               path,
-                                               'test title',
-                                               'title',
-                                               'foo',
-                                               matchCase=False,
-                                               preview=True)
-        assert(len(results) == 1)
+        results = self.srutil.searchObjects(
+            doc1,
+            'test title',
+            replaceText='foo',
+            matchCase=False)
+        self.assertEqual(len(results), 1)
 
     def testReplaceDescription(self):
         self.setRoles(['Manager'])
@@ -72,15 +66,12 @@ class testReplaceWhere(SearchAndReplaceTestCase):
         doc1.setTitle('Test Title')
         doc1.setDescription('Test Description')
         doc1.setText('Test Case')
-        path = ['/'.join(doc1.getPhysicalPath())]
-        results = self.srtool.searchAndReplace(self.request,
-                                               path,
-                                               'test desc',
-                                               'description',
-                                               'foo',
-                                               matchCase=False,
-                                               preview=True)
-        assert(len(results) == 1)
+        results = self.srutil.searchObjects(
+            doc1,
+            'test desc',
+            replaceText='foo',
+            matchCase=False)
+        self.assertEqual(len(results), 1)
 
 
 def test_suite():
