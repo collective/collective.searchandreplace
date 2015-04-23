@@ -68,7 +68,8 @@ class ISearchReplaceForm(Interface):
                             required=True)
 
     matchCase = Bool(title=_(u'Match Case'),
-                     description=_(u'Check the box for a case sensitive search.'),
+                     description=_(
+                         u'Check the box for a case sensitive search.'),
                      default=False,
                      required=True)
 
@@ -97,7 +98,7 @@ class SearchReplaceForm(AddForm):
     def action_replace(self, action, data):
         """ Replace text for all files. """
         srutil = getUtility(ISearchReplaceUtility)
-        if self.request.has_key('form.affectedContent'):
+        if 'form.affectedContent' in self.request:
             # Do only the selected items
             #nitems = len(self.request['form.affectedContent'])
             items = srutil.parseItems(self.request['form.affectedContent'])
@@ -114,8 +115,9 @@ class SearchReplaceForm(AddForm):
                 doReplace=True,
                 searchItems=items)
             IStatusMessage(self.request).addStatusMessage(
-                _(u'Search text replaced in %d of %d instance(s).' % (replaced, nitems)),
-                  type='info')
+                _(u'Search text replaced in %d of %d instance(s).' %
+                  (replaced, nitems)),
+                type='info')
         else:
             # Do everything you can find
             replaced = srutil.searchObjects(
@@ -125,7 +127,10 @@ class SearchReplaceForm(AddForm):
                 matchCase=data['matchCase'],
                 replaceText=data['replaceWith'],
                 doReplace=True)
-            IStatusMessage(self.request).addStatusMessage(_(u'Search text replaced.'), type='info')
+            IStatusMessage(
+                self.request).addStatusMessage(
+                _(u'Search text replaced.'),
+                type='info')
         self.request.response.redirect(self.context.absolute_url())
         return ''
 

@@ -1,4 +1,4 @@
-##################################################################################
+##########################################################################
 #    Copyright (c) 2009 Novell, All rights reserved.
 #    Portions copyright 2009 Massachusetts Institute of Technology, All rights reserved.
 #
@@ -15,7 +15,7 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-##################################################################################
+##########################################################################
 
 __author__ = '''Brent Lambert, David Ray, Jon Thomas'''
 __version__ = '$ Revision 0.0 $'[11:-2]
@@ -78,7 +78,7 @@ class testMatchCase(SearchAndReplaceTestCase):
             replaceText='foo',
             matchCase=True,
             # searchItems=paths
-            )
+        )
         self.assertEqual(len(results), 1)
 
 

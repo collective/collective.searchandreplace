@@ -43,20 +43,20 @@ class SearchReplaceTable(BrowserView):
         # Set search parameters
         srutil = getUtility(ISearchReplaceUtility)
         stext = None
-        if self.request.has_key('form.findWhat'):
+        if 'form.findWhat' in self.request:
             stext = self.request['form.findWhat']
         if not stext:
             return []
-        if self.request.has_key('form.searchSubfolders'):
+        if 'form.searchSubfolders' in self.request:
             subfolders = True
         else:
             subfolders = False
-        if self.request.has_key('form.matchCase'):
+        if 'form.matchCase' in self.request:
             mcase = True
         else:
             mcase = False
         # Get search results
-        results =  srutil.searchObjects(
+        results = srutil.searchObjects(
             self.context,
             stext,
             searchSubFolders=subfolders,
@@ -72,4 +72,3 @@ class SearchReplaceTable(BrowserView):
         else:
             rpath = './'
         return rpath
-

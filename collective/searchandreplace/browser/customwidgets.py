@@ -53,5 +53,3 @@ class MultiPreSelectCheckBoxWidget(MultiCheckBoxVocabularyWidget):
     def renderValue(self, value):
         rval = self.context.context.restrictedTraverse('@@searchreplacetable')
         return rval(self.context, self.request)
-
-

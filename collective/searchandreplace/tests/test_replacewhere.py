@@ -1,4 +1,4 @@
-##################################################################################
+##########################################################################
 #    Copyright (c) 2009 Novell, All rights reserved.
 #    Portions copyright 2009 Massachusetts Institute of Technology, All rights reserved.
 #
@@ -15,10 +15,10 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-##################################################################################
+##########################################################################
 
 __author__  = '''Brent Lambert, David Ray, Jon Thomas'''
-__version__   = '$ Revision 0.0 $'[11:-2]
+__version__ = '$ Revision 0.0 $'[11:-2]
 
 from base import SearchAndReplaceTestCase
 from Products.Archetypes.tests.test_fields import FakeRequest
@@ -65,7 +65,6 @@ class testReplaceWhere(SearchAndReplaceTestCase):
                                                preview=True)
         assert(len(results) == 1)
 
-
     def testReplaceDescription(self):
         self.setRoles(['Manager'])
         self.portal.invokeFactory('Document', 'doc1')
@@ -82,7 +81,6 @@ class testReplaceWhere(SearchAndReplaceTestCase):
                                                matchCase=False,
                                                preview=True)
         assert(len(results) == 1)
-
 
 
 def test_suite():

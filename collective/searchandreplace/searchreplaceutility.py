@@ -50,31 +50,31 @@ class SearchReplaceUtility(object):
         """ Search objects and optionally do a replace. """
         # Get search parameters
         cpath = context.getPhysicalPath()
-        if kwargs.has_key('searchSubFolders'):
+        if 'searchSubFolders' in kwargs:
             ssf = kwargs['searchSubFolders']
         else:
             ssf = True
-        if kwargs.has_key('matchCase'):
+        if 'matchCase' in kwargs:
             mc = kwargs['matchCase']
         else:
             mc = False
-        if kwargs.has_key('replaceText'):
+        if 'replaceText' in kwargs:
             rtext = kwargs['replaceText']
         else:
             rtext = None
-        if kwargs.has_key('doReplace'):
+        if 'doReplace' in kwargs:
             replace = kwargs['doReplace']
         else:
             replace = False
-        if kwargs.has_key('searchItems'):
+        if 'searchItems' in kwargs:
             sitems = kwargs['searchItems']
         else:
             sitems = None
         # Get Regex matcher
-        sflags = mc and searchflags or (searchflags|re.IGNORECASE)
+        sflags = mc and searchflags or (searchflags | re.IGNORECASE)
         matcher = re.compile(find, sflags)
         # Get items to search
-        query = {'query':'/'.join(cpath)}
+        query = {'query': '/'.join(cpath)}
         if context.isPrincipiaFolderish and not ssf:
             query['depth'] = 1
         brains = context.portal_catalog(path=query)
@@ -83,7 +83,7 @@ class SearchReplaceUtility(object):
         replaced = 0
         for b in brains:
             ipath = b.getPath()
-            if not sitems or sitems.has_key(ipath):
+            if not sitems or ipath in sitems:
                 # If there is a filtered list of items, and it
                 # is in the list, or if there is no filter
                 # then process the item
@@ -116,7 +116,7 @@ class SearchReplaceUtility(object):
         obj = brain.getObject()
         if mobjs:
             # Replace only the objects specified in mobjs
-            if mobjs.has_key('title'):
+            if 'title' in mobjs:
                 title = _to_unicode(obj.aq_base.Title())
                 result = self._replaceText(matcher,
                                            title,
@@ -125,7 +125,7 @@ class SearchReplaceUtility(object):
                 if result[0]:
                     replaced += result[0]
                     obj.aq_base.setTitle(result[1])
-            if mobjs.has_key('description'):
+            if 'description' in mobjs:
                 desc = _to_unicode(obj.aq_base.getRawDescription())
                 if desc:
                     result = self._replaceText(matcher,
@@ -135,7 +135,7 @@ class SearchReplaceUtility(object):
                     if result[0]:
                         replaced += result[0]
                         obj.aq_base.setDescription(result[1])
-            if mobjs.has_key('body'):
+            if 'body' in mobjs:
                 body = _to_unicode(obj.aq_base.getText())
                 if body:
                     result = self._replaceText(matcher,
@@ -205,40 +205,40 @@ class SearchReplaceUtility(object):
         for x in mobj:
             start, end = x.span()
             results.append({
-                    'path':path,
-                    'url':obj.absolute_url(),
-                    'line':'title',
-                    'pos':'%d' %start,
-                    'text':self._getLinePreview(title,
-                                                start,
-                                                end),})
+                'path': path,
+                'url': obj.absolute_url(),
+                'line': 'title',
+                'pos': '%d' % start,
+                'text': self._getLinePreview(title,
+                                             start,
+                                             end), })
         desc = _to_unicode(obj.aq_base.getRawDescription())
         if desc:
             mobj = matcher.finditer(desc)
             for x in mobj:
                 start, end = x.span()
                 results.append({
-                        'path':path,
-                        'url':obj.absolute_url(),
-                        'line':'description',
-                        'pos':'%d' %start,
-                        'text':self._getLinePreview(desc,
-                                                    start,
-                                                    end),})
+                    'path': path,
+                    'url': obj.absolute_url(),
+                    'line': 'description',
+                    'pos': '%d' % start,
+                    'text': self._getLinePreview(desc,
+                                                 start,
+                                                 end), })
         if getattr(obj.aq_base, 'getText', None):
             text = _to_unicode(obj.aq_base.getText())
             mobj = matcher.finditer(text)
             for x in mobj:
                 start, end = x.span()
                 results.append({
-                        'path':path,
-                        'url':obj.absolute_url(),
-                        'line':'%d' %self._getLineNumber(text,
-                                                         start),
-                        'pos':'%d' %start,
-                        'text':self._getLinePreview(text,
-                                                    start,
-                                                    end),})
+                    'path': path,
+                    'url': obj.absolute_url(),
+                    'line': '%d' % self._getLineNumber(text,
+                                                       start),
+                    'pos': '%d' % start,
+                    'text': self._getLinePreview(text,
+                                                 start,
+                                                 end), })
         return results
 
     def _getLineNumber(self, text, index):
@@ -260,25 +260,25 @@ class SearchReplaceUtility(object):
     def parseItems(self, items):
         """ Get list of items from form values """
         itemd = {}
-        if type([]) != type(items):
+        if not isinstance([], type(items)):
             items = [items]
         for x in items:
             try:
                 line, pos, path = x.split(':')
             except ValueError:
                 break
-            if not itemd.has_key(path):
+            if path not in itemd:
                 itemd[path] = {}
             if 'title' == line:
-                if not itemd[path].has_key('title'):
+                if 'title' not in itemd[path]:
                     itemd[path]['title'] = []
                 itemd[path]['title'].append(int(pos))
             elif 'description' == line:
-                if not itemd[path].has_key('description'):
+                if 'description' not in itemd[path]:
                     itemd[path]['description'] = []
                 itemd[path]['description'].append(int(pos))
             else:
-                if not itemd[path].has_key('body'):
+                if 'body' not in itemd[path]:
                     itemd[path]['body'] = []
                 itemd[path]['body'].append(int(pos))
         return itemd
