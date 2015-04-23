@@ -5,6 +5,8 @@
    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
    i18n_domain="collective.searchandreplace">
   
+  <!-- Load the CMFCore permissions. -->
+  <include package="Products.CMFCore" />
   <include package=".browser" />
 
   <i18n:registerTranslations directory="locales" />

@@ -4,6 +4,9 @@ Changelog
 3.2 (unreleased)
 ----------------
 
+- Include permissions from CMFCore, to avoid possible startup
+  problems. [maurits]
+
 - Make the plugin appears in quick installer [ivanteoh]
 
 - Support unicode [ivanteoh]
