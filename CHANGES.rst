@@ -4,6 +4,9 @@ Changelog
 3.2 (unreleased)
 ----------------
 
+- Cleanup.  Fix tests.  Add buildout for testing with Plone 4.3.
+  [maurits]
+
 - Include permissions from CMFCore, to avoid possible startup
   problems. [maurits]
 
