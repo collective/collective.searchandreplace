@@ -1,8 +1,8 @@
 Changelog
 =========
 
-3.2 (unreleased)
-----------------
+3.2.zest.1 (2015-04-28)
+-----------------------
 
 - Hide 'search subfolders' option for items that are not folderish or
   a default page. [davisagli]
