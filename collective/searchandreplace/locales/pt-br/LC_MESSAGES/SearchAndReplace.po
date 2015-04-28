@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-24 22:57+0000\n"
+"POT-Creation-Date: 2015-04-28 16:15+0000\n"
 "PO-Revision-Date: 2012-08-09 17:14-0300\n"
 "Last-Translator: Gustavo Schwarz <gustavo.sne@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,57 +14,57 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: SearchAndReplace\n"
 
-#: ./browser/searchreplaceform.py:75
+#: ./browser/searchreplaceform.py:73
 msgid "Check the box for a case sensitive search."
 msgstr "Marque para fazer uma busca que diferencie letas maiúsculas e minúsculas."
 
-#: ./browser/searchreplaceform.py:57
+#: ./browser/searchreplaceform.py:55
 msgid "Enter the text to find."
 msgstr "Digite o texto que você deseja pesquisar."
 
 # I don't know if this is correct.
-#: ./browser/searchreplaceform.py:61
+#: ./browser/searchreplaceform.py:59
 #, fuzzy
 msgid "Enter the text to replace the original text with."
 msgstr "Digite o texto que substituirá o texto original."
 
-#: ./browser/searchreplaceform.py:56
+#: ./browser/searchreplaceform.py:54
 msgid "Find What"
 msgstr "Pesquisar por"
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-#: ./browser/searchreplaceform.py:66
+#: ./browser/searchreplaceform.py:64
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "Se marcada, esta opção irá fazer uma busca recursiva em qualquer pasta selecionada e suas subpastas, fazendo a substituição em cada nível."
 
 # I don't know if this is correct.
-#: ./browser/searchreplaceform.py:74
+#: ./browser/searchreplaceform.py:72
 #, fuzzy
 msgid "Match Case"
 msgstr "Coincidir palavra inteira"
 
-#: ./browser/searchreplaceform.py:91
+#: ./browser/searchreplaceform.py:96
 #, fuzzy
 msgid "Preview"
 msgstr "Visualização"
 
-#: ./browser/searchreplaceform.py:98
+#: ./browser/searchreplaceform.py:103
 msgid "Replace"
 msgstr "Substituir"
 
-#: ./browser/searchreplaceform.py:60
+#: ./browser/searchreplaceform.py:58
 msgid "Replace With"
 msgstr "Substituir Por"
 
-#: ./browser/searchreplaceform.py:132
+#: ./browser/searchreplaceform.py:145
 msgid "Reset"
 msgstr "Redefinir"
 
-#: ./browser/searchreplaceform.py:65
+#: ./browser/searchreplaceform.py:63
 msgid "Search Subfolders"
 msgstr "Pesquisar Subdiretórios"
 
-#: ./browser/searchreplaceform.py:87
+#: ./browser/searchreplaceform.py:92
 msgid "Search and Replace"
 msgstr "Pesquisar e Substituir"
 
@@ -73,15 +73,15 @@ msgstr "Pesquisar e Substituir"
 msgid "Search and Replace text"
 msgstr "Pesquisar e Substituir texto"
 
-#: ./browser/searchreplaceform.py:88
+#: ./browser/searchreplaceform.py:93
 msgid "Search and replace text found in documents."
 msgstr "Pesquisar e substituir texto encontrado nos documentos."
 
-#: ./browser/searchreplaceform.py:117
+#: ./browser/searchreplaceform.py:126
 msgid "Search text replaced in %d of %d instance(s)."
 msgstr "Pesquisar texto substituído em %d de %d instância(s)."
 
-#: ./browser/searchreplaceform.py:128
+#: ./browser/searchreplaceform.py:140
 msgid "Search text replaced."
 msgstr "Pesquisar texto substituído."
 

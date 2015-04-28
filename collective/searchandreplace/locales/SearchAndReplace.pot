@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-24 22:57+0000\n"
+"POT-Creation-Date: 2015-04-28 16:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,51 +17,51 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: SearchAndReplace\n"
 
-#: ./browser/searchreplaceform.py:75
+#: ./browser/searchreplaceform.py:73
 msgid "Check the box for a case sensitive search."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:57
+#: ./browser/searchreplaceform.py:55
 msgid "Enter the text to find."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:61
+#: ./browser/searchreplaceform.py:59
 msgid "Enter the text to replace the original text with."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:56
+#: ./browser/searchreplaceform.py:54
 msgid "Find What"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:66
+#: ./browser/searchreplaceform.py:64
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:74
+#: ./browser/searchreplaceform.py:72
 msgid "Match Case"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:91
+#: ./browser/searchreplaceform.py:96
 msgid "Preview"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:98
+#: ./browser/searchreplaceform.py:103
 msgid "Replace"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:60
+#: ./browser/searchreplaceform.py:58
 msgid "Replace With"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:132
+#: ./browser/searchreplaceform.py:145
 msgid "Reset"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:65
+#: ./browser/searchreplaceform.py:63
 msgid "Search Subfolders"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:87
+#: ./browser/searchreplaceform.py:92
 msgid "Search and Replace"
 msgstr ""
 
@@ -69,15 +69,15 @@ msgstr ""
 msgid "Search and Replace text"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:88
+#: ./browser/searchreplaceform.py:93
 msgid "Search and replace text found in documents."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:117
+#: ./browser/searchreplaceform.py:126
 msgid "Search text replaced in %d of %d instance(s)."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:128
+#: ./browser/searchreplaceform.py:140
 msgid "Search text replaced."
 msgstr ""
 

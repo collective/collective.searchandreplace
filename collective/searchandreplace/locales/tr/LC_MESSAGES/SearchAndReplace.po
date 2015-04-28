@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-07-22 20:36+0000\n"
+"POT-Creation-Date: 2015-04-28 16:15+0000\n"
 "PO-Revision-Date: 2009-08-04 11:12+0200\n"
 "Last-Translator: Nergis <nergis@metu.edu.tr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,137 +14,74 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: SearchAndReplace\n"
 
-#. Default: "(Required)"
-#: ./browser/search_form.pt:163
-msgid "(Required)"
-msgstr "(Gerekli)"
+#: ./browser/searchreplaceform.py:73
+msgid "Check the box for a case sensitive search."
+msgstr ""
 
-#. Default: "Affected content"
-#: ./browser/search_form.pt:68
-msgid "Affected content"
-msgstr "Etkilenen içerik"
+#: ./browser/searchreplaceform.py:55
+msgid "Enter the text to find."
+msgstr ""
 
-#. Default: "After"
-#: ./browser/search_form.pt:84
-msgid "After"
-msgstr "Sonra"
+#: ./browser/searchreplaceform.py:59
+msgid "Enter the text to replace the original text with."
+msgstr ""
 
-#. Default: "Before"
-#: ./browser/search_form.pt:83
-msgid "Before"
-msgstr "Önce"
-
-#. Default: "Click here"
-#: ./browser/search_form.pt:212
-msgid "Click here"
-msgstr "Buraya tıkla"
-
-#. Default: "Details"
-#: ./browser/search_form.pt:63
-msgid "Details"
-msgstr "Ayrıntılar"
-
-#: ./browser/searcher.py:40
-msgid "Document Text"
-msgstr "Belge Metni"
-
-#. Default: "Enter the destination field for the replacement text. 'Attachment File' will make replacements in the file. 'Title' or 'Description' only make sense to use if you are using regular expressions. With regular expressions, you can match text in the file using parentheses and then set the text in the title or description ."
-#: ./browser/search_form.pt:227
-msgid "Enter the destination field for the replacement text. 'Attachment File' will make replacements in the file. 'Title' or 'Description' only make sense to use if you are using regular expressions. With regular expressions, you can match text in the file using parentheses and then set the text in the title or description ."
-msgstr "Değiştirme metni için hedef alanı girin. \"Eklenen dosya (Attachment File)\", dosyadaki değiştirmeleri yapacaktır. \"Başlık (Title)\" veya \"Açıklama (Description)\" sadece düzenli ifadeler kullanıyorsanız anlamlıdır. Düzenli ifadelerle, parantez kullanarak dosyadaki metni eşleştirebilir ve sonra başlık veya açıklamadaki metni ayarlayabilirsiniz."
-
-#. Default: "Enter the text to find"
-#: ./browser/search_form.pt:167
-msgid "Enter the text to find"
-msgstr "Bulmak için metin gir"
-
-#. Default: "Enter the text to replace the original text with"
-#: ./browser/search_form.pt:249
-msgid "Enter the text to replace the original text with"
-msgstr "Özgün metin ile değiştirilecek metni gir "
-
-#. Default: "File extensions"
-#: ./browser/search_form.pt:133
-msgid "File extensions"
-msgstr "Dosya uzantısı"
-
-#. Default: "Find what"
-#: ./browser/search_form.pt:161
-msgid "Find what"
-msgstr "Aranan"
-
-#. Default: "If checked, the text in the 'Find what' field will be used as a python-syntaxed regular expression. ${link} for more information about regular expressions."
-#: ./browser/search_form.pt:212
-msgid "If checked, the text in the 'Find what' field will be used as a python-syntaxed regular expression. ${link} for more information about regular expressions."
-msgstr "Eğer işaretlenmişse, \"Aranan\" alanındaki metin python-sözdizimi ile düzenli ifade olarak kullanılacaktır. Düzenli ifadeler ile ilgili daha fazla bilgi için ${link}. "
+#: ./browser/searchreplaceform.py:54
+msgid "Find What"
+msgstr ""
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-#: ./browser/search_form.pt:114
+#: ./browser/searchreplaceform.py:64
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "Eğer işaretlenmişse, her seviyede değişim yaparak seçili klasör ve alt klasörleri arar."
 
-#. Default: "Line"
-#: ./browser/search_form.pt:82
-msgid "Line"
-msgstr "Satır"
+#: ./browser/searchreplaceform.py:72
+msgid "Match Case"
+msgstr ""
 
-#. Default: "Match case"
-#: ./browser/search_form.pt:186
-msgid "Match case"
-msgstr "Büyük küçük harf duyarlı"
+#: ./browser/searchreplaceform.py:96
+msgid "Preview"
+msgstr ""
 
-#. Default: "Multiple File Search And Replace"
-#: ./browser/search_form.pt:48
-msgid "Multiple File Search And Replace"
-msgstr "Çoklu Dosya Bul ve Değiştir"
+#: ./browser/searchreplaceform.py:103
+msgid "Replace"
+msgstr ""
 
-#. Default: "Preview Results"
-#: ./browser/search_form.pt:264
-msgid "Preview Results"
-msgstr "Sonuçları Ön İzleme"
+#: ./browser/searchreplaceform.py:58
+msgid "Replace With"
+msgstr ""
 
-#. Default: "Replace All"
-#: ./browser/search_form.pt:270
-msgid "Replace All"
-msgstr "Hepsini Değiştir"
+#: ./browser/searchreplaceform.py:145
+msgid "Reset"
+msgstr ""
 
-#. Default: "Replace where"
-#: ./browser/search_form.pt:226
-msgid "Replace where"
-msgstr "Nerede değiştir"
+#: ./browser/searchreplaceform.py:63
+msgid "Search Subfolders"
+msgstr ""
 
-#. Default: "Replace with"
-#: ./browser/search_form.pt:247
-msgid "Replace with"
-msgstr "İle Değiştir"
-
-#. Default: "Required"
-#: ./browser/search_form.pt:163
-msgid "Required"
-msgstr "Gerekli"
+#: ./browser/searchreplaceform.py:92
+msgid "Search and Replace"
+msgstr ""
 
 #. Default: "Search and Replace text"
 #: ./profiles/default/actions.xml
 msgid "Search and Replace text"
 msgstr "Metni Ara ve Değiştir"
 
-#. Default: "Search subfolders"
-#: ./browser/search_form.pt:110
-msgid "Search subfolders"
-msgstr "Alt klasörleri Ara"
+#: ./browser/searchreplaceform.py:93
+msgid "Search and replace text found in documents."
+msgstr ""
+
+#: ./browser/searchreplaceform.py:126
+msgid "Search text replaced in %d of %d instance(s)."
+msgstr ""
+
+#: ./browser/searchreplaceform.py:140
+msgid "Search text replaced."
+msgstr ""
 
 #. Default: "Search/Replace"
 #: ./profiles/default/actions.xml
 msgid "Search/Replace"
 msgstr "Ara/Değiştir"
-
-#. Default: "Select the extensions of the files you wish to search in, or leave unselected to search all files, regardless of extension."
-#: ./browser/search_form.pt:137
-msgid "Select the extensions of the files you wish to search in, or leave unselected to search all files, regardless of extension."
-msgstr "Arama yapmak istediğiniz dosya uzantısını seçin veya uzantısı ne olursa olsun bütün dosyalarda arama yapmak için boş bırakın."
-
-#. Default: "Use Regular Expression"
-#: ./browser/search_form.pt:205
-msgid "Use Regular Expression"
-msgstr "Düzenli İfade Kullanın"
 

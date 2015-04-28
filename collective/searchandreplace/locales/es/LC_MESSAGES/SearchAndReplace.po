@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-24 22:57+0000\n"
+"POT-Creation-Date: 2015-04-28 16:15+0000\n"
 "PO-Revision-Date: 2012-08-07 21:39+0100\n"
 "Last-Translator: Susan Webster <susan@db.uc3m.es>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,52 +14,52 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: SearchAndReplace\n"
 
-#: ./browser/searchreplaceform.py:75
+#: ./browser/searchreplaceform.py:73
 msgid "Check the box for a case sensitive search."
 msgstr "Marque para una búsqueda sensible a mayúsculas/minúsculas."
 
-#: ./browser/searchreplaceform.py:57
+#: ./browser/searchreplaceform.py:55
 msgid "Enter the text to find."
 msgstr "Insertar el texto a encontrar."
 
-#: ./browser/searchreplaceform.py:61
+#: ./browser/searchreplaceform.py:59
 msgid "Enter the text to replace the original text with."
 msgstr "Insertar el texto a reemplazar el texto original."
 
-#: ./browser/searchreplaceform.py:56
+#: ./browser/searchreplaceform.py:54
 msgid "Find What"
 msgstr "Buscar Que"
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-#: ./browser/searchreplaceform.py:66
+#: ./browser/searchreplaceform.py:64
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "Marque aquí para una búsqueda recursiva sobre las carpetas seleccionadas y sus subcarpetas, con reemplazamiento en todos los niveles."
 
-#: ./browser/searchreplaceform.py:74
+#: ./browser/searchreplaceform.py:72
 msgid "Match Case"
 msgstr "Coincidir Mayúsculas y Minúsculas"
 
-#: ./browser/searchreplaceform.py:91
+#: ./browser/searchreplaceform.py:96
 msgid "Preview"
 msgstr "Vista previa"
 
-#: ./browser/searchreplaceform.py:98
+#: ./browser/searchreplaceform.py:103
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ./browser/searchreplaceform.py:60
+#: ./browser/searchreplaceform.py:58
 msgid "Replace With"
 msgstr "Reemplazar Con"
 
-#: ./browser/searchreplaceform.py:132
+#: ./browser/searchreplaceform.py:145
 msgid "Reset"
 msgstr "Resetear"
 
-#: ./browser/searchreplaceform.py:65
+#: ./browser/searchreplaceform.py:63
 msgid "Search Subfolders"
 msgstr "Buscar en Subcarpetas"
 
-#: ./browser/searchreplaceform.py:87
+#: ./browser/searchreplaceform.py:92
 msgid "Search and Replace"
 msgstr "Buscar y Reemplazar"
 
@@ -68,15 +68,15 @@ msgstr "Buscar y Reemplazar"
 msgid "Search and Replace text"
 msgstr "Buscar y Reemplazar texto"
 
-#: ./browser/searchreplaceform.py:88
+#: ./browser/searchreplaceform.py:93
 msgid "Search and replace text found in documents."
 msgstr "Buscar y reemplazar texto encontrado en documentos."
 
-#: ./browser/searchreplaceform.py:117
+#: ./browser/searchreplaceform.py:126
 msgid "Search text replaced in %d of %d instance(s)."
 msgstr "Buscar texto reemplazado en %d de %d instancia(s)."
 
-#: ./browser/searchreplaceform.py:128
+#: ./browser/searchreplaceform.py:140
 msgid "Search text replaced."
 msgstr "Buscar texto reemplazado."
 

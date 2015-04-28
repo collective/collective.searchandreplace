@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eduCommons\n"
-"POT-Creation-Date: 2009-07-22 20:36+0000\n"
+"POT-Creation-Date: 2015-04-28 16:15+0000\n"
 "PO-Revision-Date: 2009-08-03 16:46+0900\n"
 "Last-Translator: Takeshi Yamamoto (Retsu) <tyam@mac.com>\n"
 "Language-Team: Takeshi Yamamoto <tyam@mac.com>\n"
@@ -14,137 +14,74 @@ msgstr ""
 "Preferred-Encodings: utf-8\n"
 "Domain: plone\n"
 
-#. Default: "(Required)"
-#: ./browser/search_form.pt:163
-msgid "(Required)"
-msgstr "（必須）"
+#: ./browser/searchreplaceform.py:73
+msgid "Check the box for a case sensitive search."
+msgstr ""
 
-#. Default: "Affected content"
-#: ./browser/search_form.pt:68
-msgid "Affected content"
-msgstr "影響を受けるコンテンツ"
+#: ./browser/searchreplaceform.py:55
+msgid "Enter the text to find."
+msgstr ""
 
-#. Default: "After"
-#: ./browser/search_form.pt:84
-msgid "After"
-msgstr "置換後"
+#: ./browser/searchreplaceform.py:59
+msgid "Enter the text to replace the original text with."
+msgstr ""
 
-#. Default: "Before"
-#: ./browser/search_form.pt:83
-msgid "Before"
-msgstr "置換前"
-
-#. Default: "Click here"
-#: ./browser/search_form.pt:212
-msgid "Click here"
-msgstr "ここをクリック"
-
-#. Default: "Details"
-#: ./browser/search_form.pt:63
-msgid "Details"
-msgstr "詳細"
-
-#: ./browser/searcher.py:40
-msgid "Document Text"
-msgstr "ドキュメントテキスト"
-
-#. Default: "Enter the destination field for the replacement text. 'Attachment File' will make replacements in the file. 'Title' or 'Description' only make sense to use if you are using regular expressions. With regular expressions, you can match text in the file using parentheses and then set the text in the title or description ."
-#: ./browser/search_form.pt:227
-msgid "Enter the destination field for the replacement text. 'Attachment File' will make replacements in the file. 'Title' or 'Description' only make sense to use if you are using regular expressions. With regular expressions, you can match text in the file using parentheses and then set the text in the title or description ."
-msgstr "テキスト置換の範囲（目標フィールド）を入力します。'添付ファイル'はファイル内で置換をします。'タイトル'と'説明'は正規表現を使っているときだけ意味があります。正規表現を使えば、括弧を使ってファイル内のテキストを合致させ、タイトルや説明内にテキストをセットすることができます。 "
-
-#. Default: "Enter the text to find"
-#: ./browser/search_form.pt:167
-msgid "Enter the text to find"
-msgstr "探し出すテキストを入力"
-
-#. Default: "Enter the text to replace the original text with"
-#: ./browser/search_form.pt:249
-msgid "Enter the text to replace the original text with"
-msgstr "元のテキストを置き換えるテキストを入力"
-
-#. Default: "File extensions"
-#: ./browser/search_form.pt:133
-msgid "File extensions"
-msgstr "ファイル拡張子"
-
-#. Default: "Find what"
-#: ./browser/search_form.pt:161
-msgid "Find what"
-msgstr "探すテキスト"
-
-#. Default: "If checked, the text in the 'Find what' field will be used as a python-syntaxed regular expression. ${link} for more information about regular expressions."
-#: ./browser/search_form.pt:212
-msgid "If checked, the text in the 'Find what' field will be used as a python-syntaxed regular expression. ${link} for more information about regular expressions."
-msgstr "チェックされていれば、'探すテキスト'フィールド内のテキストはPython構文上の正規表現とみなされて使われます。正規表現についての詳細は ${link} "
+#: ./browser/searchreplaceform.py:54
+msgid "Find What"
+msgstr ""
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-#: ./browser/search_form.pt:114
+#: ./browser/searchreplaceform.py:64
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "チェックされていれば、選ばれたフォルダとその子フォルダをすべて再帰的に各レベルにおいて検索し置換します。"
 
-#. Default: "Line"
-#: ./browser/search_form.pt:82
-msgid "Line"
-msgstr "行"
+#: ./browser/searchreplaceform.py:72
+msgid "Match Case"
+msgstr ""
 
-#. Default: "Match case"
-#: ./browser/search_form.pt:186
-msgid "Match case"
-msgstr "大文字小文字を区別"
+#: ./browser/searchreplaceform.py:96
+msgid "Preview"
+msgstr ""
 
-#. Default: "Multiple File Search And Replace"
-#: ./browser/search_form.pt:48
-msgid "Multiple File Search And Replace"
-msgstr "複数ファイルの検索と置換"
+#: ./browser/searchreplaceform.py:103
+msgid "Replace"
+msgstr ""
 
-#. Default: "Preview Results"
-#: ./browser/search_form.pt:264
-msgid "Preview Results"
-msgstr "結果をプレビュー"
+#: ./browser/searchreplaceform.py:58
+msgid "Replace With"
+msgstr ""
 
-#. Default: "Replace All"
-#: ./browser/search_form.pt:270
-msgid "Replace All"
-msgstr "すべて置換"
+#: ./browser/searchreplaceform.py:145
+msgid "Reset"
+msgstr ""
 
-#. Default: "Replace where"
-#: ./browser/search_form.pt:226
-msgid "Replace where"
-msgstr "置換する場所"
+#: ./browser/searchreplaceform.py:63
+msgid "Search Subfolders"
+msgstr ""
 
-#. Default: "Replace with"
-#: ./browser/search_form.pt:247
-msgid "Replace with"
-msgstr "置換に使われるテキスト（変更後）"
-
-#. Default: "Required"
-#: ./browser/search_form.pt:163
-msgid "Required"
-msgstr "必須"
+#: ./browser/searchreplaceform.py:92
+msgid "Search and Replace"
+msgstr ""
 
 #. Default: "Search and Replace text"
 #: ./profiles/default/actions.xml
 msgid "Search and Replace text"
 msgstr "テキストを検索し置換"
 
-#. Default: "Search subfolders"
-#: ./browser/search_form.pt:110
-msgid "Search subfolders"
-msgstr "サブフォルダも検索"
+#: ./browser/searchreplaceform.py:93
+msgid "Search and replace text found in documents."
+msgstr ""
+
+#: ./browser/searchreplaceform.py:126
+msgid "Search text replaced in %d of %d instance(s)."
+msgstr ""
+
+#: ./browser/searchreplaceform.py:140
+msgid "Search text replaced."
+msgstr ""
 
 #. Default: "Search/Replace"
 #: ./profiles/default/actions.xml
 msgid "Search/Replace"
 msgstr "検索/置換"
-
-#. Default: "Select the extensions of the files you wish to search in, or leave unselected to search all files, regardless of extension."
-#: ./browser/search_form.pt:137
-msgid "Select the extensions of the files you wish to search in, or leave unselected to search all files, regardless of extension."
-msgstr "検索したいファイルの拡張子を選びます。あるいは何も選ばなければ、すべてのファイルをその拡張子に関わらず検索します。"
-
-#. Default: "Use Regular Expression"
-#: ./browser/search_form.pt:205
-msgid "Use Regular Expression"
-msgstr "正規表現を使用"
 
