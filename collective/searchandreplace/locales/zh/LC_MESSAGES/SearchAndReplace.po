@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-04-28 16:15+0000\n"
+"POT-Creation-Date: 2015-04-28 16:26+0000\n"
 "PO-Revision-Date: 2009-07-29 16:43-0700\n"
 "Last-Translator: Jessie Zhu <jessie.zhu@usu.edu>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,7 @@ msgstr ""
 "Language-Name: Chinese\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: SearchAndReplace\n"
+"Language: zh\n"
 
 #: ./browser/searchreplaceform.py:73
 msgid "Check the box for a case sensitive search."
