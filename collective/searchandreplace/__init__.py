@@ -34,7 +34,7 @@ __version__ = '$ Revision 0.0 $'[11:-2]
 from zope.i18nmessageid import MessageFactory
 
 
-SearchAndReplaceMessageFactory = MessageFactory('search_and_replace')
+SearchAndReplaceMessageFactory = MessageFactory('SearchAndReplace')
 
 
 def initialize(context):
