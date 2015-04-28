@@ -1,8 +1,8 @@
 Changelog
 =========
 
-3.2 (unreleased)
-----------------
+3.2.zest.2 (2015-04-28)
+-----------------------
 
 - Fix i18n.  Use SearchAndReplace domain everywhere.  Update po files.
   [maurits]
