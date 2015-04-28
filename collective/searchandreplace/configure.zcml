@@ -19,6 +19,15 @@
      provides="Products.GenericSetup.interfaces.EXTENSION"
      />
 
+  <genericsetup:upgradeStep
+     title="Update profile version"
+     description="No real changes, just avoiding a warning by the QuickInstaller tool"
+     source="*"
+     destination="1000"
+     profile="collective.searchandreplace:default"
+     handler=".upgrade.dummy_upgrade_step"
+     />
+
   <utility
      provides=".interfaces.ISearchReplaceUtility"
      factory=".searchreplaceutility.SearchReplaceUtility"
