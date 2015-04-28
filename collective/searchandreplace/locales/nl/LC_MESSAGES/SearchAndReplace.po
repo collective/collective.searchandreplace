@@ -1,87 +1,89 @@
+# Maurits van Rees <m.van.rees@zestsoftware.nl>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-04-28 16:15+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: collective.searchandreplace 3.2\n"
+"POT-Creation-Date: 2015-04-28 16:26+0000\n"
+"PO-Revision-Date: 2015-04-28 18:23+0200\n"
+"Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
+"Language-Team: Plone Nederland <plone-plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: nl\n"
+"Language-Name: Nederlands\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: SearchAndReplace\n"
+"Language: nl\n"
 
 #: ./browser/searchreplaceform.py:73
 msgid "Check the box for a case sensitive search."
-msgstr ""
+msgstr "Vink aan voor hoofdlettergevoelig zoeken."
 
 #: ./browser/searchreplaceform.py:55
 msgid "Enter the text to find."
-msgstr ""
+msgstr "Vul de tekst in om naar te zoeken."
 
 #: ./browser/searchreplaceform.py:59
 msgid "Enter the text to replace the original text with."
-msgstr ""
+msgstr "Vul de tekst in om de oorspronkelijke tekst mee te vervangen."
 
 #: ./browser/searchreplaceform.py:54
 msgid "Find What"
-msgstr ""
+msgstr "Vind wat"
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 #: ./browser/searchreplaceform.py:64
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-msgstr ""
+msgstr "Als deze optie is aangevinkt, wordt recursief gezocht door de map en alle onderliggende mappen en items, waarbij op elk niveau vervangen wordt."
 
 #: ./browser/searchreplaceform.py:72
 msgid "Match Case"
-msgstr ""
+msgstr "Hoofdlettergevoelig"
 
 #: ./browser/searchreplaceform.py:96
 msgid "Preview"
-msgstr ""
+msgstr "Voorvertoning"
 
 #: ./browser/searchreplaceform.py:103
 msgid "Replace"
-msgstr ""
+msgstr "Vervang"
 
 #: ./browser/searchreplaceform.py:58
 msgid "Replace With"
-msgstr ""
+msgstr "Vervang door"
 
 #: ./browser/searchreplaceform.py:145
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #: ./browser/searchreplaceform.py:63
 msgid "Search Subfolders"
-msgstr ""
+msgstr "Doorzoek submappen"
 
 #: ./browser/searchreplaceform.py:92
 msgid "Search and Replace"
-msgstr ""
+msgstr "Zoek en vervang"
 
 #. Default: "Search and Replace text"
 #: ./profiles/default/actions.xml
 msgid "Search and Replace text"
-msgstr ""
+msgstr "Zoek en vervang tekst"
 
 #: ./browser/searchreplaceform.py:93
 msgid "Search and replace text found in documents."
-msgstr ""
+msgstr "Zoek en vervang tekst gevonden in documenten."
 
 #: ./browser/searchreplaceform.py:126
 msgid "Search text replaced in %d of %d instance(s)."
-msgstr ""
+msgstr "Gezochte tekst vervangen in %d van %d geval(len)."
 
 #: ./browser/searchreplaceform.py:140
 msgid "Search text replaced."
-msgstr ""
+msgstr "Gezochte tekst vervangen."
 
 #. Default: "Search/Replace"
 #: ./profiles/default/actions.xml
 msgid "Search/Replace"
-msgstr ""
+msgstr "Zoek/Vervang"
 
