@@ -4,6 +4,9 @@ Changelog
 3.2 (unreleased)
 ----------------
 
+- Fix i18n.  Use SearchAndReplace domain everywhere.  Update po files.
+  [maurits]
+
 - Hide 'search subfolders' option for items that are not folderish or
   a default page. [davisagli]
 
