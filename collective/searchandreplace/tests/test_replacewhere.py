@@ -26,7 +26,7 @@ from collective.searchandreplace.interfaces import ISearchReplaceUtility
 
 
 class testReplaceWhere(SearchAndReplaceTestCase):
-    """Ensure that we can replace in title, descripion and text."""
+    """Ensure that we can replace in title, description and text."""
 
     def afterSetUp(self):
         self.srutil = getUtility(ISearchReplaceUtility)
