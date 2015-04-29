@@ -4,6 +4,10 @@ Changelog
 3.2 (unreleased)
 ----------------
 
+- Check if the user has the ``Modify portal content`` permission for
+  each item.  Ignore items for which this is not the case.
+  [maurits]
+
 - Add separate permission for showing the action.  This makes it
   easier to restrict usage of Search and Replace if wanted.  By
   default the same roles have this permission as for the standard

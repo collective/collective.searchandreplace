@@ -31,6 +31,8 @@ __author__ = 'Brent Lambert <brent@enpraxis.net>'
 __version__ = '$ Revision 0.0 $'[11:-2]
 
 from Acquisition import aq_parent
+from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.permissions import ModifyPortalContent
 from plone.app.layout.navigation.defaultpage import isDefaultPage
 import re
 
@@ -82,13 +84,20 @@ class SearchReplaceUtility(object):
         container = aq_parent(context)
         if isDefaultPage(container, context) and ssf:
             query['query'] = '/'.join(container.getPhysicalPath())
-        brains = context.portal_catalog(path=query)
+        catalog = getToolByName(context, 'portal_catalog')
+        brains = catalog(path=query)
+        memship = getToolByName(context, 'portal_membership')
+        checkPermission = memship.checkPermission
         # Match objects
         results = []
         replaced = 0
         for b in brains:
             ipath = b.getPath()
             if not sitems or ipath in sitems:
+                obj = b.getObject()
+                # Does the user have the modify permission on this object?
+                if not checkPermission(ModifyPortalContent, obj):
+                    continue
                 # If there is a filtered list of items, and it
                 # is in the list, or if there is no filter
                 # then process the item
@@ -99,14 +108,14 @@ class SearchReplaceUtility(object):
                     else:
                         sitem = None
                     rep = self._replaceObject(matcher,
-                                              b,
+                                              obj,
                                               cpath,
                                               rtext,
                                               sitem)
                     replaced += rep
                 elif not replace:
                     # Just find the matches and return info
-                    result = self._searchObject(matcher, b)
+                    result = self._searchObject(matcher, obj)
                     if result:
                         results += result
         if replace:
@@ -114,11 +123,10 @@ class SearchReplaceUtility(object):
         else:
             return results
 
-    def _replaceObject(self, matcher, brain, cpath, rtext, mobjs):
+    def _replaceObject(self, matcher, obj, cpath, rtext, mobjs):
         """ Replace text in objects """
         replaced = 0
         # rtext is already unicode
-        obj = brain.getObject()
         if mobjs:
             # Replace only the objects specified in mobjs
             if 'title' in mobjs:
@@ -208,10 +216,9 @@ class SearchReplaceUtility(object):
         newtext += text[mindex:]
         return replaced, newtext
 
-    def _searchObject(self, matcher, brain):
+    def _searchObject(self, matcher, obj):
         """ Find location of search strings """
         results = []
-        obj = brain.getObject()
         path = '/'.join(obj.getPhysicalPath())
         title = _to_unicode(obj.aq_base.Title())
         mobj = matcher.finditer(title)
