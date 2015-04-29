@@ -7,7 +7,8 @@ Optional features include being able to control searching in subfolders, and mat
 
 New in version 2.0, product has been completely refactored and brought up to date for use with Plone 4.
 
-The collective.searchandreplace product was initally built for use with eduCommons by Novell, inc. It is currently maintained by enPraxis (http://enpraxis.net).
+The collective.searchandreplace product was initally built for use with eduCommons by Novell, inc, later improved by EnPraxis.
+It is currently maintained by Maurits van Rees.
 
 
 
