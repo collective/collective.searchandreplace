@@ -1,47 +1,16 @@
 # -*- coding: us-ascii -*-
-# _______________________________________________________________________
-#              __________                      .__
-#   ____   ____\______   \____________  ___  __|__| ______
-# _/ __ \ /    \|     ___/\_  __ \__  \ \  \/  /  |/  ___/
-# \  ___/|   |  \    |     |  | \// __ \_>    <|  |\___ \
-#  \___  >___|  /____|     |__|  (____  /__/\_ \__/____  >
-#      \/     \/                      \/      \/       \/
-# _______________________________________________________________________
-#
-#    This file is part of the eduCommons software package.
-#
-#    Copyright (c) 2011 enPraxis, LLC
-#    http://enpraxis.net
-#
-#    This program is free software; you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, version 2.8
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program; if not, write to the Free Software
-#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-# _______________________________________________________________________
-
-__author__ = 'Brent Lambert <brent@enpraxis.net>'
-__version__ = '$ Revision 0.0 $'[11:-2]
-
+from Acquisition import aq_parent
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
+from collective.searchandreplace import SearchAndReplaceMessageFactory as _
+from collective.searchandreplace.interfaces import ISearchReplaceUtility
+from customwidgets import TwoLineTextAreaWidget
+from five.formlib.formbase import AddForm
+from plone.app.layout.navigation.defaultpage import isDefaultPage
+from zope.component import getUtility
+from zope.formlib.form import FormFields, action
 from zope.interface import Interface
 from zope.schema import Text, Bool
-from Acquisition import aq_parent
-from plone.app.layout.navigation.defaultpage import isDefaultPage
-from collective.searchandreplace import SearchAndReplaceMessageFactory as _
-from five.formlib.formbase import AddForm
-from zope.formlib.form import FormFields, action
-from customwidgets import TwoLineTextAreaWidget
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.component import getUtility
-from collective.searchandreplace.interfaces import ISearchReplaceUtility
-from Products.statusmessages.interfaces import IStatusMessage
 
 
 def validate_searchreplaceform(form, action, data):
