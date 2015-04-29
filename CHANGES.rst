@@ -4,6 +4,14 @@ Changelog
 3.2 (unreleased)
 ----------------
 
+- Add separate permission for showing the action.  This makes it
+  easier to restrict usage of Search and Replace if wanted.  By
+  default the same roles have this permission as for the standard
+  'Modify portal content' permission.  Added upgrade steps for this.
+  Permission title is: 'collective.searchandreplace: Use Search And
+  Replace'.
+  [maurits]
+
 - Fix i18n.  Use SearchAndReplace domain everywhere.  Update po files.
   [maurits]
 

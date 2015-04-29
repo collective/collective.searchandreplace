@@ -9,15 +9,10 @@
       <property name="description" i18n:translate="">Search and Replace text</property>
       <property name="url_expr">string:$object_url/@@searchreplaceform</property>
       <property name="permissions">
-	<element value="Modify portal content" />
+        <element value="collective.searchandreplace: Use Search And Replace" />
       </property>
       <property name="visible">True</property>
     </object>
   </object>
 
-
-
 </object>
-
-
-

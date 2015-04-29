@@ -6,7 +6,7 @@
      name="searchreplaceform"
      for="..interfaces.ISearchReplaceable"
      class=".searchreplaceform.SearchReplaceForm"
-     permission="cmf.ModifyPortalContent"
+     permission="collective.searchandreplace.UseSearchAndReplace"
      />
 
   <browser:page
@@ -14,7 +14,7 @@
      for="*"
      class=".searchreplacetable.SearchReplaceTable"
      template="searchreplacetable.pt"
-     permission="cmf.ModifyPortalContent"
+     permission="collective.searchandreplace.UseSearchAndReplace"
      />
 
 </configure>

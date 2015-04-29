@@ -5,8 +5,11 @@
    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
    i18n_domain="collective.searchandreplace">
 
-  <!-- Load the CMFCore permissions. -->
-  <include package="Products.CMFCore" />
+  <!-- See also the permission string in the __init__.py. -->
+  <permission
+      id="collective.searchandreplace.UseSearchAndReplace"
+      title="collective.searchandreplace: Use Search And Replace" />
+
   <include package=".browser" />
 
   <i18n:registerTranslations directory="locales" />
@@ -27,6 +30,22 @@
      profile="collective.searchandreplace:default"
      handler=".upgrade.dummy_upgrade_step"
      />
+
+  <genericsetup:upgradeSteps
+      source="1000"
+      destination="1001"
+      profile="collective.searchandreplace:default">
+    <genericsetup:upgradeStep
+        title="Update actions"
+        description="Uses UseSearchAndReplace permission for our object action"
+        handler=".upgrade.run_actions_step"
+        />
+    <genericsetup:upgradeStep
+        title="Update rolemap"
+        description="Adds UseSearchAndReplace permission"
+        handler=".upgrade.run_rolemap_step"
+        />
+  </genericsetup:upgradeSteps>
 
   <utility
      provides=".interfaces.ISearchReplaceUtility"
