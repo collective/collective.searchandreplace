@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.2 (unreleased)
+4.0 (2015-04-30)
 ----------------
 
 - Check if the user has the ``Modify portal content`` permission for
