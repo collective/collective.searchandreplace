@@ -4,7 +4,8 @@ Changelog
 4.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add Travis badge.
+  [maurits]
 
 
 4.0 (2015-04-30)
