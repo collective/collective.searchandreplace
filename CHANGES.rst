@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.1 (unreleased)
+4.1 (2015-05-05)
 ----------------
 
 - Add Travis badge.
