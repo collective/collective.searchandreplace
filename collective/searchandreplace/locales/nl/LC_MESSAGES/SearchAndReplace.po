@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: collective.searchandreplace 3.2\n"
 "POT-Creation-Date: 2015-06-15 14:19+0000\n"
-"PO-Revision-Date: 2015-06-15 16:02+0200\n"
+"PO-Revision-Date: 2015-06-15 16:26+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederland <plone-plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -76,11 +76,11 @@ msgstr "Zoek en vervang tekst gevonden in documenten."
 
 #: ./browser/searchreplaceform.py:95
 msgid "Search text replaced in ${replaced} of ${items} instance(s)."
-msgstr ""
+msgstr "Gezochte tekst vervangen in ${replaced} van ${items} geval(len)."
 
 #: ./browser/searchreplaceform.py:109
 msgid "Search text replaced in all ${items} instance(s)."
-msgstr ""
+msgstr "Gezochte tekst vervangen in alle ${items} geval(len)."
 
 #. Default: "Search/Replace"
 #: ./profiles/default/actions.xml
