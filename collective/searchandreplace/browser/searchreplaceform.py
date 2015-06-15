@@ -92,8 +92,9 @@ class SearchReplaceForm(AddForm):
                 doReplace=True,
                 searchItems=items)
             IStatusMessage(self.request).addStatusMessage(
-                _(u'Search text replaced in %d of %d instance(s).' %
-                  (replaced, nitems)),
+                _(u'Search text replaced in ${replaced} of ${items} '
+                  'instance(s).',
+                  mapping={'replaced': replaced, 'items': nitems}),
                 type='info')
         else:
             # Do everything you can find
@@ -104,10 +105,9 @@ class SearchReplaceForm(AddForm):
                 matchCase=data['matchCase'],
                 replaceText=data['replaceWith'],
                 doReplace=True)
-            IStatusMessage(
-                self.request).addStatusMessage(
-                _(u'Search text replaced in all %d instance(s).' %
-                  (replaced)),
+            IStatusMessage(self.request).addStatusMessage(
+                _(u'Search text replaced in all ${items} instance(s).',
+                  mapping={'items': replaced}),
                 type='info')
         self.request.response.redirect(self.context.absolute_url())
         return ''
