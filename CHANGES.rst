@@ -4,6 +4,9 @@ Changelog
 4.2 (unreleased)
 ----------------
 
+- Fix translation string of status message when replacing.
+  [maurits]
+
 - Nicer message when immediately replacing all text without preview.
   [maurits]
 
