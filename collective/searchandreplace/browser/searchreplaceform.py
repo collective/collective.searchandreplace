@@ -106,7 +106,8 @@ class SearchReplaceForm(AddForm):
                 doReplace=True)
             IStatusMessage(
                 self.request).addStatusMessage(
-                _(u'Search text replaced.'),
+                _(u'Search text replaced in all %d instance(s).' %
+                  (replaced)),
                 type='info')
         self.request.response.redirect(self.context.absolute_url())
         return ''

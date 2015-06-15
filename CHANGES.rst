@@ -4,7 +4,8 @@ Changelog
 4.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Nicer message when immediately replacing all text without preview.
+  [maurits]
 
 
 4.1 (2015-05-05)
