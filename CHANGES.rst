@@ -1,6 +1,12 @@
 Changelog
 =========
 
+4.3 (unreleased)
+----------------
+
+- Nothing changed yet.
+
+
 4.2 (2015-06-22)
 ----------------
 
