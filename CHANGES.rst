@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.2 (unreleased)
+4.2 (2015-06-22)
 ----------------
 
 - Fix translation string of status message when replacing.
