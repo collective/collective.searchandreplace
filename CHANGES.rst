@@ -4,7 +4,8 @@ Changelog
 4.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Compatibility with Plone 5 and Dexterity content types.
+  [Gagaro]
 
 
 4.2 (2015-06-22)

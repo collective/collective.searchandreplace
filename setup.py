@@ -52,11 +52,14 @@ setup(name='collective.searchandreplace',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'five.formlib',
       ],
       extras_require={
           'test': [
               'Products.CMFTestCase',
               'Products.PloneTestCase',
+              'plone.testing',
+              'plone.app.testing',
           ],
       },
       entry_points="""

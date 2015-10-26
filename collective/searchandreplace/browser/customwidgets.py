@@ -1,6 +1,6 @@
 # -*- coding: us-ascii -*-
-from plone.app.controlpanel.widgets import MultiCheckBoxVocabularyWidget
-from zope.app.form.browser import TextAreaWidget
+from zope.formlib.itemswidgets import MultiSelectWidget
+from zope.formlib.widgets import TextAreaWidget
 
 
 class TwoLineTextAreaWidget(TextAreaWidget):
@@ -9,11 +9,11 @@ class TwoLineTextAreaWidget(TextAreaWidget):
     height = 2
 
 
-class MultiPreSelectCheckBoxWidget(MultiCheckBoxVocabularyWidget):
+class MultiPreSelectCheckBoxWidget(MultiSelectWidget):
     """ A multi select check box widget that is pre selected. """
 
     def __init__(self, field, request):
-        super(MultiPreSelectCheckBoxWidget, self).__init__(field, request)
+        super(MultiPreSelectCheckBoxWidget, self).__init__(field, field.value_type.vocabulary, request)
         self.items = field.value_type.vocabulary.by_value.keys()
 
     def _getFormValue(self):

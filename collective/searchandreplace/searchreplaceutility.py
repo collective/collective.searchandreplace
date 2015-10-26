@@ -5,7 +5,7 @@ from Acquisition import aq_parent
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from plone.app.layout.navigation.defaultpage import isDefaultPage
-
+from plone.app.textfield import RichTextValue
 
 searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
 
@@ -109,7 +109,7 @@ class SearchReplaceUtility(object):
                     replaced += result[0]
                     obj.aq_base.setTitle(result[1])
             if 'description' in mobjs:
-                desc = _to_unicode(obj.aq_base.getRawDescription())
+                desc = self._getDesc(obj)
                 if desc:
                     result = self._replaceText(matcher,
                                                desc,
@@ -119,11 +119,7 @@ class SearchReplaceUtility(object):
                         replaced += result[0]
                         obj.aq_base.setDescription(result[1])
             if 'body' in mobjs:
-                baseunit = obj.getField('text').getRaw(obj, raw=True)
-                if isinstance(baseunit.raw, unicode):
-                    body = baseunit.raw
-                else:
-                    body = _to_unicode(obj.aq_base.getRawText())
+                body = self._getRawText(obj)
                 if body:
                     result = self._replaceText(matcher,
                                                body,
@@ -131,7 +127,7 @@ class SearchReplaceUtility(object):
                                                mobjs['body'])
                     if result[0]:
                         replaced += result[0]
-                        obj.aq_base.setText(result[1])
+                        self._setText(obj, result[1])
         else:
             # Replace all occurences
             title = _to_unicode(obj.aq_base.Title())
@@ -142,7 +138,7 @@ class SearchReplaceUtility(object):
             if result[0]:
                 replaced += result[0]
                 obj.aq_base.setTitle(result[1])
-            desc = _to_unicode(obj.aq_base.getRawDescription())
+            desc = self._getDesc(obj)
             if desc:
                 result = self._replaceText(matcher,
                                            desc,
@@ -151,20 +147,15 @@ class SearchReplaceUtility(object):
                 if result[0]:
                     replaced += result[0]
                     obj.setDescription(result[1])
-            if getattr(obj.aq_base, 'getText', None):
-                baseunit = obj.getField('text').getRaw(obj, raw=True)
-                if isinstance(baseunit.raw, unicode):
-                    body = baseunit.raw
-                else:
-                    body = _to_unicode(obj.aq_base.getRawText())
-                if body:
-                    result = self._replaceText(matcher,
-                                               body,
-                                               rtext,
-                                               None)
-                    if result[0]:
-                        replaced += result[0]
-                        obj.aq_base.setText(result[1])
+            body = self._getRawText(obj)
+            if body:
+                result = self._replaceText(matcher,
+                                           body,
+                                           rtext,
+                                           None)
+                if result[0]:
+                    replaced += result[0]
+                    self._setText(obj, result[1])
         # don't have to utf-8 encoding
         if replaced:
             obj.reindexObject()
@@ -202,7 +193,7 @@ class SearchReplaceUtility(object):
                 'text': self._getLinePreview(title,
                                              start,
                                              end), })
-        desc = _to_unicode(obj.aq_base.getRawDescription())
+        desc = self._getDesc(obj)
         if desc:
             mobj = matcher.finditer(desc)
             for x in mobj:
@@ -215,12 +206,8 @@ class SearchReplaceUtility(object):
                     'text': self._getLinePreview(desc,
                                                  start,
                                                  end), })
-        if getattr(obj.aq_base, 'getText', None):
-            baseunit = obj.getField('text').getRaw(obj, raw=True)
-            if isinstance(baseunit.raw, unicode):
-                text = baseunit.raw
-            else:
-                text = _to_unicode(obj.aq_base.getRawText())
+        text = self._getRawText(obj)
+        if text:
             mobj = matcher.finditer(text)
             for x in mobj:
                 start, end = x.span()
@@ -234,6 +221,33 @@ class SearchReplaceUtility(object):
                                                  start,
                                                  end), })
         return results
+
+    def _getDesc(self, obj):
+        if hasattr(obj.aq_base, 'getRawDescription'):
+            desc = obj.aq_base.getRawDescription()
+        else:
+            desc = getattr(obj.aq_base, 'description', u'')
+        return _to_unicode(desc)
+
+    def _getRawText(self, obj):
+        text = None
+        if hasattr(obj, 'getText'):
+            baseunit = obj.getField('text').getRaw(obj, raw=True)
+            if isinstance(baseunit.raw, unicode):
+                text = baseunit.raw
+            else:
+                text = _to_unicode(obj.aq_base.getRawText())
+        elif hasattr(obj, 'text') and hasattr(obj.text, 'raw'):
+            text = _to_unicode(obj.text.raw)
+        return text
+
+    def _setText(self, obj, text):
+        obj = obj.aq_base
+        if hasattr(obj, 'setText'):
+            obj.setText(text)
+        else:
+            obj.text = RichTextValue(
+                text, obj.text.mimeType, obj.text.outputMimeType)
 
     def _getLineNumber(self, text, index):
         return text.count('\n', 0, index) + 1

@@ -77,6 +77,11 @@ class testReplaceWhere(SearchAndReplaceTestCase):
         # Give test user a local Editor role on the sub folder.
         subfolder.manage_addLocalRoles(default_user, ('Editor',))
 
+        self.portal.portal_catalog.reindexObject(mainfolder)
+        self.portal.portal_catalog.reindexObject(maindoc)
+        self.portal.portal_catalog.reindexObject(subfolder)
+        self.portal.portal_catalog.reindexObject(subdoc)
+
         # We are logged in as portal owner, so we can edit everything.
         results = self.srutil.searchObjects(
             mainfolder,
