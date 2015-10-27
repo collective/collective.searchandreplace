@@ -3,6 +3,7 @@
 *.pyc
 *.pyo
 *.swp
+*~
 .egg-info
 .idea
 .installed.cfg

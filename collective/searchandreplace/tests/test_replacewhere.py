@@ -1,4 +1,4 @@
-from Products.CMFPlone.tests.PloneTestCase import default_user
+from Products.PloneTestCase.PloneTestCase import default_user
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
 from collective.searchandreplace.tests.base import SearchAndReplaceTestCase
 from zope.component import getUtility
@@ -76,6 +76,11 @@ class testReplaceWhere(SearchAndReplaceTestCase):
 
         # Give test user a local Editor role on the sub folder.
         subfolder.manage_addLocalRoles(default_user, ('Editor',))
+
+        self.portal.portal_catalog.reindexObject(mainfolder)
+        self.portal.portal_catalog.reindexObject(maindoc)
+        self.portal.portal_catalog.reindexObject(subfolder)
+        self.portal.portal_catalog.reindexObject(subdoc)
 
         # We are logged in as portal owner, so we can edit everything.
         results = self.srutil.searchObjects(
