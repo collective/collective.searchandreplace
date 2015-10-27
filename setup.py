@@ -58,8 +58,6 @@ setup(name='collective.searchandreplace',
           'test': [
               'Products.CMFTestCase',
               'Products.PloneTestCase',
-              'plone.testing',
-              'plone.app.testing',
           ],
       },
       entry_points="""
