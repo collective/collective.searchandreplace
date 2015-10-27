@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.1 (unreleased)
+5.1 (2015-10-27)
 ----------------
 
 - Required ``plone.app.textfield`` in ``setup.py``.
