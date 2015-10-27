@@ -4,7 +4,8 @@ Changelog
 5.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Required ``plone.app.textfield`` in ``setup.py``.
+  [maurits]
 
 
 5.0 (2015-10-27)
