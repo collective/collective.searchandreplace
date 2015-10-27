@@ -51,6 +51,7 @@ setup(name='collective.searchandreplace',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
+          'Acquisition',
           'five.formlib',
           'plone.app.layout',
           'plone.app.textfield',
