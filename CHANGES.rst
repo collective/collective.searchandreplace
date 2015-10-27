@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.3 (unreleased)
+5.0 (2015-10-27)
 ----------------
 
 - Compatibility with Plone 5 and Dexterity content types.

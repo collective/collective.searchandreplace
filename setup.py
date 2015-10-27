@@ -22,7 +22,7 @@ __version__ = '$ Revision 0.0 $'[11:-2]
 
 from setuptools import setup, find_packages
 
-version = '4.3.dev0'
+version = '5.0'
 
 setup(name='collective.searchandreplace',
       version=version,
