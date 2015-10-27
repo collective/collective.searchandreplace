@@ -8,14 +8,11 @@ The collective.searchandreplace product is a Plone Add-on designed to find and r
 
 Optional features include being able to control searching in subfolders, and matching based on case sensatvity/insensativity.
 
-New in version 2.0, product has been completely refactored and brought up to date for use with Plone 4.
+
+Compatibility
+-------------
+
+From collective.searchandreplace version 5.0, we are compatible with Plone 4.3 and 5.0.
 
 The collective.searchandreplace product was initally built for use with eduCommons by Novell, inc, later improved by EnPraxis.
-It is currently maintained by Maurits van Rees.
-
-
-
-
-
-
-
+It is currently maintained by Maurits van Rees.  Plone 5 support added by Gagaro.
