@@ -4,7 +4,9 @@ Changelog
 5.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added a behaviour to add ISearchReplaceable on Dexterity content types.
+  Also added a profile to set this behavior on some content types.
+  [Gagaro]
 
 
 5.1 (2015-10-27)
