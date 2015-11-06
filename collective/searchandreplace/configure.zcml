@@ -6,7 +6,7 @@
    xmlns:plone="http://namespaces.plone.org/plone"
    i18n_domain="collective.searchandreplace">
 
-  <include package="zope.formlib" file="configure.zcml" />
+  <include package="five.formlib" file="configure.zcml" />
 
   <!-- See also the permission string in the __init__.py. -->
   <permission
