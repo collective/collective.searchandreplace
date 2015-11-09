@@ -8,6 +8,7 @@ from plone.app.layout.navigation.defaultpage import isDefaultPage
 from plone.app.textfield import RichTextValue
 
 searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
+searchinterfaces = ['collective.searchandreplace.interfaces.ISearchReplaceable']
 
 
 def _to_unicode(s):
@@ -55,7 +56,10 @@ class SearchReplaceUtility(object):
         if isDefaultPage(container, context) and ssf:
             query['query'] = '/'.join(container.getPhysicalPath())
         catalog = getToolByName(context, 'portal_catalog')
-        brains = catalog(path=query)
+        brains = catalog(
+            path=query,
+            object_provides=searchinterfaces,
+        )
         memship = getToolByName(context, 'portal_membership')
         checkPermission = memship.checkPermission
         # Match objects

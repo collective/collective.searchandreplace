@@ -6,6 +6,7 @@ Changelog
 
 - Added a behaviour to add ISearchReplaceable on Dexterity content types.
   Also added a profile to set this behavior on some content types.
+  Only search and replace contents with the ISearchReplaceable interface.
   [Gagaro]
 
 
