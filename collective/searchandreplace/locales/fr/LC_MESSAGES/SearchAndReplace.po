@@ -17,75 +17,75 @@ msgstr ""
 
 #: ./browser/searchreplaceform.py:43
 msgid "Check the box for a case sensitive search."
-msgstr ""
+msgstr "Cochez la case pour une recherche sensible à la casse."
 
 #: ./browser/searchreplaceform.py:25
 msgid "Enter the text to find."
-msgstr ""
+msgstr "Entrez le texte à rechercher"
 
 #: ./browser/searchreplaceform.py:29
 msgid "Enter the text to replace the original text with."
-msgstr ""
+msgstr "Entrez le texte qui remplacera le texte original."
 
 #: ./browser/searchreplaceform.py:24
 msgid "Find What"
-msgstr ""
+msgstr "Rechercher"
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 #: ./browser/searchreplaceform.py:34
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-msgstr ""
+msgstr "Si coché, la recherche sera faite récursivement à travers tous les dossiers et leurs enfants, remplacant à chaque niveau."
 
 #: ./searchreplaceutility.py:84
 msgid "Item found that does not implement ISearchReplaceable. You should reindex the object_provides index of the portal_catalog."
-msgstr ""
+msgstr "Objet trouvé n'implémentant pas ISearchReplaceable. Vous devriez réindexer l'index object_provides du portal_catalog."
 
 #: ./browser/searchreplaceform.py:42
 msgid "Match Case"
-msgstr ""
+msgstr "Sensible à la casse"
 
 #: ./browser/searchreplaceform.py:66
 msgid "Preview"
-msgstr ""
+msgstr "Aperçu"
 
 #: ./browser/searchreplaceform.py:73
 msgid "Replace"
-msgstr ""
+msgstr "Remplacer"
 
 #: ./browser/searchreplaceform.py:28
 msgid "Replace With"
-msgstr ""
+msgstr "Remplacer par"
 
 #: ./browser/searchreplaceform.py:116
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #: ./browser/searchreplaceform.py:33
 msgid "Search Subfolders"
-msgstr ""
+msgstr "Rechercher dans les sous-dossiers"
 
 #: ./browser/searchreplaceform.py:62
 msgid "Search and Replace"
-msgstr ""
+msgstr "Rechercher et Remplacer"
 
 #. Default: "Search and Replace text"
 #: ./profiles/default/actions.xml
 msgid "Search and Replace text"
-msgstr ""
+msgstr "Rechercher et Remplacer du texte"
 
 #: ./browser/searchreplaceform.py:63
 msgid "Search and replace text found in documents."
-msgstr ""
+msgstr "Recherche et remplace le texte trouvé dans les documents."
 
 #: ./browser/searchreplaceform.py:96
 msgid "Search text replaced in ${replaced} of ${items} instance(s)."
-msgstr ""
+msgstr "Texte recherché remplacé dans ${replaced} de ${items} instance(s)."
 
 #: ./browser/searchreplaceform.py:110
 msgid "Search text replaced in all ${items} instance(s)."
-msgstr ""
+msgstr "Texte recherché remplacé dans toutes les ${items} instance(s)."
 
 #. Default: "Search/Replace"
 #: ./profiles/default/actions.xml
 msgid "Search/Replace"
-msgstr ""
+msgstr "Rechercher/Remplacer"
