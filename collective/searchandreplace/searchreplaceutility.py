@@ -1,14 +1,21 @@
 # -*- coding: us-ascii -*-
 
+import logging
 import re
 from Acquisition import aq_parent
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
+from Products.statusmessages.interfaces import IStatusMessage
+from collective.searchandreplace import SearchAndReplaceMessageFactory as _
+from collective.searchandreplace.interfaces import ISearchReplaceable
 from plone.app.layout.navigation.defaultpage import isDefaultPage
 from plone.app.textfield import RichTextValue
 
+logger = logging.getLogger('collective.searchreplace')
 searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
-searchinterfaces = ['collective.searchandreplace.interfaces.ISearchReplaceable']
+searchinterfaces = [
+    'collective.searchandreplace.interfaces.ISearchReplaceable',
+    ]
 
 
 def _to_unicode(s):
@@ -65,10 +72,25 @@ class SearchReplaceUtility(object):
         # Match objects
         results = []
         replaced = 0
+        outdated_catalog = False
         for b in brains:
             ipath = b.getPath()
             if not sitems or ipath in sitems:
                 obj = b.getObject()
+                if not ISearchReplaceable.providedBy(obj):
+                    # Warn about this once.
+                    if not outdated_catalog:
+                        outdated_catalog = True
+                        msg = _(
+                            'Item found that does not implement '
+                            'ISearchReplaceable. You should reindex the '
+                            'object_provides index of the portal_catalog.')
+                        logger.warn(msg)
+                        request = getattr(context, 'REQUEST', None)
+                        if request is not None:
+                            IStatusMessage(request).addStatusMessage(
+                                msg, type='warn')
+                    continue
                 # Does the user have the modify permission on this object?
                 if not checkPermission(ModifyPortalContent, obj):
                     continue
