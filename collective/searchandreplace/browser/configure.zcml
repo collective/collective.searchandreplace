@@ -4,7 +4,7 @@
 
   <browser:page
      name="searchreplaceform"
-     for="..interfaces.ISearchReplaceable"
+     for="*"
      class=".searchreplaceform.SearchReplaceForm"
      permission="collective.searchandreplace.UseSearchAndReplace"
      />
