@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.0 (unreleased)
+6.0 (2015-11-30)
 ----------------
 
 - Added a behavior to add ISearchReplaceable on Dexterity content types.
