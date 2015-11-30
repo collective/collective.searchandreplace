@@ -85,7 +85,7 @@
 
   <plone:behavior
     title="Search and Replaceable"
-    description="Allow to run the search and replace feature from this type of document."
+    description="Allow to search and replace in instances of this type of content."
     provides="collective.searchandreplace.interfaces.ISearchReplaceable"
     />
 
