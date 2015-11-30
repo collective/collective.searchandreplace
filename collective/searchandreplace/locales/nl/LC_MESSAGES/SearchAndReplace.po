@@ -39,7 +39,7 @@ msgstr "Als deze optie is aangevinkt, wordt recursief gezocht door de map en all
 
 #: ./searchreplaceutility.py:84
 msgid "Item found that does not implement ISearchReplaceable. You should reindex the object_provides index of the portal_catalog."
-msgstr ""
+msgstr "Item gevonden dat de ISearchReplaceable interface niet implementeert. Je zou de object_provides index van de portal_catalog moeten herindexeren."
 
 #: ./browser/searchreplaceform.py:42
 msgid "Match Case"
