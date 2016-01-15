@@ -62,7 +62,7 @@ msgstr "Сброс"
 
 #: ./browser/searchreplaceform.py:33
 msgid "Search Subfolders"
-msgstr "искать в подпапках"
+msgstr "Искать в подпапках"
 
 #: ./browser/searchreplaceform.py:62
 msgid "Search and Replace"
