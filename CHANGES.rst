@@ -4,7 +4,7 @@ Changelog
 6.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added Russian translations.  [serge73]
 
 
 6.0 (2015-11-30)
