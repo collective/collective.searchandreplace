@@ -46,7 +46,7 @@ msgstr "Учитывать регистр"
 
 #: ./browser/searchreplaceform.py:66
 msgid "Preview"
-msgstr "Предыдущий"
+msgstr "Предпросмотр"
 
 #: ./browser/searchreplaceform.py:73
 msgid "Replace"
