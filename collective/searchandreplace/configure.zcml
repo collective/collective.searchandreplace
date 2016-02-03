@@ -4,7 +4,7 @@
    xmlns:i18n="http://namespaces.zope.org/i18n"
    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
    xmlns:plone="http://namespaces.plone.org/plone"
-   i18n_domain="collective.searchandreplace">
+   i18n_domain="SearchAndReplace">
 
   <include package="five.formlib" file="configure.zcml" />
 
