@@ -1,4 +1,6 @@
 <div class="field"
+     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     i18n:domain="SearchAndReplace"
      tal:condition="python: request.has_key('form.actions.Preview')"
      tal:define="isFolderish context/isPrincipiaFolderish|nothing;
 		 items view/getItems;
