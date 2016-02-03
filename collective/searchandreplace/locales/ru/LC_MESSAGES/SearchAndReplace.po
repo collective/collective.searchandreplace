@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-11-30 09:53+0000\n"
+"POT-Creation-Date: 2016-02-03 04:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,6 +14,26 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: SearchAndReplace\n"
 "Language: ru\n"
+
+#: ./configure.zcml:59
+msgid "Add the SearchReplaceable to dexterity contents."
+msgstr "Добавить SearchReplaceable в состав Dexterity"
+
+#: ./browser/searchreplacetable.pt:11
+msgid "Affected Content"
+msgstr "Затронутый контекст"
+
+#: ./browser/searchreplacetable.pt:29
+msgid "After"
+msgstr "После"
+
+#: ./configure.zcml:90
+msgid "Allow to search and replace in instances of this type of content."
+msgstr "Позволяет выполнять поиск и замену в экземплярах контента данного типа"
+
+#: ./browser/searchreplacetable.pt:28
+msgid "Before"
+msgstr "До"
 
 #: ./browser/searchreplaceform.py:43
 msgid "Check the box for a case sensitive search."
@@ -36,9 +56,17 @@ msgstr "Что ищем"
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "Искать рекурсивно в любых выбранных папках и дочерних элементах, заменяя на каждом уровне."
 
+#: ./configure.zcml:26
+msgid "Installs the collective.searchandreplace package"
+msgstr "Устанавливает пакет ""Найти и Заменить"""
+
 #: ./searchreplaceutility.py:84
 msgid "Item found that does not implement ISearchReplaceable. You should reindex the object_provides index of the portal_catalog."
 msgstr "Найден элемент, который не реализует ISearchReplaceable. Вы должны переиндексиировать индекс object_provides index в portal_catalog."
+
+#: ./browser/searchreplacetable.pt:27
+msgid "Line"
+msgstr "Строка"
 
 #: ./browser/searchreplaceform.py:42
 msgid "Match Case"
@@ -73,6 +101,10 @@ msgstr "Найти и заменить"
 msgid "Search and Replace text"
 msgstr "Найти и заменить текст"
 
+#: ./configure.zcml:90
+msgid "Search and Replaceable"
+msgstr "Поиск и замена"
+
 #: ./browser/searchreplaceform.py:63
 msgid "Search and replace text found in documents."
 msgstr "Найти и заменить найденный текст в документах"
@@ -89,3 +121,16 @@ msgstr "Заменить найденный текст во всех ${items} э
 #: ./profiles/default/actions.xml
 msgid "Search/Replace"
 msgstr "Найти/Заменить"
+
+#: ./configure.zcml:26
+msgid "collective.searchandreplace"
+msgstr "Найти и Заменить (collective.searchandreplace)"
+
+#: ./configure.zcml:59
+msgid "collective.searchandreplace (Dexterity)"
+msgstr "collective.searchandreplace - Найти и Заменить для (Dexterity)"
+
+#. Default: "Affected content"
+#: ./browser/searchreplacetable.pt:14
+msgid "summary_affected_content"
+msgstr "Затронутый контекст"
