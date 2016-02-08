@@ -18,7 +18,7 @@ msgstr ""
 
 #: ./configure.zcml:59
 msgid "Add the SearchReplaceable to dexterity contents."
-msgstr "Voeg SearchReplaceable toe aan dexterity contenttypes.""
+msgstr "Voeg SearchReplaceable toe aan dexterity contenttypes."
 
 #: ./browser/searchreplacetable.pt:11
 msgid "Affected Content"
