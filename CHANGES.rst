@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.0.2 (unreleased)
+6.0.2 (2016-02-08)
 ------------------
 
 - In SearchAndReplace.pot added the ability to translate configure.zcml , searchreplacetable.pt.
