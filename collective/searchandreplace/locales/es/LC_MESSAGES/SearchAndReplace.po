@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-11-30 09:53+0000\n"
+"POT-Creation-Date: 2016-02-08 16:33+0000\n"
 "PO-Revision-Date: 2012-08-07 21:39+0100\n"
 "Last-Translator: Susan Webster <susan@db.uc3m.es>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,6 +14,26 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: SearchAndReplace\n"
 "Language: es\n"
+
+#: ./configure.zcml:59
+msgid "Add the SearchReplaceable to dexterity contents."
+msgstr ""
+
+#: ./browser/searchreplacetable.pt:11
+msgid "Affected Content"
+msgstr ""
+
+#: ./browser/searchreplacetable.pt:29
+msgid "After"
+msgstr ""
+
+#: ./configure.zcml:90
+msgid "Allow to search and replace in instances of this type of content."
+msgstr ""
+
+#: ./browser/searchreplacetable.pt:28
+msgid "Before"
+msgstr ""
 
 #: ./browser/searchreplaceform.py:43
 msgid "Check the box for a case sensitive search."
@@ -36,8 +56,16 @@ msgstr "Buscar Que"
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "Marque aquí para una búsqueda recursiva sobre las carpetas seleccionadas y sus subcarpetas, con reemplazamiento en todos los niveles."
 
+#: ./configure.zcml:26
+msgid "Installs the collective.searchandreplace package"
+msgstr ""
+
 #: ./searchreplaceutility.py:84
 msgid "Item found that does not implement ISearchReplaceable. You should reindex the object_provides index of the portal_catalog."
+msgstr ""
+
+#: ./browser/searchreplacetable.pt:27
+msgid "Line"
 msgstr ""
 
 #: ./browser/searchreplaceform.py:42
@@ -73,6 +101,10 @@ msgstr "Buscar y Reemplazar"
 msgid "Search and Replace text"
 msgstr "Buscar y Reemplazar texto"
 
+#: ./configure.zcml:90
+msgid "Search and Replaceable"
+msgstr ""
+
 #: ./browser/searchreplaceform.py:63
 msgid "Search and replace text found in documents."
 msgstr "Buscar y reemplazar texto encontrado en documentos."
@@ -89,3 +121,16 @@ msgstr ""
 #: ./profiles/default/actions.xml
 msgid "Search/Replace"
 msgstr "Buscar/Reemplazar"
+
+#: ./configure.zcml:26
+msgid "collective.searchandreplace"
+msgstr ""
+
+#: ./configure.zcml:59
+msgid "collective.searchandreplace (Dexterity)"
+msgstr ""
+
+#. Default: "Affected content"
+#: ./browser/searchreplacetable.pt:14
+msgid "summary_affected_content"
+msgstr ""

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eduCommons\n"
-"POT-Creation-Date: 2015-11-30 09:53+0000\n"
+"POT-Creation-Date: 2016-02-08 16:33+0000\n"
 "PO-Revision-Date: 2009-08-03 16:46+0900\n"
 "Last-Translator: Takeshi Yamamoto (Retsu) <tyam@mac.com>\n"
 "Language-Team: Takeshi Yamamoto <tyam@mac.com>\n"
@@ -14,6 +14,26 @@ msgstr ""
 "Preferred-Encodings: utf-8\n"
 "Domain: plone\n"
 "Language: ja\n"
+
+#: ./configure.zcml:59
+msgid "Add the SearchReplaceable to dexterity contents."
+msgstr ""
+
+#: ./browser/searchreplacetable.pt:11
+msgid "Affected Content"
+msgstr ""
+
+#: ./browser/searchreplacetable.pt:29
+msgid "After"
+msgstr ""
+
+#: ./configure.zcml:90
+msgid "Allow to search and replace in instances of this type of content."
+msgstr ""
+
+#: ./browser/searchreplacetable.pt:28
+msgid "Before"
+msgstr ""
 
 #: ./browser/searchreplaceform.py:43
 msgid "Check the box for a case sensitive search."
@@ -36,8 +56,16 @@ msgstr ""
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "チェックされていれば、選ばれたフォルダとその子フォルダをすべて再帰的に各レベルにおいて検索し置換します。"
 
+#: ./configure.zcml:26
+msgid "Installs the collective.searchandreplace package"
+msgstr ""
+
 #: ./searchreplaceutility.py:84
 msgid "Item found that does not implement ISearchReplaceable. You should reindex the object_provides index of the portal_catalog."
+msgstr ""
+
+#: ./browser/searchreplacetable.pt:27
+msgid "Line"
 msgstr ""
 
 #: ./browser/searchreplaceform.py:42
@@ -73,6 +101,10 @@ msgstr ""
 msgid "Search and Replace text"
 msgstr "テキストを検索し置換"
 
+#: ./configure.zcml:90
+msgid "Search and Replaceable"
+msgstr ""
+
 #: ./browser/searchreplaceform.py:63
 msgid "Search and replace text found in documents."
 msgstr ""
@@ -89,3 +121,16 @@ msgstr ""
 #: ./profiles/default/actions.xml
 msgid "Search/Replace"
 msgstr "検索/置換"
+
+#: ./configure.zcml:26
+msgid "collective.searchandreplace"
+msgstr ""
+
+#: ./configure.zcml:59
+msgid "collective.searchandreplace (Dexterity)"
+msgstr ""
+
+#. Default: "Affected content"
+#: ./browser/searchreplacetable.pt:14
+msgid "summary_affected_content"
+msgstr ""
