@@ -18,23 +18,23 @@ msgstr ""
 
 #: ./configure.zcml:59
 msgid "Add the SearchReplaceable to dexterity contents."
-msgstr ""
+msgstr "Voeg SearchReplaceable toe aan dexterity contenttypes.""
 
 #: ./browser/searchreplacetable.pt:11
 msgid "Affected Content"
-msgstr ""
+msgstr "Te wijzigen inhoud"
 
 #: ./browser/searchreplacetable.pt:29
 msgid "After"
-msgstr ""
+msgstr "Na"
 
 #: ./configure.zcml:90
 msgid "Allow to search and replace in instances of this type of content."
-msgstr ""
+msgstr "Sta toe te zoeken en vervangen in pagina's van dit type content."
 
 #: ./browser/searchreplacetable.pt:28
 msgid "Before"
-msgstr ""
+msgstr "Voor"
 
 #: ./browser/searchreplaceform.py:43
 msgid "Check the box for a case sensitive search."
@@ -59,7 +59,7 @@ msgstr "Als deze optie is aangevinkt, wordt recursief gezocht door de map en all
 
 #: ./configure.zcml:26
 msgid "Installs the collective.searchandreplace package"
-msgstr ""
+msgstr "Installeert het collective.searchandreplace package"
 
 #: ./searchreplaceutility.py:84
 msgid "Item found that does not implement ISearchReplaceable. You should reindex the object_provides index of the portal_catalog."
@@ -67,7 +67,7 @@ msgstr "Item gevonden dat de ISearchReplaceable interface niet implementeert. Je
 
 #: ./browser/searchreplacetable.pt:27
 msgid "Line"
-msgstr ""
+msgstr "Regel"
 
 #: ./browser/searchreplaceform.py:42
 msgid "Match Case"
@@ -104,7 +104,7 @@ msgstr "Zoek en vervang tekst"
 
 #: ./configure.zcml:90
 msgid "Search and Replaceable"
-msgstr ""
+msgstr "Zoek- en vervangbaar"
 
 #: ./browser/searchreplaceform.py:63
 msgid "Search and replace text found in documents."
@@ -125,13 +125,13 @@ msgstr "Zoek/Vervang"
 
 #: ./configure.zcml:26
 msgid "collective.searchandreplace"
-msgstr ""
+msgstr "collective.searchandreplace"
 
 #: ./configure.zcml:59
 msgid "collective.searchandreplace (Dexterity)"
-msgstr ""
+msgstr "collective.searchandreplace (Dexterity)"
 
 #. Default: "Affected content"
 #: ./browser/searchreplacetable.pt:14
 msgid "summary_affected_content"
-msgstr ""
+msgstr "Te wijzigen inhoud"
