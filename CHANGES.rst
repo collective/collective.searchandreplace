@@ -4,7 +4,8 @@ Changelog
 6.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix ensure we get the attributes of the base object in _getRawText.
+  [Gagaro]
 
 
 6.0.2 (2016-02-08)

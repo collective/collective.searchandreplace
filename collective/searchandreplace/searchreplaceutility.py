@@ -2,7 +2,7 @@
 
 import logging
 import re
-from Acquisition import aq_parent
+from Acquisition import aq_parent, aq_base
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
@@ -257,6 +257,7 @@ class SearchReplaceUtility(object):
 
     def _getRawText(self, obj):
         text = None
+        obj = aq_base(obj)
         if hasattr(obj, 'getText'):
             baseunit = obj.getField('text').getRaw(obj, raw=True)
             if isinstance(baseunit.raw, unicode):
