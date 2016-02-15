@@ -4,6 +4,8 @@ Changelog
 6.0.3 (unreleased)
 ------------------
 
+- Allowed replacing with an empty string.  Fixes #13.  [maurits]
+
 - Fix ensure we get the attributes of the base object in _getRawText.
   [Gagaro]
 

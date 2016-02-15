@@ -42,8 +42,11 @@ class SearchReplaceUtility(object):
             mc = False
         if 'replaceText' in kwargs:
             rtext = kwargs['replaceText']
+            if rtext is None:
+                # Allow replacing by an empty string.
+                rtext = u''
         else:
-            rtext = None
+            rtext = u''
         if 'doReplace' in kwargs:
             replace = kwargs['doReplace']
         else:
@@ -97,7 +100,7 @@ class SearchReplaceUtility(object):
                 # If there is a filtered list of items, and it
                 # is in the list, or if there is no filter
                 # then process the item
-                if replace and rtext:
+                if replace:
                     # Do a replace
                     if sitems:
                         sitem = sitems[ipath]
