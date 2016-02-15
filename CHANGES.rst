@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.0.3 (unreleased)
+6.0.3 (2016-02-15)
 ------------------
 
 - Allowed replacing with an empty string.  Fixes #13.  [maurits]
