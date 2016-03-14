@@ -4,7 +4,8 @@ Changelog
 6.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Include toggleSelect for Plone 5.
+  [Gagaro]
 
 
 6.0.3 (2016-02-15)
