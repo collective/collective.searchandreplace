@@ -11,3 +11,7 @@ def run_actions_step(context):
 
 def run_rolemap_step(context):
     context.runImportStepFromProfile(PROFILE_ID, 'rolemap')
+
+
+def run_registry_step(context):
+    context.runImportStepFromProfile(PROFILE_ID, 'plone.app.registry')

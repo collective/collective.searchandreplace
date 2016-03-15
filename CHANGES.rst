@@ -7,6 +7,7 @@ Changelog
 - Include toggleSelect for Plone 5.
 - Disable columns in searchreplaceform view.
 - Add edit links in table.
+- Add a setting to limit number of character shown before and after
   [Gagaro]
 
 
