@@ -6,6 +6,7 @@ Changelog
 
 - Include toggleSelect for Plone 5.
 - Disable columns in searchreplaceform view.
+- Add edit links in table.
   [Gagaro]
 
 

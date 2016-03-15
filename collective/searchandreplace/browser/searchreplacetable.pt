@@ -52,6 +52,9 @@
 	       tal:attributes="href itemurl;
 			       alt itemrelpath;"
 	       tal:content="itemrelpath" />
+        <a href="" alt="" class="icon-edit" target="_blank"
+	       tal:attributes="href string:${itemurl}/edit"
+           i18n:domain="plone" i18n:translate="">edit</a>
 	  </td>
 	  <td tal:content="itemline">1</td>
 	  <td>
