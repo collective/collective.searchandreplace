@@ -8,6 +8,7 @@ Changelog
 - Disable columns in searchreplaceform view.
 - Add edit links in table.
 - Add a setting to limit number of character shown before and after
+- Add an option to limit the number of results shown.
   [Gagaro]
 
 

@@ -55,6 +55,10 @@ class SearchReplaceUtility(object):
             sitems = kwargs['searchItems']
         else:
             sitems = None
+        if 'maxResults' in kwargs:
+            maxResults = kwargs['maxResults']
+        else:
+            maxResults = None
         # Get Regex matcher
         sflags = mc and searchflags or (searchflags | re.IGNORECASE)
         matcher = re.compile(find, sflags)
@@ -117,6 +121,9 @@ class SearchReplaceUtility(object):
                     result = self._searchObject(matcher, obj)
                     if result:
                         results += result
+                    if maxResults is not None and len(results) > maxResults:
+                        results = results[:maxResults]
+                        break
         if replace:
             return replaced
         else:
