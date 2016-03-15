@@ -4,7 +4,8 @@ Changelog
 6.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add a setting to limit number of character shown before and after
+  [Gagaro]
 
 
 6.0.3 (2016-02-15)
