@@ -4,7 +4,8 @@ Changelog
 6.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add an option to limit the number of results shown.
+  [Gagaro]
 
 
 6.0.3 (2016-02-15)

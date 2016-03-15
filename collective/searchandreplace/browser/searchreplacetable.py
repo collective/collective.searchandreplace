@@ -24,12 +24,17 @@ class SearchReplaceTable(BrowserView):
             mcase = True
         else:
             mcase = False
+        if 'form.maxResults' in self.request and self.request['form.maxResults']:
+            maxResults = int(self.request['form.maxResults'])
+        else:
+            maxResults = None
         # Get search results
         results = srutil.searchObjects(
             self.context,
             stext,
             searchSubFolders=subfolders,
-            matchCase=mcase)
+            matchCase=mcase,
+            maxResults=maxResults)
         return results
 
     def getRelativePath(self, path):
