@@ -4,7 +4,8 @@ Changelog
 6.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Disable columns in searchreplaceform view.
+  [Gagaro]
 
 
 6.0.3 (2016-02-15)
