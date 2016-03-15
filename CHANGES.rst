@@ -4,6 +4,9 @@ Changelog
 6.0.4 (unreleased)
 ------------------
 
+- Add edit links in table.
+  [Gagaro]
+
 - Keep table and form values when replacing.
   [Gagaro]
 
