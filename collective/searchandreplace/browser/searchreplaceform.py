@@ -34,7 +34,10 @@ class ISearchReplaceForm(Interface):
     maxResults = Int(
         title=_(u'Maximum Number of Results'),
         description=_(
-            u'Maximum number of results to show.'),
+            u'Maximum number of results to show. '
+            'Indirectly this limits the number of matches to replace, '
+            'because matches that are not shown, cannot be selected '
+            'for replacement.'),
         default=None,
         required=False)
 

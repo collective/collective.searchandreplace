@@ -4,7 +4,9 @@ Changelog
 6.0.4 (unreleased)
 ------------------
 
-- Add an option to limit the number of results shown.
+- Add an option to limit the number of results shown.  Indirectly this
+  limits the number of matches to replace, because matches that are
+  not shown, cannot be selected for replacement.
   [Gagaro]
 
 - Add a setting to limit the number of characters shown before and after.
