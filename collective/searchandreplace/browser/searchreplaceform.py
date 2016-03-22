@@ -21,35 +21,37 @@ def validate_searchreplaceform(form, action, data):
 class ISearchReplaceForm(Interface):
     """ Interface for Search and Replace form """
 
-    findWhat = Text(title=_(u'Find What'),
-                    description=_(u'Enter the text to find.'),
-                    required=True)
+    findWhat = Text(
+        title=_(u'Find What'),
+        description=_(u'Enter the text to find.'),
+        required=True)
 
-    replaceWith = Text(title=_(u'Replace With'),
-                       description=_(u'Enter the text to replace the '
-                                     'original text with.'),
-                       required=False)
+    replaceWith = Text(
+        title=_(u'Replace With'),
+        description=_(u'Enter the text to replace the original text with.'),
+        required=False)
 
-    maxResults = Int(title=_(u'Maximum Number of Results'),
-                     description=_(
-                         u'Maximum number of results to show.'),
-                     default=None,
-                     required=False)
+    maxResults = Int(
+        title=_(u'Maximum Number of Results'),
+        description=_(
+            u'Maximum number of results to show.'),
+        default=None,
+        required=False)
 
-    searchSubfolders = Bool(title=_(u'Search Subfolders'),
-                            description=_(u'If checked, this will '
-                                          'recursively search through '
-                                          'any selected folders and '
-                                          'their children, replacing at '
-                                          'each level.'),
-                            default=True,
-                            required=True)
+    searchSubfolders = Bool(
+        title=_(u'Search Subfolders'),
+        description=_(
+            u'If checked, this will recursively search '
+            'through any selected folders and their '
+            'children, replacing at each level.'),
+        default=True,
+        required=True)
 
-    matchCase = Bool(title=_(u'Match Case'),
-                     description=_(
-                         u'Check the box for a case sensitive search.'),
-                     default=False,
-                     required=True)
+    matchCase = Bool(
+        title=_(u'Match Case'),
+        description=_(u'Check the box for a case sensitive search.'),
+        default=False,
+        required=True)
 
 
 class SearchReplaceForm(AddForm):
@@ -59,7 +61,8 @@ class SearchReplaceForm(AddForm):
     def form_fields(self):
         form_fields = FormFields(ISearchReplaceForm)
         container = aq_parent(self.context)
-        if not self.context.isPrincipiaFolderish and not isDefaultPage(container, self.context):
+        if not self.context.isPrincipiaFolderish and not isDefaultPage(
+                container, self.context):
             form_fields = form_fields.omit('searchSubfolders')
         form_fields['findWhat'].custom_widget = TwoLineTextAreaWidget
         form_fields['replaceWith'].custom_widget = TwoLineTextAreaWidget
