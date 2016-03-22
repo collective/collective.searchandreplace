@@ -87,6 +87,7 @@ class SearchReplaceForm(AddForm):
             name=u'Replace')
     def action_replace(self, action, data):
         """ Replace text for all files. """
+        self.form_reset = False
         srutil = getUtility(ISearchReplaceUtility)
         if 'form.affectedContent' in self.request:
             # Do only the selected items
@@ -122,8 +123,6 @@ class SearchReplaceForm(AddForm):
                 _(u'Search text replaced in all ${items} instance(s).',
                   mapping={'items': replaced}),
                 type='info')
-        self.request.response.redirect(self.context.absolute_url())
-        return ''
 
     @action(_(u'Reset'),
             validator=None,

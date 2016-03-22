@@ -4,6 +4,9 @@ Changelog
 6.0.4 (unreleased)
 ------------------
 
+- Keep table and form values when replacing.
+  [Gagaro]
+
 - Add an option to limit the number of results shown.  Indirectly this
   limits the number of matches to replace, because matches that are
   not shown, cannot be selected for replacement.
