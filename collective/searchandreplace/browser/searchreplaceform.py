@@ -11,7 +11,7 @@ from plone.app.layout.navigation.defaultpage import isDefaultPage
 from zope.component import getUtility
 from zope.formlib.form import FormFields, action
 from zope.interface import Interface
-from zope.schema import Text, Bool
+from zope.schema import Text, Bool, Int
 
 
 def validate_searchreplaceform(form, action, data):
@@ -29,6 +29,12 @@ class ISearchReplaceForm(Interface):
                        description=_(u'Enter the text to replace the '
                                      'original text with.'),
                        required=False)
+
+    maxResults = Int(title=_(u'Maximum Number of Results'),
+                     description=_(
+                         u'Maximum number of results to show.'),
+                     default=None,
+                     required=False)
 
     searchSubfolders = Bool(title=_(u'Search Subfolders'),
                             description=_(u'If checked, this will '
