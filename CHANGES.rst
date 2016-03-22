@@ -4,6 +4,9 @@ Changelog
 6.0.4 (unreleased)
 ------------------
 
+- Disable columns in searchreplaceform view.
+  [Gagaro]
+
 - Include toggleSelect for Plone 5.
   [Gagaro]
 
