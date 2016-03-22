@@ -4,11 +4,15 @@ Changelog
 6.0.4 (unreleased)
 ------------------
 
+- Add a setting to limit the number of characters shown before and after.
+  [Gagaro]
+
 - Disable columns in searchreplaceform view.
   [Gagaro]
 
 - Include toggleSelect for Plone 5.
   [Gagaro]
+
 
 
 6.0.3 (2016-02-15)

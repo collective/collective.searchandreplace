@@ -50,6 +50,17 @@
         />
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+      source="1001"
+      destination="1002"
+      profile="collective.searchandreplace:default">
+    <genericsetup:upgradeStep
+        title="Update registry"
+        description="Add maximum_text_characters settings"
+        handler=".upgrade.run_registry_step"
+        />
+  </genericsetup:upgradeSteps>
+
   <genericsetup:registerProfile
      name="dexterity"
      title="collective.searchandreplace (Dexterity)"

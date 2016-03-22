@@ -5,7 +5,9 @@
      tal:define="isFolderish context/isPrincipiaFolderish|nothing;
 		 items view/getItems;
 		 findText request/form.findWhat|nothing;
-		 replaceText request/form.replaceWith|nothing;">
+		 replaceText request/form.replaceWith|nothing;
+         maximum_text_characters python:context.portal_registry['collective.searchandreplace.maximum_text_characters']
+        ">
 
   <label for="form.affectedContent">
     <span i18n:translate="">Affected Content</span>
@@ -55,10 +57,10 @@
 	  </td>
 	  <td tal:content="itemline">1</td>
 	  <td>
-	    <span tal:replace="itemBeforeText" /><i><span style="color: red" tal:content="itemFindText" /></i><span tal:replace="itemAfterText" />
+	    <span tal:condition="python: len(itemBeforeText) > maximum_text_characters">[...]</span><span tal:replace="python: itemBeforeText[-maximum_text_characters:]" /><i><span style="color: red" tal:content="itemFindText" /></i><span tal:replace="python: itemAfterText[:maximum_text_characters]" /><span tal:condition="python: len(itemAfterText) > maximum_text_characters">[...]</span>
 	  </td>
 	  <td>
-	    <span tal:replace="itemBeforeText" /><i><span style="color: green" tal:content="replaceText" /></i><span tal:replace="itemAfterText" />
+	    <span tal:condition="python: len(itemBeforeText) > maximum_text_characters">[...]</span><span tal:replace="python: itemBeforeText[-maximum_text_characters:]" /><i><span style="color: green" tal:content="replaceText" /></i><span tal:replace="python: itemAfterText[:maximum_text_characters]" /><span tal:condition="python: len(itemAfterText) > maximum_text_characters">[...]</span>
 	  </td>
 	</tr>
       </tal:block>
