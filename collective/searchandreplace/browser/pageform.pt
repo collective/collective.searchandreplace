@@ -46,7 +46,7 @@
 
         <div id="content-core">
           <p tal:condition="not:context/isPrincipiaFolderish|nothing">
-            <a href="../@@searchreplaceform" i18n:translate="">Search and replace in parent folder</a>
+            <a href="../@@searchreplaceform" i18n:domain="SearchAndReplace" i18n:translate="">Search and replace in parent folder</a>
           </p>
 
             <form action="." metal:define-macro="master"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eduCommons\n"
-"POT-Creation-Date: 2016-03-23 11:08+0000\n"
+"POT-Creation-Date: 2016-03-23 13:17+0000\n"
 "PO-Revision-Date: 2009-08-03 16:46+0900\n"
 "Last-Translator: Takeshi Yamamoto (Retsu) <tyam@mac.com>\n"
 "Language-Team: Takeshi Yamamoto <tyam@mac.com>\n"
@@ -115,6 +115,10 @@ msgstr "テキストを検索し置換"
 
 #: ./configure.zcml:101
 msgid "Search and Replaceable"
+msgstr ""
+
+#: ./browser/pageform.pt:49
+msgid "Search and replace in parent folder"
 msgstr ""
 
 #: ./browser/searchreplaceform.py:75
