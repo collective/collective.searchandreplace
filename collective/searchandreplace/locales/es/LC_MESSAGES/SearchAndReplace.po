@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-02-08 16:33+0000\n"
+"POT-Creation-Date: 2016-03-23 10:46+0000\n"
 "PO-Revision-Date: 2012-08-07 21:39+0100\n"
 "Last-Translator: Susan Webster <susan@db.uc3m.es>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,44 +15,44 @@ msgstr ""
 "Domain: SearchAndReplace\n"
 "Language: es\n"
 
-#: ./configure.zcml:59
+#: ./configure.zcml:70
 msgid "Add the SearchReplaceable to dexterity contents."
 msgstr ""
 
-#: ./browser/searchreplacetable.pt:11
+#: ./browser/searchreplacetable.pt:13
 msgid "Affected Content"
 msgstr ""
 
-#: ./browser/searchreplacetable.pt:29
+#: ./browser/searchreplacetable.pt:32
 msgid "After"
 msgstr ""
 
-#: ./configure.zcml:90
+#: ./configure.zcml:101
 msgid "Allow to search and replace in instances of this type of content."
 msgstr ""
 
-#: ./browser/searchreplacetable.pt:28
+#: ./browser/searchreplacetable.pt:31
 msgid "Before"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:43
+#: ./browser/searchreplaceform.py:55
 msgid "Check the box for a case sensitive search."
 msgstr "Marque para una búsqueda sensible a mayúsculas/minúsculas."
 
-#: ./browser/searchreplaceform.py:25
+#: ./browser/searchreplaceform.py:26
 msgid "Enter the text to find."
 msgstr "Insertar el texto a encontrar."
 
-#: ./browser/searchreplaceform.py:29
+#: ./browser/searchreplaceform.py:31
 msgid "Enter the text to replace the original text with."
 msgstr "Insertar el texto a reemplazar el texto original."
 
-#: ./browser/searchreplaceform.py:24
+#: ./browser/searchreplaceform.py:25
 msgid "Find What"
 msgstr "Buscar Que"
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-#: ./browser/searchreplaceform.py:34
+#: ./browser/searchreplaceform.py:46
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "Marque aquí para una búsqueda recursiva sobre las carpetas seleccionadas y sus subcarpetas, con reemplazamiento en todos los niveles."
 
@@ -60,39 +60,51 @@ msgstr "Marque aquí para una búsqueda recursiva sobre las carpetas seleccionad
 msgid "Installs the collective.searchandreplace package"
 msgstr ""
 
-#: ./searchreplaceutility.py:84
+#: ./searchreplaceutility.py:91
 msgid "Item found that does not implement ISearchReplaceable. You should reindex the object_provides index of the portal_catalog."
 msgstr ""
 
-#: ./browser/searchreplacetable.pt:27
+#: ./browser/searchreplacetable.pt:30
 msgid "Line"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:42
+#: ./browser/searchreplaceform.py:54
 msgid "Match Case"
 msgstr "Coincidir Mayúsculas y Minúsculas"
 
-#: ./browser/searchreplaceform.py:66
+#: ./browser/searchreplaceform.py:35
+msgid "Maximum Number of Results"
+msgstr ""
+
+#: ./browser/searchreplaceform.py:36
+msgid "Maximum number of results to show. Indirectly this limits the number of matches to replace, because matches that are not shown, cannot be selected for replacement."
+msgstr ""
+
+#: ./profiles/default/registry.xml
+msgid "Maximum text characters"
+msgstr ""
+
+#: ./browser/searchreplaceform.py:78
 msgid "Preview"
 msgstr "Vista previa"
 
-#: ./browser/searchreplaceform.py:73
+#: ./browser/searchreplaceform.py:85
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ./browser/searchreplaceform.py:28
+#: ./browser/searchreplaceform.py:30
 msgid "Replace With"
 msgstr "Reemplazar Con"
 
-#: ./browser/searchreplaceform.py:116
+#: ./browser/searchreplaceform.py:127
 msgid "Reset"
 msgstr "Resetear"
 
-#: ./browser/searchreplaceform.py:33
+#: ./browser/searchreplaceform.py:45
 msgid "Search Subfolders"
 msgstr "Buscar en Subcarpetas"
 
-#: ./browser/searchreplaceform.py:62
+#: ./browser/searchreplaceform.py:74
 msgid "Search and Replace"
 msgstr "Buscar y Reemplazar"
 
@@ -101,19 +113,19 @@ msgstr "Buscar y Reemplazar"
 msgid "Search and Replace text"
 msgstr "Buscar y Reemplazar texto"
 
-#: ./configure.zcml:90
+#: ./configure.zcml:101
 msgid "Search and Replaceable"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:63
+#: ./browser/searchreplaceform.py:75
 msgid "Search and replace text found in documents."
 msgstr "Buscar y reemplazar texto encontrado en documentos."
 
-#: ./browser/searchreplaceform.py:96
+#: ./browser/searchreplaceform.py:109
 msgid "Search text replaced in ${replaced} of ${items} instance(s)."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:110
+#: ./browser/searchreplaceform.py:123
 msgid "Search text replaced in all ${items} instance(s)."
 msgstr ""
 
@@ -122,15 +134,19 @@ msgstr ""
 msgid "Search/Replace"
 msgstr "Buscar/Reemplazar"
 
+#: ./profiles/default/registry.xml
+msgid "The maximum number of characters to show before and after the found text."
+msgstr ""
+
 #: ./configure.zcml:26
 msgid "collective.searchandreplace"
 msgstr ""
 
-#: ./configure.zcml:59
+#: ./configure.zcml:70
 msgid "collective.searchandreplace (Dexterity)"
 msgstr ""
 
 #. Default: "Affected content"
-#: ./browser/searchreplacetable.pt:14
+#: ./browser/searchreplacetable.pt:16
 msgid "summary_affected_content"
 msgstr ""

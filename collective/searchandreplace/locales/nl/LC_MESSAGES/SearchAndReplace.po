@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.searchandreplace 3.2\n"
-"POT-Creation-Date: 2016-02-08 16:33+0000\n"
+"POT-Creation-Date: 2016-03-23 10:46+0000\n"
 "PO-Revision-Date: 2015-06-15 16:26+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederland <plone-plone-nl@lists.plone.org>\n"
@@ -16,44 +16,44 @@ msgstr ""
 "Domain: SearchAndReplace\n"
 "Language: nl\n"
 
-#: ./configure.zcml:59
+#: ./configure.zcml:70
 msgid "Add the SearchReplaceable to dexterity contents."
 msgstr "Voeg SearchReplaceable toe aan dexterity contenttypes."
 
-#: ./browser/searchreplacetable.pt:11
+#: ./browser/searchreplacetable.pt:13
 msgid "Affected Content"
 msgstr "Te wijzigen inhoud"
 
-#: ./browser/searchreplacetable.pt:29
+#: ./browser/searchreplacetable.pt:32
 msgid "After"
 msgstr "Na"
 
-#: ./configure.zcml:90
+#: ./configure.zcml:101
 msgid "Allow to search and replace in instances of this type of content."
 msgstr "Sta toe te zoeken en vervangen in pagina's van dit type content."
 
-#: ./browser/searchreplacetable.pt:28
+#: ./browser/searchreplacetable.pt:31
 msgid "Before"
 msgstr "Voor"
 
-#: ./browser/searchreplaceform.py:43
+#: ./browser/searchreplaceform.py:55
 msgid "Check the box for a case sensitive search."
 msgstr "Vink aan voor hoofdlettergevoelig zoeken."
 
-#: ./browser/searchreplaceform.py:25
+#: ./browser/searchreplaceform.py:26
 msgid "Enter the text to find."
 msgstr "Vul de tekst in om naar te zoeken."
 
-#: ./browser/searchreplaceform.py:29
+#: ./browser/searchreplaceform.py:31
 msgid "Enter the text to replace the original text with."
 msgstr "Vul de tekst in om de oorspronkelijke tekst mee te vervangen."
 
-#: ./browser/searchreplaceform.py:24
+#: ./browser/searchreplaceform.py:25
 msgid "Find What"
 msgstr "Vind wat"
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-#: ./browser/searchreplaceform.py:34
+#: ./browser/searchreplaceform.py:46
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "Als deze optie is aangevinkt, wordt recursief gezocht door de map en alle onderliggende mappen en items, waarbij op elk niveau vervangen wordt."
 
@@ -61,39 +61,51 @@ msgstr "Als deze optie is aangevinkt, wordt recursief gezocht door de map en all
 msgid "Installs the collective.searchandreplace package"
 msgstr "Installeert het collective.searchandreplace package"
 
-#: ./searchreplaceutility.py:84
+#: ./searchreplaceutility.py:91
 msgid "Item found that does not implement ISearchReplaceable. You should reindex the object_provides index of the portal_catalog."
 msgstr "Item gevonden dat de ISearchReplaceable interface niet implementeert. Je zou de object_provides index van de portal_catalog moeten herindexeren."
 
-#: ./browser/searchreplacetable.pt:27
+#: ./browser/searchreplacetable.pt:30
 msgid "Line"
 msgstr "Regel"
 
-#: ./browser/searchreplaceform.py:42
+#: ./browser/searchreplaceform.py:54
 msgid "Match Case"
 msgstr "Hoofdlettergevoelig"
 
-#: ./browser/searchreplaceform.py:66
+#: ./browser/searchreplaceform.py:35
+msgid "Maximum Number of Results"
+msgstr ""
+
+#: ./browser/searchreplaceform.py:36
+msgid "Maximum number of results to show. Indirectly this limits the number of matches to replace, because matches that are not shown, cannot be selected for replacement."
+msgstr ""
+
+#: ./profiles/default/registry.xml
+msgid "Maximum text characters"
+msgstr ""
+
+#: ./browser/searchreplaceform.py:78
 msgid "Preview"
 msgstr "Voorvertoning"
 
-#: ./browser/searchreplaceform.py:73
+#: ./browser/searchreplaceform.py:85
 msgid "Replace"
 msgstr "Vervang"
 
-#: ./browser/searchreplaceform.py:28
+#: ./browser/searchreplaceform.py:30
 msgid "Replace With"
 msgstr "Vervang door"
 
-#: ./browser/searchreplaceform.py:116
+#: ./browser/searchreplaceform.py:127
 msgid "Reset"
 msgstr "Reset"
 
-#: ./browser/searchreplaceform.py:33
+#: ./browser/searchreplaceform.py:45
 msgid "Search Subfolders"
 msgstr "Doorzoek submappen"
 
-#: ./browser/searchreplaceform.py:62
+#: ./browser/searchreplaceform.py:74
 msgid "Search and Replace"
 msgstr "Zoek en vervang"
 
@@ -102,19 +114,19 @@ msgstr "Zoek en vervang"
 msgid "Search and Replace text"
 msgstr "Zoek en vervang tekst"
 
-#: ./configure.zcml:90
+#: ./configure.zcml:101
 msgid "Search and Replaceable"
 msgstr "Zoek- en vervangbaar"
 
-#: ./browser/searchreplaceform.py:63
+#: ./browser/searchreplaceform.py:75
 msgid "Search and replace text found in documents."
 msgstr "Zoek en vervang tekst gevonden in documenten."
 
-#: ./browser/searchreplaceform.py:96
+#: ./browser/searchreplaceform.py:109
 msgid "Search text replaced in ${replaced} of ${items} instance(s)."
 msgstr "Gezochte tekst vervangen in ${replaced} van ${items} geval(len)."
 
-#: ./browser/searchreplaceform.py:110
+#: ./browser/searchreplaceform.py:123
 msgid "Search text replaced in all ${items} instance(s)."
 msgstr "Gezochte tekst vervangen in alle ${items} geval(len)."
 
@@ -123,15 +135,19 @@ msgstr "Gezochte tekst vervangen in alle ${items} geval(len)."
 msgid "Search/Replace"
 msgstr "Zoek/Vervang"
 
+#: ./profiles/default/registry.xml
+msgid "The maximum number of characters to show before and after the found text."
+msgstr ""
+
 #: ./configure.zcml:26
 msgid "collective.searchandreplace"
 msgstr "collective.searchandreplace"
 
-#: ./configure.zcml:59
+#: ./configure.zcml:70
 msgid "collective.searchandreplace (Dexterity)"
 msgstr "collective.searchandreplace (Dexterity)"
 
 #. Default: "Affected content"
-#: ./browser/searchreplacetable.pt:14
+#: ./browser/searchreplacetable.pt:16
 msgid "summary_affected_content"
 msgstr "Te wijzigen inhoud"
