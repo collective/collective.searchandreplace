@@ -4,6 +4,10 @@ Changelog
 6.0.4 (unreleased)
 ------------------
 
+- Show link to searchreplace form in parent folder when you are not
+  viewing a folderish item.
+  [maurits]
+
 - Add edit links in table.
   [Gagaro]
 
