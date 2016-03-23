@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2016-03-23 13:17+0000\n"
-"PO-Revision-Date: 2016-03-23 14:08+0100\n"
+"PO-Revision-Date: 2016-03-23 14:48+0100\n"
 "Last-Translator: Gagaro <gagaro42@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -120,7 +120,7 @@ msgstr "Recherchable et Remplacable"
 
 #: ./browser/pageform.pt:49
 msgid "Search and replace in parent folder"
-msgstr ""
+msgstr "Rechercher et remplacer dans le dossier parent"
 
 #: ./browser/searchreplaceform.py:75
 msgid "Search and replace text found in documents."
