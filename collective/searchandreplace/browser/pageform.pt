@@ -150,6 +150,17 @@
             </form>
 
 
+            <script>
+                if ($('input#form\\.affectedContent').length == 0) {
+                    $('input#form\\.actions\\.Replace').click(function(e) {
+                        var replace = confirm('Are you sure you want to replace without previewing first?');
+                        if (!replace) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                    });
+                }
+            </script>
             <script type="text/javascript"
                 tal:define="extra_script view/extra_script | nothing"
                 tal:condition="extra_script"

@@ -4,7 +4,8 @@ Changelog
 6.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add confirmation prompt when replacing without viewing first.
+  [Gagaro]
 
 
 6.0.4 (2016-03-23)
