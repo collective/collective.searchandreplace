@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.0.4 (unreleased)
+6.0.4 (2016-03-23)
 ------------------
 
 - Show link to searchreplace form in parent folder when you are not
