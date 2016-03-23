@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eduCommons\n"
-"POT-Creation-Date: 2016-03-23 10:46+0000\n"
+"POT-Creation-Date: 2016-03-23 11:08+0000\n"
 "PO-Revision-Date: 2009-08-03 16:46+0900\n"
 "Last-Translator: Takeshi Yamamoto (Retsu) <tyam@mac.com>\n"
 "Language-Team: Takeshi Yamamoto <tyam@mac.com>\n"
@@ -77,7 +77,7 @@ msgid "Maximum Number of Results"
 msgstr ""
 
 #: ./browser/searchreplaceform.py:36
-msgid "Maximum number of results to show. Indirectly this limits the number of matches to replace, because matches that are not shown, cannot be selected for replacement."
+msgid "Maximum number of results to show. Warning: this has no effect on how many found texts are replaced when you use the Replace button directly without using the Preview."
 msgstr ""
 
 #: ./profiles/default/registry.xml

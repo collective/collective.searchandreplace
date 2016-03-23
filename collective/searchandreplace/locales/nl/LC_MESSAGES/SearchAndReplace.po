@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.searchandreplace 3.2\n"
-"POT-Creation-Date: 2016-03-23 10:46+0000\n"
+"POT-Creation-Date: 2016-03-23 11:08+0000\n"
 "PO-Revision-Date: 2015-06-15 16:26+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederland <plone-plone-nl@lists.plone.org>\n"
@@ -78,8 +78,8 @@ msgid "Maximum Number of Results"
 msgstr "Maximum aantal resultaten"
 
 #: ./browser/searchreplaceform.py:36
-msgid "Maximum number of results to show. Indirectly this limits the number of matches to replace, because matches that are not shown, cannot be selected for replacement."
-msgstr "Maximum aantal resultaten om te tonen. Indirect is dit ook een limiet op het aantal gevonden teksten die vervangen worden, omdat teksten boven dit maximum niet geselecteerd kunnen worden."
+msgid "Maximum number of results to show. Warning: this has no effect on how many found texts are replaced when you use the Replace button directly without using the Preview."
+msgstr "Maximum aantal resultaten om te tonen. Let op: dit heeft geen effect op hoeveel gevonden teksten vervangen worden als je direct de knop Vervangen gebruikt, zonder de Voorvertoning te gebruiken."
 
 #: ./profiles/default/registry.xml
 msgid "Maximum text characters"

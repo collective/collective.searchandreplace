@@ -35,9 +35,9 @@ class ISearchReplaceForm(Interface):
         title=_(u'Maximum Number of Results'),
         description=_(
             u'Maximum number of results to show. '
-            'Indirectly this limits the number of matches to replace, '
-            'because matches that are not shown, cannot be selected '
-            'for replacement.'),
+            'Warning: this has no effect on how many found texts are '
+            'replaced when you use the Replace button directly without '
+            'using the Preview.'),
         default=None,
         required=False)
 
