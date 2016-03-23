@@ -75,15 +75,15 @@ msgstr "Hoofdlettergevoelig"
 
 #: ./browser/searchreplaceform.py:35
 msgid "Maximum Number of Results"
-msgstr ""
+msgstr "Maximum aantal resultaten"
 
 #: ./browser/searchreplaceform.py:36
 msgid "Maximum number of results to show. Indirectly this limits the number of matches to replace, because matches that are not shown, cannot be selected for replacement."
-msgstr ""
+msgstr "Maximum aantal resultaten om te tonen. Indirect is dit ook een limiet op het aantal gevonden teksten die vervangen worden, omdat teksten boven dit maximum niet geselecteerd kunnen worden."
 
 #: ./profiles/default/registry.xml
 msgid "Maximum text characters"
-msgstr ""
+msgstr "Maximum aantal karakters"
 
 #: ./browser/searchreplaceform.py:78
 msgid "Preview"
@@ -137,7 +137,7 @@ msgstr "Zoek/Vervang"
 
 #: ./profiles/default/registry.xml
 msgid "The maximum number of characters to show before and after the found text."
-msgstr ""
+msgstr "Maximum aantal karakters om te tonen voor en na de gevonden tekst."
 
 #: ./configure.zcml:26
 msgid "collective.searchandreplace"
