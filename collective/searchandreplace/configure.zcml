@@ -4,6 +4,7 @@
    xmlns:i18n="http://namespaces.zope.org/i18n"
    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
    xmlns:plone="http://namespaces.plone.org/plone"
+   xmlns:zcml="http://namespaces.zope.org/zcml"
    i18n_domain="SearchAndReplace">
 
   <include package="plone.resource" file="meta.zcml"/>
@@ -62,14 +63,6 @@
         />
   </genericsetup:upgradeSteps>
 
-  <genericsetup:registerProfile
-     name="dexterity"
-     title="collective.searchandreplace (Dexterity)"
-     directory="profiles/dexterity"
-     description="Add the SearchReplaceable to dexterity contents."
-     provides="Products.GenericSetup.interfaces.EXTENSION"
-     />
-
   <utility
      provides=".interfaces.ISearchReplaceUtility"
      factory=".searchreplaceutility.SearchReplaceUtility"
@@ -79,26 +72,38 @@
     <implements interface="collective.searchandreplace.interfaces.ISearchReplaceable" />
   </class>
 
-  <class class="Products.ATContentTypes.content.document.ATDocument">
-    <implements interface="collective.searchandreplace.interfaces.ISearchReplaceable" />
-  </class>
+  <configure zcml:condition="installed Products.ATContentTypes">
+    <class class="Products.ATContentTypes.content.document.ATDocument">
+      <implements interface="collective.searchandreplace.interfaces.ISearchReplaceable" />
+    </class>
 
-  <class class="Products.ATContentTypes.content.image.ATImage">
-    <implements interface="collective.searchandreplace.interfaces.ISearchReplaceable" />
-  </class>
+    <class class="Products.ATContentTypes.content.image.ATImage">
+      <implements interface="collective.searchandreplace.interfaces.ISearchReplaceable" />
+    </class>
 
-  <class class="Products.ATContentTypes.content.file.ATFile">
-    <implements interface="collective.searchandreplace.interfaces.ISearchReplaceable" />
-  </class>
+    <class class="Products.ATContentTypes.content.file.ATFile">
+      <implements interface="collective.searchandreplace.interfaces.ISearchReplaceable" />
+    </class>
 
-  <class class="Products.ATContentTypes.content.folder.ATFolder">
-    <implements interface="collective.searchandreplace.interfaces.ISearchReplaceable" />
-  </class>
+    <class class="Products.ATContentTypes.content.folder.ATFolder">
+      <implements interface="collective.searchandreplace.interfaces.ISearchReplaceable" />
+    </class>
+  </configure>
 
-  <plone:behavior
-    title="Search and Replaceable"
-    description="Allow to search and replace in instances of this type of content."
-    provides="collective.searchandreplace.interfaces.ISearchReplaceable"
-    />
+  <configure zcml:condition="installed plone.behavior">
+    <include package="plone.behavior" file="meta.zcml" />
+    <plone:behavior
+        title="Search and Replaceable"
+        description="Allow to search and replace in instances of this type of content."
+        provides="collective.searchandreplace.interfaces.ISearchReplaceable"
+        />
+    <genericsetup:registerProfile
+        name="dexterity"
+        title="collective.searchandreplace (Dexterity)"
+        directory="profiles/dexterity"
+        description="Add the SearchReplaceable to dexterity contents."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+  </configure>
 
 </configure>
