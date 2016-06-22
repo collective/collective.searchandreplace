@@ -4,7 +4,7 @@ Changelog
 6.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added ``plone.resource`` to our requirements for our resources.  [maurits]
 
 
 6.0.4 (2016-03-23)

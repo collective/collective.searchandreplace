@@ -6,6 +6,7 @@
    xmlns:plone="http://namespaces.plone.org/plone"
    i18n_domain="SearchAndReplace">
 
+  <include package="plone.resource" file="meta.zcml"/>
   <include package="five.formlib" file="configure.zcml" />
 
   <!-- See also the permission string in the __init__.py. -->
