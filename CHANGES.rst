@@ -4,7 +4,9 @@ Changelog
 6.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Conditionally load zcml for dexterity behavior/profile and ATContentTypes.  [maurits]
+
+- Added ``plone.resource`` to our requirements for our resources.  [maurits]
 
 
 6.0.4 (2016-03-23)
