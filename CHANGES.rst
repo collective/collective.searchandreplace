@@ -4,6 +4,8 @@ Changelog
 6.0.5 (unreleased)
 ------------------
 
+- Fixed Travis (continuous integration) test setup for Plone 5.  [maurits]
+
 - Minor code cleanup: pyflakes, pep8, sorting imports.  [maurits]
 
 - Conditionally load zcml for dexterity behavior/profile and ATContentTypes.  [maurits]
