@@ -15,7 +15,7 @@ logger = logging.getLogger('collective.searchreplace')
 searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
 searchinterfaces = [
     'collective.searchandreplace.interfaces.ISearchReplaceable',
-    ]
+]
 
 
 def _to_unicode(s):

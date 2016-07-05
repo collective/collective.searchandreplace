@@ -5,7 +5,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 from collective.searchandreplace import SearchAndReplaceMessageFactory as _
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
 from collective.searchandreplace.browser.customwidgets import \
-     TwoLineTextAreaWidget
+    TwoLineTextAreaWidget
 from five.formlib.formbase import AddForm
 from plone.app.layout.navigation.defaultpage import isDefaultPage
 from zope.component import getUtility

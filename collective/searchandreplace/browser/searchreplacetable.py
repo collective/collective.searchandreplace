@@ -24,7 +24,8 @@ class SearchReplaceTable(BrowserView):
             mcase = True
         else:
             mcase = False
-        if 'form.maxResults' in self.request and self.request['form.maxResults']:
+        if 'form.maxResults' in self.request and self.request[
+                'form.maxResults']:
             maxResults = int(self.request['form.maxResults'])
         else:
             maxResults = None

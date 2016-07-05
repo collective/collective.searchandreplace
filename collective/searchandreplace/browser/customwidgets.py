@@ -13,7 +13,8 @@ class MultiPreSelectCheckBoxWidget(MultiSelectWidget):
     """ A multi select check box widget that is pre selected. """
 
     def __init__(self, field, request):
-        super(MultiPreSelectCheckBoxWidget, self).__init__(field, field.value_type.vocabulary, request)
+        super(MultiPreSelectCheckBoxWidget, self).__init__(
+            field, field.value_type.vocabulary, request)
         self.items = field.value_type.vocabulary.by_value.keys()
 
     def _getFormValue(self):
