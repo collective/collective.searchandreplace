@@ -18,65 +18,63 @@
 #
 ##############################################################################
 
-__author__ = '''Brent Lambert, David Ray, Jon Thomas'''
-__version__ = '$ Revision 0.0 $'[11:-2]
-
 from setuptools import setup, find_packages
 
 version = '6.0.5.dev0'
 
-setup(name='collective.searchandreplace',
-      version=version,
-      description="Batch Search and Replace",
-      long_description=(open("README.rst").read() + "\n" +
-                        open("CHANGES.rst").read()),
-      # Get more strings from
-      # https://pypi.python.org/pypi?%3Aaction=list_classifiers
-      classifiers=[
-          "Framework :: Plone",
-          "Framework :: Plone :: 4.3",
-          "Framework :: Plone :: 5.0",
-          "Programming Language :: Python",
-          "Programming Language :: Python :: 2.7",
-          "Topic :: Software Development :: Libraries :: Python Modules",
-          ],
-      keywords='batch search replace',
-      author='enPraxis',
-      author_email='info@enpraxis.net',
-      maintainer='Maurits van Rees',
-      maintainer_email='m.van.rees@zestsoftware.nl',
-      url='https://github.com/collective/collective.searchandreplace',
-      license='GPL',
-      packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['collective'],
-      include_package_data=True,
-      zip_safe=False,
-      install_requires=[
-          'Acquisition',
-          'five.formlib',
-          'plone.app.layout',
-          'plone.app.textfield',
-          'plone.resource',
-          'Products.CMFCore',
-          'Products.CMFPlone',
-          'Products.statusmessages',
-          'setuptools',
-          'Zope2',
-          'zope.component',
-          'zope.formlib',
-          'zope.i18nmessageid',
-          'zope.interface',
-          'zope.publisher',
-          'zope.schema',
-      ],
-      extras_require={
-          'test': [
-              'Products.PloneTestCase',
-          ],
-      },
-      entry_points="""
-      # -*- Entry points: -*-
-      [z3c.autoinclude.plugin]
-      target = plone
-      """,
-      )
+setup(
+    name='collective.searchandreplace',
+    version=version,
+    description="Batch Search and Replace",
+    long_description=(open("README.rst").read() + "\n" +
+                      open("CHANGES.rst").read()),
+    # Get more strings from
+    # https://pypi.python.org/pypi?%3Aaction=list_classifiers
+    classifiers=[
+        "Framework :: Plone",
+        "Framework :: Plone :: 4.3",
+        "Framework :: Plone :: 5.0",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+    ],
+    keywords='batch search replace',
+    author='enPraxis',
+    author_email='info@enpraxis.net',
+    maintainer='Maurits van Rees',
+    maintainer_email='m.van.rees@zestsoftware.nl',
+    url='https://github.com/collective/collective.searchandreplace',
+    license='GPL',
+    packages=find_packages(exclude=['ez_setup']),
+    namespace_packages=['collective'],
+    include_package_data=True,
+    zip_safe=False,
+    install_requires=[
+        'Acquisition',
+        'five.formlib',
+        'plone.app.layout',
+        'plone.app.textfield',
+        'plone.resource',
+        'Products.CMFCore',
+        'Products.CMFPlone',
+        'Products.statusmessages',
+        'setuptools',
+        'Zope2',
+        'zope.component',
+        'zope.formlib',
+        'zope.i18nmessageid',
+        'zope.interface',
+        'zope.publisher',
+        'zope.schema',
+    ],
+    extras_require={
+        'test': [
+            'Products.PloneTestCase',
+        ],
+    },
+    entry_points="""
+    # -*- Entry points: -*-
+    [z3c.autoinclude.plugin]
+    target = plone
+    """,
+)
