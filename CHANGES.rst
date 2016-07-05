@@ -4,6 +4,8 @@ Changelog
 6.0.5 (unreleased)
 ------------------
 
+- Minor code cleanup: pyflakes, pep8, sorting imports.  [maurits]
+
 - Conditionally load zcml for dexterity behavior/profile and ATContentTypes.  [maurits]
 
 - Added ``plone.resource`` to our requirements for our resources.  [maurits]

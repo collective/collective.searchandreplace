@@ -1,6 +1,6 @@
-from Products.PloneTestCase.PloneTestCase import default_user
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
 from collective.searchandreplace.tests.base import SearchAndReplaceTestCase
+from Products.PloneTestCase.PloneTestCase import default_user
 from zope.component import getUtility
 
 
