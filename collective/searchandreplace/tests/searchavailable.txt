@@ -4,27 +4,30 @@ A basic search and replace test
 
 Create the browser object we'll be using.
 
-    >>> from Products.Five.testbrowser import Browser
-    >>> from Products.PloneTestCase.setup import portal_owner, default_password
-    >>> browser = Browser()
-    >>> portal_url = self.portal.absolute_url()
-
+    >>> from plone.testing import z2
+    >>> from plone.app.testing import TEST_USER_NAME
+    >>> from plone.app.testing import TEST_USER_PASSWORD
+    >>> browser = z2.Browser(layer['app'])
+    >>> portal = layer['portal']
+    >>> portal_url = portal.absolute_url()
 
 Open the portal as anonymous and check is action available
 
-    >>> self.setRoles(['Anonymous'])
     >>> browser.open(portal_url)
     >>> 'Search/Replace' in browser.contents
     False
 
 
-Open the portal and login is Member
-    >>> self.portal.portal_membership.addMember('member','secret',('Member',),())
-    >>> self.setRoles(['Member'])
+Open the portal and login as Member
+    >>> portal.portal_membership.addMember('member','secret',('Member',),())
+    >>> import transaction
+    >>> transaction.commit()
     >>> browser.open(portal_url + '/login_form')
     >>> browser.getControl(name='__ac_name').value = 'member'
     >>> browser.getControl(name='__ac_password').value = 'secret'
-    >>> browser.getControl(name='submit').click()    
+    >>> browser.getControl(name='submit').click()
+    >>> 'Login failed.' in browser.contents
+    False
 
 Check if action is available for Member
     >>> browser.open(portal_url)
@@ -34,12 +37,14 @@ Check if action is available for Member
 
 Open the portal and login as Contributor
     >>> browser.getLink('Log out').click()
-    >>> self.portal.portal_membership.addMember('contrib','secret',('Contributor',),())
-    >>> self.setRoles(['Contributor'])
+    >>> portal.portal_membership.addMember('contrib','secret',('Contributor',),())
+    >>> transaction.commit()
     >>> browser.open(portal_url + '/login_form')
     >>> browser.getControl(name='__ac_name').value = 'contrib'
     >>> browser.getControl(name='__ac_password').value = 'secret'
-    >>> browser.getControl(name='submit').click()    
+    >>> browser.getControl(name='submit').click()
+    >>> 'Login failed.' in browser.contents
+    False
 
 Check if action is available for Contributor that doesn't have permissions on front-page
     >>> browser.open(portal_url)
@@ -53,4 +58,3 @@ Check if action is available for Contributor that creates an object
     >>> browser.getLink('Search/Replace').click()
     >>> 'Search/Replace' in browser.contents
     True
-    
