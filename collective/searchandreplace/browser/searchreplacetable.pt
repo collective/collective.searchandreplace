@@ -10,7 +10,7 @@
         ">
 
   <label for="form.affectedContent">
-    <span i18n:translate="">Affected Content</span>
+    <span i18n:translate="">Affected Content</span> (<span tal:replace="python:len(items)"></span>)
   </label>
 
   <table id="sortable" class="listing" summary="Affected content" i18n:attributes="summary summary_affected_content;">

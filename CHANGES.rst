@@ -12,6 +12,8 @@ Changelog
 
 - Added ``plone.resource`` to our requirements for our resources.  [maurits]
 
+- Added number of contents affected after a search. [Gagaro]
+
 
 6.0.4 (2016-03-23)
 ------------------
