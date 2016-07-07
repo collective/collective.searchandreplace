@@ -4,40 +4,45 @@ A basic search and replace test
 
 Create the browser object we'll be using.
 
-    >>> from Products.Five.testbrowser import Browser
-    >>> from Products.PloneTestCase.setup import portal_owner, default_password
-    >>> browser = Browser()
-    >>> portal_url = self.portal.absolute_url()
+    >>> from plone.testing import z2
+    >>> from plone.app.testing import SITE_OWNER_NAME
+    >>> from plone.app.testing import SITE_OWNER_PASSWORD
+    >>> browser = z2.Browser(layer['app'])
+    >>> portal_url = layer['portal'].absolute_url()
 
 Open the portal and login
 
     >>> browser.open(portal_url + '/login_form')
-    >>> browser.getControl(name='__ac_name').value = portal_owner
-    >>> browser.getControl(name='__ac_password').value = default_password
+    >>> browser.getControl(name='__ac_name').value = SITE_OWNER_NAME
+    >>> browser.getControl(name='__ac_password').value = SITE_OWNER_PASSWORD
     >>> browser.getControl(name='submit').click()
-    
+
 
 Test to ensure basic search and replace works. Search for 'get' and check preview page
 for results.
 
+    >>> browser.open(portal_url + '/page')
+    >>> "Get Plone now" in browser.contents
+    True
+    >>> "Love Plone now" in browser.contents
+    False
     >>> browser.open(portal_url)
     >>> browser.getLink('Search/Replace').click()
-    >>> browser.getControl(name='form.findWhat').value = 'get'
+    >>> browser.getControl(name='form.findWhat').value = 'get plone'
     >>> browser.getControl('Preview').click()
-    >>> 'Get' in browser.contents
+    >>> open('/tmp/test.html', 'w').write(browser.contents)
+    >>> 'Get Plone' in browser.contents
     True
 
-Replace "get" with "Don't get".
+Replace "get" with "love".
 
-    >>> browser.getControl(name='form.replaceWith').value = "Don't get"
+    >>> browser.getControl(name='form.replaceWith').value = "Love Plone"
     >>> browser.getControl(name='form.actions.Replace').click()
 
 View page to verify replacement was made.
-    >>> browser.open(portal_url)
-    >>> "Don't get" in browser.contents
+
+    >>> browser.open(portal_url + '/page')
+    >>> "Love Plone now" in browser.contents
     True
-
-
-
-
-
+    >>> "Get Plone now" in browser.contents
+    False

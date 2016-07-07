@@ -69,7 +69,8 @@ setup(
     ],
     extras_require={
         'test': [
-            'Products.PloneTestCase',
+            'plone.app.testing',
+            'plone.api',
         ],
     },
     entry_points="""

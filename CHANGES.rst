@@ -4,6 +4,8 @@ Changelog
 6.0.5 (unreleased)
 ------------------
 
+- Ported tests to plone.app.testing.  [maurits]
+
 - Fixed Travis (continuous integration) test setup for Plone 5.  [maurits]
 
 - Minor code cleanup: pyflakes, pep8, sorting imports.  [maurits]

@@ -1,25 +1,31 @@
-from collective.searchandreplace.tests.base import oflags
-from collective.searchandreplace.tests.base import prod
-from collective.searchandreplace.tests.base import SearchAndReplaceFunctionalTestCase  # noqa
-from Testing.ZopeTestCase import FunctionalDocFileSuite
+from plone.testing import layered
+from collective.searchandreplace.testing import SEARCH_REPLACE_FUNCTIONAL_LAYER
 from unittest import TestSuite
+import doctest
+
+
+oflags = (doctest.ELLIPSIS |
+          doctest.NORMALIZE_WHITESPACE)
 
 
 def test_suite():
     suite = TestSuite()
 
-    basicsearchtest = FunctionalDocFileSuite(
+    basicsearchtest = layered(doctest.DocFileSuite(
         'tests/basicsearch.txt',
-        package=prod,
-        test_class=SearchAndReplaceFunctionalTestCase,
-        optionflags=oflags)
+        package='collective.searchandreplace',
+        optionflags=oflags),
+        layer=SEARCH_REPLACE_FUNCTIONAL_LAYER)
 
-    searchavailabletest = FunctionalDocFileSuite(
+    searchavailabletest = layered(doctest.DocFileSuite(
         'tests/searchavailable.txt',
-        package=prod,
-        test_class=SearchAndReplaceFunctionalTestCase,
-        optionflags=oflags)
+        package='collective.searchandreplace',
+        optionflags=oflags),
+        layer=SEARCH_REPLACE_FUNCTIONAL_LAYER)
 
-    suite.addTests((basicsearchtest, searchavailabletest))
+    suite.addTests([
+        basicsearchtest,
+        searchavailabletest,
+    ])
 
     return suite
