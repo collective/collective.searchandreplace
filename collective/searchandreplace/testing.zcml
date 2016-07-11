@@ -1,0 +1,27 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:five="http://namespaces.zope.org/five"
+   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+   xmlns:zcml="http://namespaces.zope.org/zcml">
+
+  <configure zcml:condition="installed Products.Archetypes">
+    <five:registerPackage package="." initialize=".tests.archetypes.initialize_archetypes_testing" />
+    <class class=".tests.archetypes.SampleType">
+      <implements interface="collective.searchandreplace.interfaces.ISearchReplaceable" />
+    </class>
+    <genericsetup:registerProfile
+        name="testing-archetypes"
+        directory="profiles/testing-archetypes"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+  </configure>
+
+  <configure zcml:condition="installed plone.dexterity">
+    <genericsetup:registerProfile
+        name="testing-dexterity"
+        directory="profiles/testing-dexterity"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+  </configure>
+
+</configure>

@@ -61,3 +61,85 @@ class TestMatchCase(unittest.TestCase):
             # searchItems=paths
         )
         self.assertEqual(len(results), 1)
+
+
+class TestMultipleMatchCase(unittest.TestCase):
+    """Ensure that multiple matches work."""
+
+    layer = SEARCH_REPLACE_INTEGRATION_LAYER
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+        self.srutil = getUtility(ISearchReplaceUtility)
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.portal.invokeFactory('Document', 'doc1')
+        self.doc1 = getattr(self.portal, 'doc1')
+        edit_content(self.doc1,
+                     title='Test test Test test',
+                     text='Test test\nTest test')
+
+    def testSearchCase(self):
+        results = self.srutil.searchObjects(
+            self.portal,
+            'Test',
+            replaceText='Bike',
+            matchCase=True,
+        )
+        self.assertEqual(len(results), 4)
+        # title field, first match
+        self.assertEqual(results[0]['line'], 'title')
+        self.assertEqual(results[0]['pos'], '0')
+        # title field, second match
+        self.assertEqual(results[1]['line'], 'title')
+        self.assertEqual(results[1]['pos'], '10')
+        # text field, line 1
+        self.assertEqual(results[2]['line'], 'text 1')
+        self.assertEqual(results[2]['pos'], '0')
+        # text field, line 2
+        self.assertEqual(results[3]['line'], 'text 2')
+        self.assertEqual(results[3]['pos'], '10')
+
+    def testSearchNoCase(self):
+        results = self.srutil.searchObjects(
+            self.portal,
+            'Test',
+            replaceText='Bike',
+            matchCase=False,
+        )
+        self.assertEqual(len(results), 8)
+
+    def testReplaceAll(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
+        results = self.srutil.searchObjects(
+            self.portal,
+            'Test',
+            replaceText='Bike',
+            matchCase=True,
+            doReplace=True,
+        )
+        self.assertEqual(results, 4)
+        self.assertEqual(self.doc1.Title(), 'Bike test Bike test')
+        self.assertEqual(getRawText(self.doc1), 'Bike test\nBike test')
+
+    def testReplacePaths(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
+        path = '/'.join(self.doc1.getPhysicalPath())
+        paths = {
+            path: {
+                # Replace two positions from title
+                'title': [0, 10],
+                # Replace two positions from text
+                'text': [5, 15],
+            }
+        }
+        results = self.srutil.searchObjects(
+            self.portal,
+            'Test',
+            replaceText='Bike',
+            matchCase=False,
+            doReplace=True,
+            searchItems=paths,
+        )
+        self.assertEqual(results, 4)
+        self.assertEqual(self.doc1.Title(), 'Bike test Bike test')
+        self.assertEqual(getRawText(self.doc1), 'Test Bike\nTest Bike')

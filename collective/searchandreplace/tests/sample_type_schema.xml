@@ -1,0 +1,22 @@
+<model xmlns="http://namespaces.plone.org/supermodel/schema"
+       xmlns:marshal="http://namespaces.plone.org/supermodel/marshal"
+       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+       i18n:domain="plone">
+  <schema>
+    <field name="rich" type="plone.app.textfield.RichText">
+      <description />
+      <required>False</required>
+      <title>Rich Text</title>
+    </field>
+    <field name="plain" type="zope.schema.Text">
+      <description />
+      <required>False</required>
+      <title>Plain Text</title>
+    </field>
+    <field name="line" type="zope.schema.TextLine">
+      <description>Textlines are ignored by searchreplace. You need text or richtext.</description>
+      <required>False</required>
+      <title>Text Line</title>
+    </field>
+  </schema>
+</model>

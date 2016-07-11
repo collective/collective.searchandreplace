@@ -22,6 +22,7 @@ class TestReplaceWhere(unittest.TestCase):
         self.srutil = getUtility(ISearchReplaceUtility)
 
     def testReplaceText(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory('Document', 'doc1')
         doc1 = getattr(self.portal, 'doc1')
@@ -30,14 +31,28 @@ class TestReplaceWhere(unittest.TestCase):
             title='Test Title',
             description='Test Description',
             text='Test Case')
-        results = self.srutil.searchObjects(
-            doc1,
-            'test case',
+        self.assertEqual(getRawText(doc1), 'Test Case')
+        # Search it.
+        parameters = dict(
+            context=doc1,
+            find='test case',
             replaceText='foo',
             matchCase=False)
+        results = self.srutil.searchObjects(**parameters)
         self.assertEqual(len(results), 1)
+        self.assertEqual(getRawText(doc1), 'Test Case')
+        # Replace it.
+        parameters['doReplace'] = True
+        results = self.srutil.searchObjects(**parameters)
+        # Note: replacing returns an int, not a list.
+        self.assertEqual(results, 1)
+        self.assertEqual(getRawText(doc1), 'foo')
+        # Other fields are not changed.
+        self.assertEqual(doc1.Title(), 'Test Title')
+        self.assertEqual(doc1.Description(), 'Test Description')
 
     def testReplaceTitle(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory('Document', 'doc2')
         doc1 = getattr(self.portal, 'doc2')
@@ -46,14 +61,27 @@ class TestReplaceWhere(unittest.TestCase):
             title='Test Title',
             description='Test Description',
             text='Test Case')
-        results = self.srutil.searchObjects(
-            doc1,
-            'test title',
+        self.assertEqual(doc1.Title(), 'Test Title')
+        # Search it.
+        parameters = dict(
+            context=doc1,
+            find='test title',
             replaceText='foo',
             matchCase=False)
+        results = self.srutil.searchObjects(**parameters)
         self.assertEqual(len(results), 1)
+        self.assertEqual(doc1.Title(), 'Test Title')
+        # Replace it.
+        parameters['doReplace'] = True
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(results, 1)
+        self.assertEqual(doc1.Title(), 'foo')
+        # Other fields are not changed.
+        self.assertEqual(doc1.Description(), 'Test Description')
+        self.assertEqual(getRawText(doc1), 'Test Case')
 
     def testReplaceDescription(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory('Document', 'doc1')
         doc1 = getattr(self.portal, 'doc1')
@@ -62,12 +90,27 @@ class TestReplaceWhere(unittest.TestCase):
             title='Test Title',
             description='Test Description',
             text='Test Case')
-        results = self.srutil.searchObjects(
-            doc1,
-            'test desc',
+        self.assertEqual(doc1.Description(), 'Test Description')
+        # Search it.
+        parameters = dict(
+            context=doc1,
+            find='test desc',
             replaceText='foo',
             matchCase=False)
+        results = self.srutil.searchObjects(**parameters)
         self.assertEqual(len(results), 1)
+        self.assertEqual(doc1.Description(), 'Test Description')
+
+        # Replace it.
+        parameters['doReplace'] = True
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(results, 1)
+        # Note: we have replaced only part of the description.
+        self.assertEqual(doc1.Description(), 'fooription')
+
+        # Other fields are not changed.
+        self.assertEqual(doc1.Title(), 'Test Title')
+        self.assertEqual(getRawText(doc1), 'Test Case')
 
     def testReplaceOnlyEditableContent(self):
         # setRoles(self.portal, TEST_USER_ID, ['Manager'])
@@ -112,14 +155,83 @@ class TestReplaceWhere(unittest.TestCase):
         logout()
         login(self.portal, TEST_USER_NAME)
         # Now we can edit less: only the sub folder and sub doc.
-        results = self.srutil.searchObjects(
-            mainfolder,
-            'test title',
+        parameters = dict(
+            context=mainfolder,
+            find='test title',
             replaceText='foo',
             matchCase=False)
+        results = self.srutil.searchObjects(**parameters)
         self.assertEqual(len(results), 2)
         paths = [x['path'] for x in results]
         self.assertIn('/'.join(subfolder.getPhysicalPath()), paths)
         self.assertIn('/'.join(subdoc.getPhysicalPath()), paths)
         self.assertNotIn('/'.join(mainfolder.getPhysicalPath()), paths)
         self.assertNotIn('/'.join(maindoc.getPhysicalPath()), paths)
+
+        # Nothing has been changed, because we were only searching.
+        self.assertEqual(mainfolder.Title(), 'Test Title')
+        self.assertEqual(maindoc.Title(), 'Test Title')
+        self.assertEqual(subfolder.Title(), 'Test Title')
+        self.assertEqual(subfolder.Title(), 'Test Title')
+
+        # Now replace instead of only searching.
+        parameters['doReplace'] = True
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(results, 2)
+        self.assertEqual(mainfolder.Title(), 'Test Title')
+        self.assertEqual(maindoc.Title(), 'Test Title')
+        self.assertEqual(subfolder.Title(), 'foo')
+        self.assertEqual(subfolder.Title(), 'foo')
+
+    def testReplaceAllTextFields(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        # Note: we use are sample type here, which has extra fields.
+        # This currently is Archetypes when testing on Plone 4,
+        # and Dexterity when testing on Plone 5.
+        self.portal.invokeFactory('SampleType', 'doc1')
+        doc1 = getattr(self.portal, 'doc1')
+        edit_content(
+            doc1,
+            title='Test Title',
+            description='Test Description',
+            rich='Test Rich',
+            plain='Test Plain',
+            line='Test Line')
+
+        # Test the initial values.
+        self.assertEqual(doc1.Title(), 'Test Title')
+        self.assertEqual(doc1.Description(), 'Test Description')
+        self.assertEqual(getRawText(doc1, 'rich'), 'Test Rich')
+        self.assertEqual(getRawText(doc1, 'plain'), 'Test Plain')
+        self.assertEqual(getRawText(doc1, 'line'), 'Test Line')
+
+        # Search it.
+        parameters = dict(
+            context=doc1,
+            find='Test',
+            replaceText='Foo',
+            matchCase=False)
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(len(results), 4)
+
+        # Nothing should have changed.
+        self.assertEqual(doc1.Title(), 'Test Title')
+        self.assertEqual(doc1.Description(), 'Test Description')
+        self.assertEqual(getRawText(doc1, 'rich'), 'Test Rich')
+        self.assertEqual(getRawText(doc1, 'plain'), 'Test Plain')
+        self.assertEqual(getRawText(doc1, 'line'), 'Test Line')
+
+        # Replace it.
+        parameters['doReplace'] = True
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(results, 4)
+
+        # Most fields should have changed.
+        self.assertEqual(doc1.Title(), 'Foo Title')
+        self.assertEqual(doc1.Description(), 'Foo Description')
+        self.assertEqual(getRawText(doc1, 'rich'), 'Foo Rich')
+        self.assertEqual(getRawText(doc1, 'plain'), 'Foo Plain')
+
+        # But not the textline field.
+        self.assertEqual(getRawText(doc1, 'line'), 'Test Line')
