@@ -88,6 +88,8 @@ class SearchReplaceUtility(object):
         settings = registry.forInterface(ISearchReplaceSettings, check=False)
         if settings.restrict_searchable_types:
             parameters['portal_type'] = settings.enabled_types
+        if settings.only_searchable_text:
+            parameters['SearchableText'] = '*{0}*'.format(find)
         brains = catalog(**parameters)
         memship = getToolByName(context, 'portal_membership')
         checkPermission = memship.checkPermission

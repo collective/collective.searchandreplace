@@ -27,6 +27,21 @@ class ISearchReplaceSettings(Interface):
     """Control panel settings for search and replace.
     """
 
+    only_searchable_text = schema.Bool(
+        title=_(u'Use the catalog to search.'),
+        description=_(
+            u'Use the SearchableText catalog index to search for content. '
+            'That is how the standard search form works '
+            'and this is the fastest way.'
+            'Note that not all text fields end up in the catalog, '
+            'so if not checked, you may find more content, '
+            'but it will be slower. '
+            'Regardless of this setting, when a match is found , '
+            'text in all text fields may be replaced.'),
+        required=False,
+        default=True,
+    )
+
     restrict_searchable_types = schema.Bool(
         title=_(u'Restrict the enabled types.'),
         description=_(

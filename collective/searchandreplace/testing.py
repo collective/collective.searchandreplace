@@ -22,6 +22,8 @@ class SearchReplaceLayer(PloneSandboxLayer):
         if MAJOR_PLONE_VERSION >= 5:
             import plone.app.contenttypes
             self.loadZCML(package=plone.app.contenttypes)
+            import collective.dexteritytextindexer
+            self.loadZCML(package=collective.dexteritytextindexer)
         else:
             # Needed for our Archetypes SampleType.
             z2.installProduct(app, 'collective.searchandreplace')
@@ -29,6 +31,7 @@ class SearchReplaceLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         if MAJOR_PLONE_VERSION >= 5:
             applyProfile(portal, 'plone.app.contenttypes:default')
+            applyProfile(portal, 'collective.dexteritytextindexer')
             applyProfile(
                 portal, 'collective.searchandreplace:testing-dexterity')
         else:
@@ -99,3 +102,4 @@ def edit_content(context, title=None, description=None, text=None,
             context.setPlain(plain)
         if line is not None:
             context.setLine(line)
+    context.reindexObject()
