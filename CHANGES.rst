@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.0.5 (unreleased)
-------------------
+7.0 (unreleased)
+----------------
 
 - Search and replace in all text fields.  Removed special cases for
   Description and Text/Body field: these are handled the same as other
