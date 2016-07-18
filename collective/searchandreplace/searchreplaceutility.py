@@ -3,6 +3,7 @@
 import logging
 import re
 from Acquisition import aq_parent, aq_base
+from Products.Archetypes.interfaces import ITextField
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
@@ -10,11 +11,24 @@ from collective.searchandreplace import SearchAndReplaceMessageFactory as _
 from collective.searchandreplace.interfaces import ISearchReplaceable
 from plone.app.layout.navigation.defaultpage import isDefaultPage
 from plone.app.textfield import RichTextValue
+from plone.dexterity.utils import iterSchemata
+from plone.app.textfield.interfaces import IRichText
+from zope.schema import getFieldsInOrder
+from zope.schema.interfaces import IText
+from zope.schema.interfaces import ITextLine
+
 
 logger = logging.getLogger('collective.searchreplace')
 searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
 searchinterfaces = [
     'collective.searchandreplace.interfaces.ISearchReplaceable',
+]
+# List of text fields that are handled separately, instead of together with all
+# text fields.  Note that 'title' is a string field, so we handle it
+# separately, being the only string field that we want to change.  But we list
+# it here to be on the safe side.
+CUSTOM_HANDLED_TEXT_FIELDS = [
+    'title',
 ]
 
 
@@ -133,65 +147,59 @@ class SearchReplaceUtility(object):
         """ Replace text in objects """
         replaced = 0
         # rtext is already unicode
+        base_obj = aq_base(obj)
         if mobjs:
             # Replace only the objects specified in mobjs
-            if 'title' in mobjs:
-                title = _to_unicode(obj.aq_base.Title())
+            title_positions = mobjs.pop('title', None)
+            if title_positions is not None:
+                title = _to_unicode(base_obj.Title())
                 result = self._replaceText(matcher,
                                            title,
                                            rtext,
-                                           mobjs['title'])
+                                           title_positions)
                 if result[0]:
                     replaced += result[0]
-                    obj.aq_base.setTitle(result[1])
-            if 'description' in mobjs:
-                desc = self._getDesc(obj)
-                if desc:
+                    base_obj.setTitle(result[1])
+            # Handle general text fields.
+            for fieldname, positions in mobjs.items():
+                text = self._getRawText(obj, fieldname)
+                if text:
                     result = self._replaceText(matcher,
-                                               desc,
+                                               text,
                                                rtext,
-                                               mobjs['description'])
+                                               positions)
                     if result[0]:
                         replaced += result[0]
-                        obj.aq_base.setDescription(result[1])
-            if 'body' in mobjs:
-                body = self._getRawText(obj)
-                if body:
-                    result = self._replaceText(matcher,
-                                               body,
-                                               rtext,
-                                               mobjs['body'])
-                    if result[0]:
-                        replaced += result[0]
-                        self._setText(obj, result[1])
+                        self._setTextField(obj, fieldname, result[1])
         else:
             # Replace all occurences
-            title = _to_unicode(obj.aq_base.Title())
+            try:
+                title = _to_unicode(base_obj.Title())
+            except AttributeError:
+                # Title might be acquired from parent for some types, which
+                # breaks now that we have stripped away the acquisition chain
+                # with aq_base.
+                title = u''
             result = self._replaceText(matcher,
                                        title,
                                        rtext,
                                        None)
             if result[0]:
                 replaced += result[0]
-                obj.aq_base.setTitle(result[1])
-            desc = self._getDesc(obj)
-            if desc:
+                base_obj.setTitle(result[1])
+            text_fields = self._getTextFields(obj)
+            for field in text_fields:
+                text = self._getRawTextField(obj, field)
+                if not text:
+                    continue
                 result = self._replaceText(matcher,
-                                           desc,
+                                           text,
                                            rtext,
                                            None)
                 if result[0]:
                     replaced += result[0]
-                    obj.setDescription(result[1])
-            body = self._getRawText(obj)
-            if body:
-                result = self._replaceText(matcher,
-                                           body,
-                                           rtext,
-                                           None)
-                if result[0]:
-                    replaced += result[0]
-                    self._setText(obj, result[1])
+                    self._setTextField(obj, field.__name__, result[1])
+
         # don't have to utf-8 encoding
         if replaced:
             obj.reindexObject()
@@ -217,7 +225,14 @@ class SearchReplaceUtility(object):
         """ Find location of search strings """
         results = []
         path = '/'.join(obj.getPhysicalPath())
-        title = _to_unicode(obj.aq_base.Title())
+        base = aq_base(obj)
+        try:
+            title = _to_unicode(base.Title())
+        except AttributeError:
+            # Title might be acquired from parent for some types, which breaks
+            # now that we have stripped away the acquisition chain with
+            # aq_base.
+            title = u''
         mobj = matcher.finditer(title)
         for x in mobj:
             start, end = x.span()
@@ -229,62 +244,92 @@ class SearchReplaceUtility(object):
                 'text': self._getLinePreview(title,
                                              start,
                                              end), })
-        desc = self._getDesc(obj)
-        if desc:
-            mobj = matcher.finditer(desc)
-            for x in mobj:
-                start, end = x.span()
-                results.append({
-                    'path': path,
-                    'url': obj.absolute_url(),
-                    'line': 'description',
-                    'pos': '%d' % start,
-                    'text': self._getLinePreview(desc,
-                                                 start,
-                                                 end), })
-        text = self._getRawText(obj)
-        if text:
-            mobj = matcher.finditer(text)
-            for x in mobj:
-                start, end = x.span()
-                results.append({
-                    'path': path,
-                    'url': obj.absolute_url(),
-                    'line': '%d' % self._getLineNumber(text,
-                                                       start),
-                    'pos': '%d' % start,
-                    'text': self._getLinePreview(text,
-                                                 start,
-                                                 end), })
+        text_fields = self._getTextFields(obj)
+        if text_fields:
+            for field in text_fields:
+                text = self._getRawTextField(obj, field)
+                if not text:
+                    continue
+                mobj = matcher.finditer(text)
+                for x in mobj:
+                    start, end = x.span()
+                    results.append({
+                        'path': path,
+                        'url': obj.absolute_url(),
+                        'line': '%s %d' % (field.__name__,
+                                           self._getLineNumber(text, start)),
+                        'pos': '%d' % start,
+                        'text': self._getLinePreview(text,
+                                                     start,
+                                                     end), })
         return results
 
-    def _getDesc(self, obj):
-        if hasattr(obj.aq_base, 'getRawDescription'):
-            desc = obj.aq_base.getRawDescription()
+    def _getTextFields(self, obj):
+        # Get all text fields, except ones that are handled separately.
+        text_fields = []
+        if getattr(aq_base(obj), 'Schema', None):
+            # Archetypes
+            for field in obj.Schema().values():
+                if field.__name__ in CUSTOM_HANDLED_TEXT_FIELDS:
+                    continue
+                if not ITextField.providedBy(field):
+                    continue
+                text_fields.append(field)
         else:
-            desc = getattr(obj.aq_base, 'description', u'')
-        return _to_unicode(desc)
+            # Dexterity
+            for schemata in iterSchemata(obj):
+                fields = getFieldsInOrder(schemata)
+                for name, field in fields:
+                    if name in CUSTOM_HANDLED_TEXT_FIELDS:
+                        continue
+                    if IRichText.providedBy(field):
+                        text_fields.append(field)
+                        continue
+                    # ITextLine inherits from IText.
+                    # We want to replace in texts, but not textlines.
+                    # Maybe this can be made configurable.
+                    if ITextLine.providedBy(field):
+                        continue
+                    if not IText.providedBy(field):
+                        continue
+                    text_fields.append(field)
+        return text_fields
 
-    def _getRawText(self, obj):
-        text = None
+    def _getField(self, obj, fieldname):
+        return getField(obj, fieldname)
+
+    def _getRawTextField(self, obj, field):
+        return getRawTextField(obj, field)
+
+    def _getRawText(self, obj, fieldname):
+        return getRawText(obj, fieldname)
+
+    def _setTextField(self, obj, fieldname, text):
         obj = aq_base(obj)
-        if hasattr(obj, 'getText'):
-            baseunit = obj.getField('text').getRaw(obj, raw=True)
-            if isinstance(baseunit.raw, unicode):
-                text = baseunit.raw
-            else:
-                text = _to_unicode(obj.aq_base.getRawText())
-        elif hasattr(obj, 'text') and hasattr(obj.text, 'raw'):
-            text = _to_unicode(obj.text.raw)
-        return text
-
-    def _setText(self, obj, text):
-        obj = obj.aq_base
-        if hasattr(obj, 'setText'):
-            obj.setText(text)
+        if getattr(obj, 'Schema', None):
+            # Archetypes
+            field = obj.getField(fieldname)
+            if field is None:
+                logger.warn('Field %s not found for %s',
+                            fieldname, obj.getId())
+                return
+            field.set(obj, text)
         else:
-            obj.text = RichTextValue(
-                text, obj.text.mimeType, obj.text.outputMimeType)
+            # Dexterity
+            field = self._getField(obj, fieldname)
+            if field is None:
+                logger.warn('Field %s not found for %s',
+                            fieldname, obj.getId())
+                return
+            if IRichText.providedBy(field):
+                # Get mimetype from old value.
+                old = field.get(obj)
+                if old is None:
+                    text = RichTextValue(text)
+                else:
+                    text = RichTextValue(
+                        text, old.mimeType, old.outputMimeType)
+            field.set(obj, text)
 
     def _getLineNumber(self, text, index):
         return text.count('\n', 0, index) + 1
@@ -311,19 +356,64 @@ class SearchReplaceUtility(object):
             try:
                 line, pos, path = x.split(':')
             except ValueError:
-                break
+                continue
             if path not in itemd:
                 itemd[path] = {}
             if 'title' == line:
                 if 'title' not in itemd[path]:
                     itemd[path]['title'] = []
                 itemd[path]['title'].append(int(pos))
-            elif 'description' == line:
-                if 'description' not in itemd[path]:
-                    itemd[path]['description'] = []
-                itemd[path]['description'].append(int(pos))
-            else:
-                if 'body' not in itemd[path]:
-                    itemd[path]['body'] = []
-                itemd[path]['body'].append(int(pos))
+            elif ' ' in line:
+                try:
+                    fieldname, line_number = line.split(' ')
+                except ValueError:
+                    continue
+                if fieldname not in itemd[path]:
+                    itemd[path][fieldname] = []
+                itemd[path][fieldname].append(int(pos))
         return itemd
+
+
+def getField(obj, fieldname):
+    obj = aq_base(obj)
+    if getattr(obj, 'Schema', None):
+        # Archetypes
+        return obj.getField(fieldname)
+    # Dexterity
+    for schemata in iterSchemata(obj):
+        fields = getFieldsInOrder(schemata)
+        for name, field in fields:
+            if name == fieldname:
+                return field
+
+
+def getRawTextField(obj, field):
+    text = None
+    obj = aq_base(obj)
+    if hasattr(field, 'getRaw'):
+        # Archetypes
+        baseunit = field.getRaw(obj, raw=True)
+        if isinstance(baseunit, tuple):
+            #  LinesField
+            text = '\n'.join(baseunit)
+        elif isinstance(baseunit.raw, unicode):
+            text = baseunit.raw
+        else:
+            text = _to_unicode(field.getRaw(obj))
+    else:
+        # Dexterity
+        baseunit = field.get(obj)
+        if baseunit is None:
+            text = u''
+        else:
+            # Rich text has a raw attribute, plain text simply has text
+            # (unicode).
+            text = getattr(baseunit, 'raw', baseunit)
+    return text
+
+
+def getRawText(obj, fieldname='text'):
+    field = getField(obj, fieldname)
+    if field is None:
+        return u''
+    return getRawTextField(obj, field)

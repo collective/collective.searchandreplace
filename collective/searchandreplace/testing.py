@@ -18,16 +18,25 @@ class SearchReplaceLayer(PloneSandboxLayer):
     def setUpZope(self, app, configurationContext):
         import collective.searchandreplace
         self.loadZCML(package=collective.searchandreplace)
-        z2.installProduct(app, 'collective.searchandreplace')
+        self.loadZCML('testing.zcml', package=collective.searchandreplace)
         if MAJOR_PLONE_VERSION >= 5:
             import plone.app.contenttypes
             self.loadZCML(package=plone.app.contenttypes)
+        else:
+            # Needed for our Archetypes SampleType.
+            z2.installProduct(app, 'collective.searchandreplace')
 
     def setUpPloneSite(self, portal):
         if MAJOR_PLONE_VERSION >= 5:
             applyProfile(portal, 'plone.app.contenttypes:default')
             # Ah we need to apply our dexterity profile!
             applyProfile(portal, 'collective.searchandreplace:dexterity')
+            applyProfile(
+                portal, 'collective.searchandreplace:testing-dexterity')
+        else:
+            applyProfile(
+                portal, 'collective.searchandreplace:testing-archetypes')
+
         applyProfile(portal, 'collective.searchandreplace:default')
         setRoles(portal, TEST_USER_ID, ['Manager'])
         create_doc(portal, text=u'Get Plone now')
@@ -43,38 +52,52 @@ SEARCH_REPLACE_FUNCTIONAL_LAYER = FunctionalTesting(
     name='SearchReplaceLayer:Functional')
 
 
+def rich_text(text):
+    if MAJOR_PLONE_VERSION < 5:
+        # Use standard Archetypes field.
+        return text
+    # Use dexterity text field.
+    from plone.app.textfield.value import RichTextValue
+    return RichTextValue(
+        raw=text,
+        mimeType='text/html',
+        outputMimeType='text/html',
+    )
+
+
 def create_doc(container, id='page', title=u'Title of page', text=u''):
-    if MAJOR_PLONE_VERSION >= 5:
-        # dexterity text field
-        from plone.app.textfield.value import RichTextValue
-        text = RichTextValue(
-            raw=text,
-            mimeType='text/html',
-            outputMimeType='text/html',
-        )
+    text = rich_text(text)
     api.content.create(container, 'Document', id=id, title=title,
                        text=text)
 
 
-def edit_content(context, title=None, description=None, text=None):
+def edit_content(context, title=None, description=None, text=None,
+                 rich=None, plain=None, line=None):
     if MAJOR_PLONE_VERSION >= 5:
+        # Dexterity
         if title is not None:
             context.title = title
         if description is not None:
             context.description = description
         if text is not None:
-            # dexterity text field
-            from plone.app.textfield.value import RichTextValue
-            text = RichTextValue(
-                raw=text,
-                mimeType='text/html',
-                outputMimeType='text/html',
-            )
-            context.text = text
+            context.text = rich_text(text)
+        if rich is not None:
+            context.rich = rich_text(rich)
+        if plain is not None:
+            context.plain = plain
+        if line is not None:
+            context.line = line
     else:
+        # Archetypes
         if title is not None:
             context.setTitle(title)
         if description is not None:
             context.setDescription(description)
         if text is not None:
             context.setText(text)
+        if rich is not None:
+            context.setRich(rich)
+        if plain is not None:
+            context.setPlain(plain)
+        if line is not None:
+            context.setLine(line)

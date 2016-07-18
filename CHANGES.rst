@@ -4,6 +4,11 @@ Changelog
 6.0.5 (unreleased)
 ------------------
 
+- Search and replace in all text fields.  Removed special cases for
+  Description and Text/Body field: these are handled the same as other
+  text fields now.  TextLine fields and StringFields are ignored,
+  except for the Title field.  [maurits]
+
 - Ported tests to plone.app.testing.  [maurits]
 
 - Fixed Travis (continuous integration) test setup for Plone 5.  [maurits]
