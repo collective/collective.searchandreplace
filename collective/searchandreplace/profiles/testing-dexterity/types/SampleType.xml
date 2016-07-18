@@ -19,6 +19,7 @@
   <property name="behaviors" purge="false">
     <element value="plone.app.content.interfaces.INameFromTitle"/>
     <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
+   <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
   </property>
   <alias from="(Default)" to="(dynamic view)"/>
   <alias from="edit" to="@@edit"/>

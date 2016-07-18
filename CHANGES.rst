@@ -4,6 +4,10 @@ Changelog
 7.0 (unreleased)
 ----------------
 
+- Added option in form to use fast search.  By default this is
+  checked.  This means we use the catalog, instead of waking up every
+  object in the path.  [maurits]
+
 - Removed ``ISearchReplaceable`` behavior.  This was introduced in version 6.
   Kept the interface for backwards compatibility, but it is not used anymore.
   Instead, by default all types are searched and replaced.

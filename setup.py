@@ -69,6 +69,7 @@ setup(
     ],
     extras_require={
         'test': [
+            'collective.dexteritytextindexer',
             'plone.app.testing',
             'plone.api',
         ],

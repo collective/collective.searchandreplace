@@ -22,6 +22,8 @@ class SearchReplaceLayer(PloneSandboxLayer):
         if MAJOR_PLONE_VERSION >= 5:
             import plone.app.contenttypes
             self.loadZCML(package=plone.app.contenttypes)
+            import collective.dexteritytextindexer
+            self.loadZCML(package=collective.dexteritytextindexer)
         else:
             # Needed for our Archetypes SampleType.
             z2.installProduct(app, 'collective.searchandreplace')
@@ -70,7 +72,7 @@ def create_doc(container, id='page', title=u'Title of page', text=u''):
 
 
 def edit_content(context, title=None, description=None, text=None,
-                 rich=None, plain=None, line=None):
+                 rich=None, plain=None, line=None, unsearchable=None):
     if MAJOR_PLONE_VERSION >= 5:
         # Dexterity
         if title is not None:
@@ -85,6 +87,8 @@ def edit_content(context, title=None, description=None, text=None,
             context.plain = plain
         if line is not None:
             context.line = line
+        if unsearchable is not None:
+            context.unsearchable = rich_text(unsearchable)
     else:
         # Archetypes
         if title is not None:
@@ -99,3 +103,6 @@ def edit_content(context, title=None, description=None, text=None,
             context.setPlain(plain)
         if line is not None:
             context.setLine(line)
+        if unsearchable is not None:
+            context.setUnsearchable(unsearchable)
+    context.reindexObject()
