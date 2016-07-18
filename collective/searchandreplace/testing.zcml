@@ -6,9 +6,6 @@
 
   <configure zcml:condition="installed Products.Archetypes">
     <five:registerPackage package="." initialize=".tests.archetypes.initialize_archetypes_testing" />
-    <class class=".tests.archetypes.SampleType">
-      <implements interface="collective.searchandreplace.interfaces.ISearchReplaceable" />
-    </class>
     <genericsetup:registerProfile
         name="testing-archetypes"
         directory="profiles/testing-archetypes"

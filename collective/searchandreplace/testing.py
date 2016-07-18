@@ -29,8 +29,6 @@ class SearchReplaceLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         if MAJOR_PLONE_VERSION >= 5:
             applyProfile(portal, 'plone.app.contenttypes:default')
-            # Ah we need to apply our dexterity profile!
-            applyProfile(portal, 'collective.searchandreplace:dexterity')
             applyProfile(
                 portal, 'collective.searchandreplace:testing-dexterity')
         else:

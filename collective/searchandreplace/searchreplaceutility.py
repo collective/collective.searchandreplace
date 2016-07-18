@@ -1,28 +1,27 @@
 # -*- coding: us-ascii -*-
 
-import logging
-import re
-from Acquisition import aq_parent, aq_base
+from Acquisition import aq_base
+from Acquisition import aq_parent
+from collective.searchandreplace.interfaces import ISearchReplaceSettings
+from plone.app.layout.navigation.defaultpage import isDefaultPage
+from plone.app.textfield import RichTextValue
+from plone.app.textfield.interfaces import IRichText
+from plone.dexterity.utils import iterSchemata
+from plone.registry.interfaces import IRegistry
 from Products.Archetypes.interfaces import ITextField
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
-from Products.statusmessages.interfaces import IStatusMessage
-from collective.searchandreplace import SearchAndReplaceMessageFactory as _
-from collective.searchandreplace.interfaces import ISearchReplaceable
-from plone.app.layout.navigation.defaultpage import isDefaultPage
-from plone.app.textfield import RichTextValue
-from plone.dexterity.utils import iterSchemata
-from plone.app.textfield.interfaces import IRichText
+from zope.component import getUtility
 from zope.schema import getFieldsInOrder
 from zope.schema.interfaces import IText
 from zope.schema.interfaces import ITextLine
 
+import logging
+import re
+
 
 logger = logging.getLogger('collective.searchreplace')
 searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
-searchinterfaces = [
-    'collective.searchandreplace.interfaces.ISearchReplaceable',
-]
 # List of text fields that are handled separately, instead of together with all
 # text fields.  Note that 'title' is a string field, so we handle it
 # separately, being the only string field that we want to change.  But we list
@@ -84,34 +83,21 @@ class SearchReplaceUtility(object):
         if isDefaultPage(container, context) and ssf:
             query['query'] = '/'.join(container.getPhysicalPath())
         catalog = getToolByName(context, 'portal_catalog')
-        brains = catalog(
-            path=query,
-            object_provides=searchinterfaces,
-        )
+        parameters = dict(path=query)
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISearchReplaceSettings, check=False)
+        if settings.restrict_searchable_types:
+            parameters['portal_type'] = settings.enabled_types
+        brains = catalog(**parameters)
         memship = getToolByName(context, 'portal_membership')
         checkPermission = memship.checkPermission
         # Match objects
         results = []
         replaced = 0
-        outdated_catalog = False
         for b in brains:
             ipath = b.getPath()
             if not sitems or ipath in sitems:
                 obj = b.getObject()
-                if not ISearchReplaceable.providedBy(obj):
-                    # Warn about this once.
-                    if not outdated_catalog:
-                        outdated_catalog = True
-                        msg = _(
-                            'Item found that does not implement '
-                            'ISearchReplaceable. You should reindex the '
-                            'object_provides index of the portal_catalog.')
-                        logger.warn(msg)
-                        request = getattr(context, 'REQUEST', None)
-                        if request is not None:
-                            IStatusMessage(request).addStatusMessage(
-                                msg, type='warn')
-                    continue
                 # Does the user have the modify permission on this object?
                 if not checkPermission(ModifyPortalContent, obj):
                     continue
