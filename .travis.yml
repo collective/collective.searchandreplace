@@ -1,9 +1,12 @@
 sudo: false
 language: python
+cache:
+  directories:
+  - buildout-cache
 python: 2.7
 env:
-  - PLONE_VERSION="4"
-  - PLONE_VERSION="5"
+  - PLONE_VERSION=4
+  - PLONE_VERSION=5
 install:
   - mkdir -p buildout-cache/downloads
   - python bootstrap.py -c travis-${PLONE_VERSION}.cfg
