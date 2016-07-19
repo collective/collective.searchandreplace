@@ -64,7 +64,7 @@ class ISearchReplaceForm(Interface):
             'You might have some text fields that are not found this way, '
             'so if not checked, you may find more content, '
             'but it will be slower. '
-            'Regardless of this setting, when at least one match is found , '
+            'Regardless of this setting, when at least one match is found, '
             'text in all text fields may be replaced.'),
         required=False,
         default=True,

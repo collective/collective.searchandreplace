@@ -149,7 +149,7 @@ msgid "The maximum number of characters to show before and after the found text.
 msgstr "Maximum aantal karakters om te tonen voor en na de gevonden tekst."
 
 #: ./browser/searchreplaceform.py:61
-msgid "Use the catalog to search, just like the search form does. This only finds keywords, not html tags. You might have some text fields that are not found this way, so if not checked, you may find more content, but it will be slower. Regardless of this setting, when at least one match is found , text in all text fields may be replaced."
+msgid "Use the catalog to search, just like the search form does. This only finds keywords, not html tags. You might have some text fields that are not found this way, so if not checked, you may find more content, but it will be slower. Regardless of this setting, when at least one match is found, text in all text fields may be replaced."
 msgstr "Gebruik de catalogus om te zoeken, net zoals het zoekformulier doet. Dit vindt alleen woorden, geen html tags. Er kunnen tekstvelden zijn die op deze manier niet gevonden worden, dus als deze optie niet aangevinkt is, zou je meer inhoud kunnen vinden, maar het is langzamer. Ongeacht deze instelling: als minstens één overeenkomst is gevonden in een document, worden alle tekstvelden doorzocht."
 
 #: ./interfaces.py:41
