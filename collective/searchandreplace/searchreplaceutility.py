@@ -41,6 +41,9 @@ def _to_unicode(s):
 class SearchReplaceUtility(object):
     """ Search and replace utility. """
 
+    # Permission to check before modifying content.
+    permission = ModifyPortalContent
+
     def searchObjects(self, context, find, **kwargs):
         """ Search objects and optionally do a replace. """
         # Get search parameters
@@ -106,7 +109,7 @@ class SearchReplaceUtility(object):
                     logger.warn('getObject failed for %s', ipath)
                     continue
                 # Does the user have the modify permission on this object?
-                if not checkPermission(ModifyPortalContent, obj):
+                if not checkPermission(self.permission, obj):
                     continue
                 # If there is a filtered list of items, and it
                 # is in the list, or if there is no filter
