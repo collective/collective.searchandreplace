@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: collective.searchandreplace 3.2\n"
 "POT-Creation-Date: 2016-07-19 14:24+0000\n"
-"PO-Revision-Date: 2015-06-15 16:26+0200\n"
+"PO-Revision-Date: 2016-07-19 16:35+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederland <plone-plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "Vul de tekst in om de oorspronkelijke tekst mee te vervangen."
 
 #: ./browser/searchreplaceform.py:60
 msgid "Fast search"
-msgstr ""
+msgstr "Snel zoeken"
 
 #: ./browser/searchreplaceform.py:25
 msgid "Find What"
@@ -50,7 +50,7 @@ msgstr "Vind wat"
 
 #: ./interfaces.py:32
 msgid "If checked, only the enabled types are searched, otherwise all types are searched."
-msgstr ""
+msgstr "Als deze optie is aangevinkt, worden alleen de ingeschakelde types doorzocht, anders worden alle types doorzocht."
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 #: ./browser/searchreplaceform.py:46
@@ -67,7 +67,7 @@ msgstr "Regel"
 
 #: ./interfaces.py:40
 msgid "List of types that are searched."
-msgstr ""
+msgstr "Lijst van types die doorzocht worden."
 
 #: ./browser/searchreplaceform.py:54
 msgid "Match Case"
@@ -103,7 +103,7 @@ msgstr "Reset"
 
 #: ./interfaces.py:31
 msgid "Restrict the enabled types."
-msgstr ""
+msgstr "Beperkt de ingeschakelde types."
 
 #: ./browser/searchreplaceform.py:45
 msgid "Search Subfolders"
@@ -116,7 +116,7 @@ msgstr "Zoek en vervang"
 #: ./browser/controlpanel.py:16
 #: ./profiles/default/controlpanel.xml
 msgid "Search and Replace settings"
-msgstr ""
+msgstr "Zoek en vervang-instellingen"
 
 #. Default: "Search and Replace text"
 #: ./profiles/default/actions.xml
@@ -150,11 +150,11 @@ msgstr "Maximum aantal karakters om te tonen voor en na de gevonden tekst."
 
 #: ./browser/searchreplaceform.py:61
 msgid "Use the catalog to search, just like the search form does. This only finds keywords, not html tags. You might have some text fields that are not found this way, so if not checked, you may find more content, but it will be slower. Regardless of this setting, when at least one match is found , text in all text fields may be replaced."
-msgstr ""
+msgstr "Gebruik de catalogus om te zoeken, net zoals het zoekformulier doet. Dit vindt alleen woorden, geen html tags. Er kunnen tekstvelden zijn die op deze manier niet gevonden worden, dus als deze optie niet aangevinkt is, zou je meer inhoud kunnen vinden, maar het is langzamer. Ongeacht deze instelling: als minstens één overeenkomst is gevonden in een document, worden alle tekstvelden doorzocht."
 
 #: ./interfaces.py:41
 msgid "When 'Restrict the enable types' is checked, only the selected types are searched. Otherwise this list is ignored."
-msgstr ""
+msgstr "Als 'Beperkt de ingeschakelde types' is aangevinkt, worden alleen de geselecteerde types doorzocht. Anders wordt deze lijst genegeerd."
 
 #: ./configure.zcml:28
 msgid "collective.searchandreplace"
