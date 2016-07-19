@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.searchandreplace 3.2\n"
-"POT-Creation-Date: 2016-07-19 14:50+0000\n"
-"PO-Revision-Date: 2016-07-19 16:51+0200\n"
+"POT-Creation-Date: 2016-07-19 16:34+0000\n"
+"PO-Revision-Date: 2016-07-19 18:34+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederland <plone-plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -100,6 +100,10 @@ msgstr "Vervang"
 #: ./browser/searchreplaceform.py:32
 msgid "Replace With"
 msgstr "Vervang door"
+
+#: ./searchreplaceutility.py:156
+msgid "Replaced: ${old} -> ${new}"
+msgstr "Vervangen: ${old} -> ${new}"
 
 #: ./browser/searchreplaceform.py:146
 msgid "Reset"

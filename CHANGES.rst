@@ -10,7 +10,8 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Save a new version in the repository, when CMFEditions is enabled
+  for the changed type.  [maurits]
 
 Bug fixes:
 
