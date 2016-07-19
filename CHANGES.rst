@@ -14,6 +14,8 @@ New features:
 
 Bug fixes:
 
+- Synced translations, updated Dutch.  [maurits]
+
 - Do not fail when an object from the catalog cannot be found.  Print
   a warning in the logs.  [maurits]
 
