@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: collective.searchandreplace 3.2\n"
 "POT-Creation-Date: 2016-07-19 14:50+0000\n"
-"PO-Revision-Date: 2016-07-19 16:35+0200\n"
+"PO-Revision-Date: 2016-07-19 16:51+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederland <plone-plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,7 @@ msgstr "Maximum aantal karakters"
 
 #: ./browser/searchreplacetable.pt:30
 msgid "Path"
-msgstr ""
+msgstr "Pad"
 
 #: ./browser/searchreplaceform.py:94
 msgid "Preview"
@@ -150,7 +150,7 @@ msgstr "Zoek/Vervang"
 
 #: ./browser/searchreplacetable.pt:20
 msgid "Select all items"
-msgstr ""
+msgstr "Selecteer alle items"
 
 #: ./interfaces.py:62
 msgid "The maximum number of characters to show before and after the found text."
