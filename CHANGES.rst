@@ -4,9 +4,7 @@ Changelog
 7.0 (unreleased)
 ----------------
 
-- Added option in form to use fast search.  By default this is
-  checked.  This means we use the catalog, instead of waking up every
-  object in the path.  [maurits]
+Breaking changes:
 
 - Removed ``ISearchReplaceable`` behavior.  This was introduced in version 6.
   Kept the interface for backwards compatibility, but it is not used anymore.
@@ -26,12 +24,22 @@ Changelog
   This fixes issue https://github.com/collective/collective.searchandreplace/issues/25
   [maurits]
 
+New features:
+
+- Added option in form to use fast search.  By default this is
+  checked.  This means we use the catalog, instead of waking up every
+  object in the path.  [maurits]
+
 - Search and replace in all text fields.  Removed special cases for
   Description and Text/Body field: these are handled the same as other
   text fields now.  TextLine fields and StringFields are ignored,
   except for the Title field.  [maurits]
 
 - Ported tests to plone.app.testing.  [maurits]
+
+- Added number of contents affected after a search. [Gagaro]
+
+Bug fixes:
 
 - Fixed Travis (continuous integration) test setup for Plone 5.  [maurits]
 
@@ -40,8 +48,6 @@ Changelog
 - Conditionally load zcml for dexterity behavior/profile and ATContentTypes.  [maurits]
 
 - Added ``plone.resource`` to our requirements for our resources.  [maurits]
-
-- Added number of contents affected after a search. [Gagaro]
 
 
 6.0.4 (2016-03-23)

@@ -4,21 +4,17 @@ Introduction
 .. image:: https://secure.travis-ci.org/collective/collective.searchandreplace.png?branch=master
    :target: https://travis-ci.org/#!/collective/collective.searchandreplace
 
-The collective.searchandreplace product is a Plone Add-on designed to
-find and replace text in Plone content objects, namely titles,
-descriptions, and document text. It operates over single or multiple
-Plone content objects and can show a preview of changes as well as
-immediately perform them.
+The collective.searchandreplace product is a Plone Add-on designed to find and replace text in Plone content objects.
+It looks in title, description, and document text, and since version 7 it looks in all text fields.
+It operates over single or multiple Plone content objects and can show a preview of changes as well as immediately perform them.
 
-Optional features include being able to control searching in
-subfolders, and matching based on case sensitivity/insensitivity.
+Features include:
 
-Note: since version 6.0, we search and replace only items that
-implement the ``ISearchReplaceable`` interface.  Since this version,
-this interface can be set on dexterity content types using a
-behavior.  Note that when you enable or disable this interface on a
-content type, either through the web or in code, you should reindex
-the ``object_provides`` index in the ``portal_catalog``.
+- being able to control searching in subfolders
+- matching based on case sensitivity/insensitivity
+- maximum number of results
+- fast search using the catalog by default
+- disable the fast search to be able to search and replace raw html tags, for example replace ``<strong>text</strong>`` by ``<em>text</em>``
 
 
 Compatibility
