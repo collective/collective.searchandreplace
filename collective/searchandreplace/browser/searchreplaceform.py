@@ -1,7 +1,7 @@
 # -*- coding: us-ascii -*-
 from Acquisition import aq_parent
 from collective.searchandreplace import SearchAndReplaceMessageFactory as _
-from collective.searchandreplace.browser.customwidgets import TwoLineTextAreaWidget
+from collective.searchandreplace.browser.customwidgets import TwoLineTextAreaWidget  # noqa
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
 from five.formlib.formbase import AddForm
 from plone.app.layout.navigation.defaultpage import isDefaultPage
