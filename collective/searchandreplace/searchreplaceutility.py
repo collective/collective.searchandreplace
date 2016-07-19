@@ -2,6 +2,7 @@
 
 from Acquisition import aq_base
 from Acquisition import aq_parent
+from collective.searchandreplace import SearchAndReplaceMessageFactory as _
 from collective.searchandreplace.interfaces import ISearchReplaceSettings
 from plone.app.layout.navigation.defaultpage import isDefaultPage
 from plone.app.textfield import RichTextValue
@@ -12,6 +13,7 @@ from Products.Archetypes.interfaces import ITextField
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
+from zope.i18n import translate
 from zope.schema import getFieldsInOrder
 from zope.schema.interfaces import IText
 from zope.schema.interfaces import ITextLine
@@ -125,7 +127,9 @@ class SearchReplaceUtility(object):
                                               cpath,
                                               rtext,
                                               sitem)
-                    replaced += rep
+                    if rep:
+                        self._afterReplace(obj, find, rtext)
+                        replaced += rep
                 elif not replace:
                     # Just find the matches and return info
                     result = self._searchObject(matcher, obj)
@@ -138,6 +142,25 @@ class SearchReplaceUtility(object):
             return replaced
         else:
             return results
+
+    def _afterReplace(self, obj, find, rtext):
+        """Hook for doing things after a text has been replaced.
+
+        - obj is the changed object
+        - find is the found text
+        - rtext is the replacement text
+
+        By default, we will store a version in the CMFEditions repository.
+        """
+        repository = getToolByName(obj, 'portal_repository', None)
+        if repository is None:
+            return
+        if obj.portal_type not in repository.getVersionableContentTypes():
+            return
+        comment = _(u'Replaced: ${old} -> ${new}',
+                    mapping={'old': find, 'new': rtext})
+        comment = translate(comment, context=obj.REQUEST)
+        repository.save(obj, comment=comment)
 
     def _replaceObject(self, matcher, obj, cpath, rtext, mobjs):
         """ Replace text in objects """
