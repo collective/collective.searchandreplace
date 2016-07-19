@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.searchandreplace 3.2\n"
-"POT-Creation-Date: 2016-07-19 14:24+0000\n"
+"POT-Creation-Date: 2016-07-19 14:50+0000\n"
 "PO-Revision-Date: 2016-07-19 16:35+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederland <plone-plone-nl@lists.plone.org>\n"
@@ -20,31 +20,31 @@ msgstr ""
 msgid "Affected Content"
 msgstr "Te wijzigen inhoud"
 
-#: ./browser/searchreplacetable.pt:32
+#: ./browser/searchreplacetable.pt:33
 msgid "After"
 msgstr "Na"
 
-#: ./browser/searchreplacetable.pt:31
+#: ./browser/searchreplacetable.pt:32
 msgid "Before"
 msgstr "Voor"
 
-#: ./browser/searchreplaceform.py:55
+#: ./browser/searchreplaceform.py:57
 msgid "Check the box for a case sensitive search."
 msgstr "Vink aan voor hoofdlettergevoelig zoeken."
 
-#: ./browser/searchreplaceform.py:26
+#: ./browser/searchreplaceform.py:28
 msgid "Enter the text to find."
 msgstr "Vul de tekst in om naar te zoeken."
 
-#: ./browser/searchreplaceform.py:31
+#: ./browser/searchreplaceform.py:33
 msgid "Enter the text to replace the original text with."
 msgstr "Vul de tekst in om de oorspronkelijke tekst mee te vervangen."
 
-#: ./browser/searchreplaceform.py:60
+#: ./browser/searchreplaceform.py:62
 msgid "Fast search"
 msgstr "Snel zoeken"
 
-#: ./browser/searchreplaceform.py:25
+#: ./browser/searchreplaceform.py:27
 msgid "Find What"
 msgstr "Vind wat"
 
@@ -53,7 +53,7 @@ msgid "If checked, only the enabled types are searched, otherwise all types are 
 msgstr "Als deze optie is aangevinkt, worden alleen de ingeschakelde types doorzocht, anders worden alle types doorzocht."
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-#: ./browser/searchreplaceform.py:46
+#: ./browser/searchreplaceform.py:48
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "Als deze optie is aangevinkt, wordt recursief gezocht door de map en alle onderliggende mappen en items, waarbij op elk niveau vervangen wordt."
 
@@ -61,7 +61,7 @@ msgstr "Als deze optie is aangevinkt, wordt recursief gezocht door de map en all
 msgid "Installs the collective.searchandreplace package"
 msgstr "Installeert het collective.searchandreplace package"
 
-#: ./browser/searchreplacetable.pt:30
+#: ./browser/searchreplacetable.pt:31
 msgid "Line"
 msgstr "Regel"
 
@@ -69,15 +69,15 @@ msgstr "Regel"
 msgid "List of types that are searched."
 msgstr "Lijst van types die doorzocht worden."
 
-#: ./browser/searchreplaceform.py:54
+#: ./browser/searchreplaceform.py:56
 msgid "Match Case"
 msgstr "Hoofdlettergevoelig"
 
-#: ./browser/searchreplaceform.py:35
+#: ./browser/searchreplaceform.py:37
 msgid "Maximum Number of Results"
 msgstr "Maximum aantal resultaten"
 
-#: ./browser/searchreplaceform.py:36
+#: ./browser/searchreplaceform.py:38
 msgid "Maximum number of results to show. Warning: this has no effect on how many found texts are replaced when you use the Replace button directly without using the Preview."
 msgstr "Maximum aantal resultaten om te tonen. Let op: dit heeft geen effect op hoeveel gevonden teksten vervangen worden als je direct de knop Vervangen gebruikt, zonder de Voorvertoning te gebruiken."
 
@@ -85,19 +85,23 @@ msgstr "Maximum aantal resultaten om te tonen. Let op: dit heeft geen effect op 
 msgid "Maximum text characters"
 msgstr "Maximum aantal karakters"
 
-#: ./browser/searchreplaceform.py:92
+#: ./browser/searchreplacetable.pt:30
+msgid "Path"
+msgstr ""
+
+#: ./browser/searchreplaceform.py:94
 msgid "Preview"
 msgstr "Voorvertoning"
 
-#: ./browser/searchreplaceform.py:99
+#: ./browser/searchreplaceform.py:101
 msgid "Replace"
 msgstr "Vervang"
 
-#: ./browser/searchreplaceform.py:30
+#: ./browser/searchreplaceform.py:32
 msgid "Replace With"
 msgstr "Vervang door"
 
-#: ./browser/searchreplaceform.py:144
+#: ./browser/searchreplaceform.py:146
 msgid "Reset"
 msgstr "Reset"
 
@@ -105,11 +109,11 @@ msgstr "Reset"
 msgid "Restrict the enabled types."
 msgstr "Beperkt de ingeschakelde types."
 
-#: ./browser/searchreplaceform.py:45
+#: ./browser/searchreplaceform.py:47
 msgid "Search Subfolders"
 msgstr "Doorzoek submappen"
 
-#: ./browser/searchreplaceform.py:88
+#: ./browser/searchreplaceform.py:90
 msgid "Search and Replace"
 msgstr "Zoek en vervang"
 
@@ -127,15 +131,15 @@ msgstr "Zoek en vervang tekst"
 msgid "Search and replace in parent folder"
 msgstr "Zoek en vervang in de bovenliggende folder"
 
-#: ./browser/searchreplaceform.py:89
+#: ./browser/searchreplaceform.py:91
 msgid "Search and replace text found in documents."
 msgstr "Zoek en vervang tekst gevonden in documenten."
 
-#: ./browser/searchreplaceform.py:125
+#: ./browser/searchreplaceform.py:127
 msgid "Search text replaced in ${replaced} of ${items} instance(s)."
 msgstr "Gezochte tekst vervangen in ${replaced} van ${items} geval(len)."
 
-#: ./browser/searchreplaceform.py:140
+#: ./browser/searchreplaceform.py:142
 msgid "Search text replaced in all ${items} instance(s)."
 msgstr "Gezochte tekst vervangen in alle ${items} geval(len)."
 
@@ -144,11 +148,15 @@ msgstr "Gezochte tekst vervangen in alle ${items} geval(len)."
 msgid "Search/Replace"
 msgstr "Zoek/Vervang"
 
+#: ./browser/searchreplacetable.pt:20
+msgid "Select all items"
+msgstr ""
+
 #: ./interfaces.py:62
 msgid "The maximum number of characters to show before and after the found text."
 msgstr "Maximum aantal karakters om te tonen voor en na de gevonden tekst."
 
-#: ./browser/searchreplaceform.py:61
+#: ./browser/searchreplaceform.py:63
 msgid "Use the catalog to search, just like the search form does. This only finds keywords, not html tags. You might have some text fields that are not found this way, so if not checked, you may find more content, but it will be slower. Regardless of this setting, when at least one match is found, text in all text fields may be replaced."
 msgstr "Gebruik de catalogus om te zoeken, net zoals het zoekformulier doet. Dit vindt alleen woorden, geen html tags. Er kunnen tekstvelden zijn die op deze manier niet gevonden worden, dus als deze optie niet aangevinkt is, zou je meer inhoud kunnen vinden, maar het is langzamer. Ongeacht deze instelling: als minstens één overeenkomst is gevonden in een document, worden alle tekstvelden doorzocht."
 

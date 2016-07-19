@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-07-19 14:24+0000\n"
+"POT-Creation-Date: 2016-07-19 14:50+0000\n"
 "PO-Revision-Date: 2009-08-02 10:43+0800\n"
 "Last-Translator: Haishuo Lee <haishuolee@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,31 +19,31 @@ msgstr ""
 msgid "Affected Content"
 msgstr ""
 
-#: ./browser/searchreplacetable.pt:32
+#: ./browser/searchreplacetable.pt:33
 msgid "After"
 msgstr ""
 
-#: ./browser/searchreplacetable.pt:31
+#: ./browser/searchreplacetable.pt:32
 msgid "Before"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:55
+#: ./browser/searchreplaceform.py:57
 msgid "Check the box for a case sensitive search."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:26
+#: ./browser/searchreplaceform.py:28
 msgid "Enter the text to find."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:31
+#: ./browser/searchreplaceform.py:33
 msgid "Enter the text to replace the original text with."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:60
+#: ./browser/searchreplaceform.py:62
 msgid "Fast search"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:25
+#: ./browser/searchreplaceform.py:27
 msgid "Find What"
 msgstr ""
 
@@ -52,7 +52,7 @@ msgid "If checked, only the enabled types are searched, otherwise all types are 
 msgstr ""
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-#: ./browser/searchreplaceform.py:46
+#: ./browser/searchreplaceform.py:48
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "如果勾選，將會遞迴搜尋所有選取檔案與其子檔案，並在每個層級進行替換。"
 
@@ -60,7 +60,7 @@ msgstr "如果勾選，將會遞迴搜尋所有選取檔案與其子檔案，並
 msgid "Installs the collective.searchandreplace package"
 msgstr ""
 
-#: ./browser/searchreplacetable.pt:30
+#: ./browser/searchreplacetable.pt:31
 msgid "Line"
 msgstr ""
 
@@ -68,15 +68,15 @@ msgstr ""
 msgid "List of types that are searched."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:54
+#: ./browser/searchreplaceform.py:56
 msgid "Match Case"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:35
+#: ./browser/searchreplaceform.py:37
 msgid "Maximum Number of Results"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:36
+#: ./browser/searchreplaceform.py:38
 msgid "Maximum number of results to show. Warning: this has no effect on how many found texts are replaced when you use the Replace button directly without using the Preview."
 msgstr ""
 
@@ -84,19 +84,23 @@ msgstr ""
 msgid "Maximum text characters"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:92
+#: ./browser/searchreplacetable.pt:30
+msgid "Path"
+msgstr ""
+
+#: ./browser/searchreplaceform.py:94
 msgid "Preview"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:99
+#: ./browser/searchreplaceform.py:101
 msgid "Replace"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:30
+#: ./browser/searchreplaceform.py:32
 msgid "Replace With"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:144
+#: ./browser/searchreplaceform.py:146
 msgid "Reset"
 msgstr ""
 
@@ -104,11 +108,11 @@ msgstr ""
 msgid "Restrict the enabled types."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:45
+#: ./browser/searchreplaceform.py:47
 msgid "Search Subfolders"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:88
+#: ./browser/searchreplaceform.py:90
 msgid "Search and Replace"
 msgstr ""
 
@@ -126,15 +130,15 @@ msgstr "搜尋並替換文字"
 msgid "Search and replace in parent folder"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:89
+#: ./browser/searchreplaceform.py:91
 msgid "Search and replace text found in documents."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:125
+#: ./browser/searchreplaceform.py:127
 msgid "Search text replaced in ${replaced} of ${items} instance(s)."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:140
+#: ./browser/searchreplaceform.py:142
 msgid "Search text replaced in all ${items} instance(s)."
 msgstr ""
 
@@ -143,11 +147,15 @@ msgstr ""
 msgid "Search/Replace"
 msgstr "搜尋/替換"
 
+#: ./browser/searchreplacetable.pt:20
+msgid "Select all items"
+msgstr ""
+
 #: ./interfaces.py:62
 msgid "The maximum number of characters to show before and after the found text."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:61
+#: ./browser/searchreplaceform.py:63
 msgid "Use the catalog to search, just like the search form does. This only finds keywords, not html tags. You might have some text fields that are not found this way, so if not checked, you may find more content, but it will be slower. Regardless of this setting, when at least one match is found, text in all text fields may be replaced."
 msgstr ""
 
