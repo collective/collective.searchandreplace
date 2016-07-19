@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Do not fail when an object from the catalog cannot be found.  Print
+  a warning in the logs.  [maurits]
 
 
 7.0 (2016-07-19)

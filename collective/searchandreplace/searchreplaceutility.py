@@ -100,7 +100,11 @@ class SearchReplaceUtility(object):
         for b in brains:
             ipath = b.getPath()
             if not sitems or ipath in sitems:
-                obj = b.getObject()
+                try:
+                    obj = b.getObject()
+                except (KeyError, AttributeError):
+                    logger.warn('getObject failed for %s', ipath)
+                    continue
                 # Does the user have the modify permission on this object?
                 if not checkPermission(ModifyPortalContent, obj):
                     continue
