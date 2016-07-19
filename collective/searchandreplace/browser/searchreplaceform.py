@@ -1,17 +1,19 @@
 # -*- coding: us-ascii -*-
 from Acquisition import aq_parent
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.statusmessages.interfaces import IStatusMessage
 from collective.searchandreplace import SearchAndReplaceMessageFactory as _
+from collective.searchandreplace.browser.customwidgets import TwoLineTextAreaWidget
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
-from collective.searchandreplace.browser.customwidgets import \
-    TwoLineTextAreaWidget
 from five.formlib.formbase import AddForm
 from plone.app.layout.navigation.defaultpage import isDefaultPage
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import getUtility
-from zope.formlib.form import FormFields, action
+from zope.formlib.form import action
+from zope.formlib.form import FormFields
 from zope.interface import Interface
-from zope.schema import Text, Bool, Int
+from zope.schema import Bool
+from zope.schema import Int
+from zope.schema import Text
 
 
 def validate_searchreplaceform(form, action, data):

@@ -1,6 +1,7 @@
-from plone.testing import layered
 from collective.searchandreplace.testing import SEARCH_REPLACE_FUNCTIONAL_LAYER
+from plone.testing import layered
 from unittest import TestSuite
+
 import doctest
 
 
