@@ -10,7 +10,12 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Allow overriding the permission that is checked on an object.  By
+  default this is the Modify portal content permission.  But when you
+  have setup a workflow that does not allow editing published content,
+  for example when you require doing changes with check-out/check-in
+  from Iterate, then you may want to use a different permission.  You
+  can then override the utility in your own code.  [maurits]
 
 Bug fixes:
 
