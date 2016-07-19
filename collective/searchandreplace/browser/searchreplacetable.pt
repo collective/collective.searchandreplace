@@ -23,13 +23,14 @@
 		 title="Select all items"
 		 onclick="toggleSelect(this,'form.affectedContent', true);"
 		 alt="Select all items"
+     i18n:attributes="title;alt"
 		 type="checkbox"
          checked="checked">
 	</th>
-	<th class="nosort" tal:condition="isFolderish">Path</th>
-	<th class="nosort"><tal:line i18n:translate="">Line</tal:line></th>
-	<th class="nosort"><tal:before i18n:translate="">Before</tal:before></th>
-	<th class="nosort"><tal:after i18n:translate="">After</tal:after></th>
+	<th class="nosort" tal:condition="isFolderish" i18n:translate="">Path</th>
+	<th class="nosort" i18n:translate="">Line</th>
+	<th class="nosort" i18n:translate="">Before</th>
+	<th class="nosort" i18n:translate="">After</th>
       </tr>
     </thead>
     <tbody>
