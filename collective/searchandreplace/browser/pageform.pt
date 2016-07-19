@@ -45,8 +45,11 @@
         <div class="documentDescription" tal:content="view/description|nothing">Description</div>
 
         <div id="content-core">
-          <p tal:condition="not:context/isPrincipiaFolderish|nothing">
-            <a href="../@@searchreplaceform" i18n:domain="SearchAndReplace" i18n:translate="">Search and replace in parent folder</a>
+          <p tal:define="context_state context/plone_context_state"
+             tal:condition="not:context_state/is_folderish">
+            <a tal:define="folder_url python:context_state.folder().absolute_url()"
+               tal:attributes="href string:${folder_url}/@@searchreplaceform"
+               i18n:domain="SearchAndReplace" i18n:translate="">Search and replace in parent folder</a>
           </p>
 
             <form action="." metal:define-macro="master"

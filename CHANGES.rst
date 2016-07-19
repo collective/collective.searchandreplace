@@ -4,6 +4,24 @@ Changelog
 7.0 (unreleased)
 ----------------
 
+- Removed ``ISearchReplaceable`` behavior.  This was introduced in version 6.
+  Kept the interface for backwards compatibility, but it is not used anymore.
+  Instead, by default all types are searched and replaced.
+  You can configure this in the new control panel.
+  There you can restrict the types that are searched, if needed.
+
+  There are upgrade steps to install the new configuration options,
+  add the control panel, and remove the behavior from existing
+  dexterity types.  Before you run the upgrade steps, you may see a
+  warning and an error once when accessing the site in Plone 5:
+
+  - WARNING plone.dexterity.schema No behavior registration found for behavior named: "collective.searchandreplace.interfaces.ISearchReplaceable" - trying fallback lookup..."
+  - ERROR plone.dexterity.schema Error resolving behavior collective.searchandreplace.interfaces.ISearchReplaceable
+
+  This should cause no troubles.
+  This fixes issue https://github.com/collective/collective.searchandreplace/issues/25
+  [maurits]
+
 - Search and replace in all text fields.  Removed special cases for
   Description and Text/Body field: these are handled the same as other
   text fields now.  TextLine fields and StringFields are ignored,

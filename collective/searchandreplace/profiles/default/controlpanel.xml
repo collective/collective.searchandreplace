@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<object
+    name="portal_controlpanel"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="collective.searchandreplace">
+
+  <configlet
+      title="Search and Replace settings"
+      action_id="collective.searchandreplace.searchreplacesettings"
+      appId="collective.searchandreplace"
+      category="Products"
+      condition_expr=""
+      url_expr="string:${portal_url}/@@searchreplace-controlpanel"
+      icon_expr="string:$portal_url/search_icon.png"
+      visible="True"
+      i18n:attributes="title">
+    <permission>Manage portal</permission>
+  </configlet>
+
+</object>
