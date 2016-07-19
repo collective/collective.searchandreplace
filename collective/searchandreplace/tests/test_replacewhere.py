@@ -186,7 +186,7 @@ class TestReplaceWhere(unittest.TestCase):
     def testReplaceAllTextFields(self):
         from collective.searchandreplace.searchreplaceutility import getRawText
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        # Note: we use are sample type here, which has extra fields.
+        # Note: we use our sample type here, which has extra fields.
         # This currently is Archetypes when testing on Plone 4,
         # and Dexterity when testing on Plone 5.
         self.portal.invokeFactory('SampleType', 'doc1')
@@ -197,7 +197,9 @@ class TestReplaceWhere(unittest.TestCase):
             description='Test Description',
             rich='Test Rich',
             plain='Test Plain',
-            line='Test Line')
+            line='Test Line',
+            unsearchable='Test Unsearchable',
+        )
 
         # Test the initial values.
         self.assertEqual(doc1.Title(), 'Test Title')
@@ -205,6 +207,7 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(getRawText(doc1, 'rich'), 'Test Rich')
         self.assertEqual(getRawText(doc1, 'plain'), 'Test Plain')
         self.assertEqual(getRawText(doc1, 'line'), 'Test Line')
+        self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Unsearchable')
 
         # Search it.
         parameters = dict(
@@ -213,7 +216,7 @@ class TestReplaceWhere(unittest.TestCase):
             replaceText='Foo',
             matchCase=False)
         results = self.srutil.searchObjects(**parameters)
-        self.assertEqual(len(results), 4)
+        self.assertEqual(len(results), 5)
 
         # Nothing should have changed.
         self.assertEqual(doc1.Title(), 'Test Title')
@@ -221,17 +224,104 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(getRawText(doc1, 'rich'), 'Test Rich')
         self.assertEqual(getRawText(doc1, 'plain'), 'Test Plain')
         self.assertEqual(getRawText(doc1, 'line'), 'Test Line')
+        self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Unsearchable')
 
         # Replace it.
         parameters['doReplace'] = True
         results = self.srutil.searchObjects(**parameters)
-        self.assertEqual(results, 4)
+        self.assertEqual(results, 5)
 
         # Most fields should have changed.
         self.assertEqual(doc1.Title(), 'Foo Title')
         self.assertEqual(doc1.Description(), 'Foo Description')
         self.assertEqual(getRawText(doc1, 'rich'), 'Foo Rich')
         self.assertEqual(getRawText(doc1, 'plain'), 'Foo Plain')
+        self.assertEqual(getRawText(doc1, 'unsearchable'), 'Foo Unsearchable')
 
         # But not the textline field.
         self.assertEqual(getRawText(doc1, 'line'), 'Test Line')
+
+    def testReplaceUnsearchableTextFields(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        # Note: we use our sample type here, which has extra fields.
+        # This currently is Archetypes when testing on Plone 4,
+        # and Dexterity when testing on Plone 5.
+        self.portal.invokeFactory('SampleType', 'doc1')
+        doc1 = getattr(self.portal, 'doc1')
+        edit_content(
+            doc1,
+            title='Test Title',
+            unsearchable='Test Unsearchable',
+        )
+
+        # Test the initial values.
+        self.assertEqual(doc1.Title(), 'Test Title')
+        self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Unsearchable')
+
+        # Search it with onlySearchableText true.
+        parameters = dict(
+            context=doc1,
+            find='Unsearchable',
+            replaceText='Foo',
+            onlySearchableText=True,
+            matchCase=False)
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(len(results), 0)
+
+        # Replace it with onlySearchableText true.
+        parameters['doReplace'] = True
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(results, 0)
+
+        # Nothing should have changed.
+        self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Unsearchable')
+
+        # Now search everything, so onlySearchableText false.
+        parameters['onlySearchableText'] = False
+        parameters['doReplace'] = False
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(len(results), 1)
+
+        # Nothing should have changed.
+        self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Unsearchable')
+
+        # Replace it.
+        parameters['doReplace'] = True
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(results, 1)
+        self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Foo')
+
+    def testReplaceRawHTML(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.portal.invokeFactory('Document', 'doc1')
+        doc1 = getattr(self.portal, 'doc1')
+        edit_content(
+            doc1,
+            title='Test Title',
+            text='My <strong>Test</strong> Case')
+        self.assertEqual(getRawText(doc1), 'My <strong>Test</strong> Case')
+
+        # Search only in SearchableText.
+        parameters = dict(
+            context=doc1,
+            find='<strong>Test</strong>',
+            replaceText='<em>Test</em>',
+            onlySearchableText=True,
+            matchCase=False)
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(len(results), 0)
+
+        # Search everywhere.
+        parameters['onlySearchableText'] = False
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(getRawText(doc1), 'My <strong>Test</strong> Case')
+
+        # Replace it.
+        parameters['doReplace'] = True
+        results = self.srutil.searchObjects(**parameters)
+        # Note: replacing returns an int, not a list.
+        self.assertEqual(results, 1)
+        self.assertEqual(getRawText(doc1), 'My <em>Test</em> Case')

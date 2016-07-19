@@ -53,6 +53,7 @@ class SearchReplaceUtility(object):
             mc = kwargs['matchCase']
         else:
             mc = False
+        onlySearchableText = kwargs.get('onlySearchableText', True)
         if 'replaceText' in kwargs:
             rtext = kwargs['replaceText']
             if rtext is None:
@@ -88,6 +89,8 @@ class SearchReplaceUtility(object):
         settings = registry.forInterface(ISearchReplaceSettings, check=False)
         if settings.restrict_searchable_types:
             parameters['portal_type'] = settings.enabled_types
+        if onlySearchableText:
+            parameters['SearchableText'] = '*{0}*'.format(find)
         brains = catalog(**parameters)
         memship = getToolByName(context, 'portal_membership')
         checkPermission = memship.checkPermission

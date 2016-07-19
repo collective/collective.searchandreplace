@@ -49,6 +49,16 @@ SampleTypeSchema = BaseSchema.copy() + MetadataSchema(()) + Schema((
             label=u'Text Line')
     ),
 
+    TextField(
+        'unsearchable',
+        required=False,
+        searchable=False,
+        default_output_type='text/x-html-safe',
+        widget=RichWidget(
+            description='',
+            label=u'Unsearchable Text')
+    ),
+
 ))
 
 

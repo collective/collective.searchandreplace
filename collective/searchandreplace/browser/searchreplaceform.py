@@ -56,6 +56,20 @@ class ISearchReplaceForm(Interface):
         default=False,
         required=True)
 
+    onlySearchableText = Bool(
+        title=_(u'Fast search'),
+        description=_(
+            u'Use the catalog to search, just like the search form does. '
+            'This only finds keywords, not html tags. '
+            'You might have some text fields that are not found this way, '
+            'so if not checked, you may find more content, '
+            'but it will be slower. '
+            'Regardless of this setting, when at least one match is found , '
+            'text in all text fields may be replaced.'),
+        required=False,
+        default=True,
+    )
+
 
 class SearchReplaceForm(AddForm):
     """ """
@@ -104,7 +118,9 @@ class SearchReplaceForm(AddForm):
                 matchCase=data['matchCase'],
                 replaceText=data['replaceWith'],
                 doReplace=True,
-                searchItems=items)
+                searchItems=items,
+                onlySearchableText=data['onlySearchableText'],
+            )
             IStatusMessage(self.request).addStatusMessage(
                 _(u'Search text replaced in ${replaced} of ${items} '
                   'instance(s).',
@@ -118,6 +134,7 @@ class SearchReplaceForm(AddForm):
                 searchSubFolders=data.get('searchSubfolders', False),
                 matchCase=data['matchCase'],
                 replaceText=data['replaceWith'],
+                onlySearchableText=data['onlySearchableText'],
                 doReplace=True)
             IStatusMessage(self.request).addStatusMessage(
                 _(u'Search text replaced in all ${items} instance(s).',
