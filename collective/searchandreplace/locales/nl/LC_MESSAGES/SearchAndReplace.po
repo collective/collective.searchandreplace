@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.searchandreplace 3.2\n"
-"POT-Creation-Date: 2016-03-23 13:17+0000\n"
+"POT-Creation-Date: 2016-07-19 14:24+0000\n"
 "PO-Revision-Date: 2015-06-15 16:26+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederland <plone-plone-nl@lists.plone.org>\n"
@@ -16,10 +16,6 @@ msgstr ""
 "Domain: SearchAndReplace\n"
 "Language: nl\n"
 
-#: ./configure.zcml:70
-msgid "Add the SearchReplaceable to dexterity contents."
-msgstr "Voeg SearchReplaceable toe aan dexterity contenttypes."
-
 #: ./browser/searchreplacetable.pt:13
 msgid "Affected Content"
 msgstr "Te wijzigen inhoud"
@@ -27,10 +23,6 @@ msgstr "Te wijzigen inhoud"
 #: ./browser/searchreplacetable.pt:32
 msgid "After"
 msgstr "Na"
-
-#: ./configure.zcml:101
-msgid "Allow to search and replace in instances of this type of content."
-msgstr "Sta toe te zoeken en vervangen in pagina's van dit type content."
 
 #: ./browser/searchreplacetable.pt:31
 msgid "Before"
@@ -48,26 +40,34 @@ msgstr "Vul de tekst in om naar te zoeken."
 msgid "Enter the text to replace the original text with."
 msgstr "Vul de tekst in om de oorspronkelijke tekst mee te vervangen."
 
+#: ./browser/searchreplaceform.py:60
+msgid "Fast search"
+msgstr ""
+
 #: ./browser/searchreplaceform.py:25
 msgid "Find What"
 msgstr "Vind wat"
+
+#: ./interfaces.py:32
+msgid "If checked, only the enabled types are searched, otherwise all types are searched."
+msgstr ""
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 #: ./browser/searchreplaceform.py:46
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "Als deze optie is aangevinkt, wordt recursief gezocht door de map en alle onderliggende mappen en items, waarbij op elk niveau vervangen wordt."
 
-#: ./configure.zcml:26
+#: ./configure.zcml:28
 msgid "Installs the collective.searchandreplace package"
 msgstr "Installeert het collective.searchandreplace package"
-
-#: ./searchreplaceutility.py:91
-msgid "Item found that does not implement ISearchReplaceable. You should reindex the object_provides index of the portal_catalog."
-msgstr "Item gevonden dat de ISearchReplaceable interface niet implementeert. Je zou de object_provides index van de portal_catalog moeten herindexeren."
 
 #: ./browser/searchreplacetable.pt:30
 msgid "Line"
 msgstr "Regel"
+
+#: ./interfaces.py:40
+msgid "List of types that are searched."
+msgstr ""
 
 #: ./browser/searchreplaceform.py:54
 msgid "Match Case"
@@ -81,15 +81,15 @@ msgstr "Maximum aantal resultaten"
 msgid "Maximum number of results to show. Warning: this has no effect on how many found texts are replaced when you use the Replace button directly without using the Preview."
 msgstr "Maximum aantal resultaten om te tonen. Let op: dit heeft geen effect op hoeveel gevonden teksten vervangen worden als je direct de knop Vervangen gebruikt, zonder de Voorvertoning te gebruiken."
 
-#: ./profiles/default/registry.xml
+#: ./interfaces.py:61
 msgid "Maximum text characters"
 msgstr "Maximum aantal karakters"
 
-#: ./browser/searchreplaceform.py:78
+#: ./browser/searchreplaceform.py:92
 msgid "Preview"
 msgstr "Voorvertoning"
 
-#: ./browser/searchreplaceform.py:85
+#: ./browser/searchreplaceform.py:99
 msgid "Replace"
 msgstr "Vervang"
 
@@ -97,40 +97,45 @@ msgstr "Vervang"
 msgid "Replace With"
 msgstr "Vervang door"
 
-#: ./browser/searchreplaceform.py:127
+#: ./browser/searchreplaceform.py:144
 msgid "Reset"
 msgstr "Reset"
+
+#: ./interfaces.py:31
+msgid "Restrict the enabled types."
+msgstr ""
 
 #: ./browser/searchreplaceform.py:45
 msgid "Search Subfolders"
 msgstr "Doorzoek submappen"
 
-#: ./browser/searchreplaceform.py:74
+#: ./browser/searchreplaceform.py:88
 msgid "Search and Replace"
 msgstr "Zoek en vervang"
+
+#: ./browser/controlpanel.py:16
+#: ./profiles/default/controlpanel.xml
+msgid "Search and Replace settings"
+msgstr ""
 
 #. Default: "Search and Replace text"
 #: ./profiles/default/actions.xml
 msgid "Search and Replace text"
 msgstr "Zoek en vervang tekst"
 
-#: ./configure.zcml:101
-msgid "Search and Replaceable"
-msgstr "Zoek- en vervangbaar"
-
-#: ./browser/pageform.pt:49
+#: ./browser/pageform.pt:50
 msgid "Search and replace in parent folder"
 msgstr "Zoek en vervang in de bovenliggende folder"
 
-#: ./browser/searchreplaceform.py:75
+#: ./browser/searchreplaceform.py:89
 msgid "Search and replace text found in documents."
 msgstr "Zoek en vervang tekst gevonden in documenten."
 
-#: ./browser/searchreplaceform.py:109
+#: ./browser/searchreplaceform.py:125
 msgid "Search text replaced in ${replaced} of ${items} instance(s)."
 msgstr "Gezochte tekst vervangen in ${replaced} van ${items} geval(len)."
 
-#: ./browser/searchreplaceform.py:123
+#: ./browser/searchreplaceform.py:140
 msgid "Search text replaced in all ${items} instance(s)."
 msgstr "Gezochte tekst vervangen in alle ${items} geval(len)."
 
@@ -139,17 +144,21 @@ msgstr "Gezochte tekst vervangen in alle ${items} geval(len)."
 msgid "Search/Replace"
 msgstr "Zoek/Vervang"
 
-#: ./profiles/default/registry.xml
+#: ./interfaces.py:62
 msgid "The maximum number of characters to show before and after the found text."
 msgstr "Maximum aantal karakters om te tonen voor en na de gevonden tekst."
 
-#: ./configure.zcml:26
+#: ./browser/searchreplaceform.py:61
+msgid "Use the catalog to search, just like the search form does. This only finds keywords, not html tags. You might have some text fields that are not found this way, so if not checked, you may find more content, but it will be slower. Regardless of this setting, when at least one match is found , text in all text fields may be replaced."
+msgstr ""
+
+#: ./interfaces.py:41
+msgid "When 'Restrict the enable types' is checked, only the selected types are searched. Otherwise this list is ignored."
+msgstr ""
+
+#: ./configure.zcml:28
 msgid "collective.searchandreplace"
 msgstr "collective.searchandreplace"
-
-#: ./configure.zcml:70
-msgid "collective.searchandreplace (Dexterity)"
-msgstr "collective.searchandreplace (Dexterity)"
 
 #. Default: "Affected content"
 #: ./browser/searchreplacetable.pt:16

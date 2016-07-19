@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-03-23 13:17+0000\n"
+"POT-Creation-Date: 2016-07-19 14:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,20 +15,12 @@ msgstr ""
 "Domain: SearchAndReplace\n"
 "Language: hu\n"
 
-#: ./configure.zcml:70
-msgid "Add the SearchReplaceable to dexterity contents."
-msgstr ""
-
 #: ./browser/searchreplacetable.pt:13
 msgid "Affected Content"
 msgstr ""
 
 #: ./browser/searchreplacetable.pt:32
 msgid "After"
-msgstr ""
-
-#: ./configure.zcml:101
-msgid "Allow to search and replace in instances of this type of content."
 msgstr ""
 
 #: ./browser/searchreplacetable.pt:31
@@ -47,8 +39,16 @@ msgstr ""
 msgid "Enter the text to replace the original text with."
 msgstr ""
 
+#: ./browser/searchreplaceform.py:60
+msgid "Fast search"
+msgstr ""
+
 #: ./browser/searchreplaceform.py:25
 msgid "Find What"
+msgstr ""
+
+#: ./interfaces.py:32
+msgid "If checked, only the enabled types are searched, otherwise all types are searched."
 msgstr ""
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
@@ -56,16 +56,16 @@ msgstr ""
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr ""
 
-#: ./configure.zcml:26
+#: ./configure.zcml:28
 msgid "Installs the collective.searchandreplace package"
-msgstr ""
-
-#: ./searchreplaceutility.py:91
-msgid "Item found that does not implement ISearchReplaceable. You should reindex the object_provides index of the portal_catalog."
 msgstr ""
 
 #: ./browser/searchreplacetable.pt:30
 msgid "Line"
+msgstr ""
+
+#: ./interfaces.py:40
+msgid "List of types that are searched."
 msgstr ""
 
 #: ./browser/searchreplaceform.py:54
@@ -80,15 +80,15 @@ msgstr ""
 msgid "Maximum number of results to show. Warning: this has no effect on how many found texts are replaced when you use the Replace button directly without using the Preview."
 msgstr ""
 
-#: ./profiles/default/registry.xml
+#: ./interfaces.py:61
 msgid "Maximum text characters"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:78
+#: ./browser/searchreplaceform.py:92
 msgid "Preview"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:85
+#: ./browser/searchreplaceform.py:99
 msgid "Replace"
 msgstr ""
 
@@ -96,16 +96,25 @@ msgstr ""
 msgid "Replace With"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:127
+#: ./browser/searchreplaceform.py:144
 msgid "Reset"
+msgstr ""
+
+#: ./interfaces.py:31
+msgid "Restrict the enabled types."
 msgstr ""
 
 #: ./browser/searchreplaceform.py:45
 msgid "Search Subfolders"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:74
+#: ./browser/searchreplaceform.py:88
 msgid "Search and Replace"
+msgstr ""
+
+#: ./browser/controlpanel.py:16
+#: ./profiles/default/controlpanel.xml
+msgid "Search and Replace settings"
 msgstr ""
 
 #. Default: "Search and Replace text"
@@ -113,23 +122,19 @@ msgstr ""
 msgid "Search and Replace text"
 msgstr ""
 
-#: ./configure.zcml:101
-msgid "Search and Replaceable"
-msgstr ""
-
-#: ./browser/pageform.pt:49
+#: ./browser/pageform.pt:50
 msgid "Search and replace in parent folder"
 msgstr ""
 
-#: ./browser/searchreplaceform.py:75
+#: ./browser/searchreplaceform.py:89
 msgid "Search and replace text found in documents."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:109
+#: ./browser/searchreplaceform.py:125
 msgid "Search text replaced in ${replaced} of ${items} instance(s)."
 msgstr ""
 
-#: ./browser/searchreplaceform.py:123
+#: ./browser/searchreplaceform.py:140
 msgid "Search text replaced in all ${items} instance(s)."
 msgstr ""
 
@@ -138,16 +143,20 @@ msgstr ""
 msgid "Search/Replace"
 msgstr ""
 
-#: ./profiles/default/registry.xml
+#: ./interfaces.py:62
 msgid "The maximum number of characters to show before and after the found text."
 msgstr ""
 
-#: ./configure.zcml:26
-msgid "collective.searchandreplace"
+#: ./browser/searchreplaceform.py:61
+msgid "Use the catalog to search, just like the search form does. This only finds keywords, not html tags. You might have some text fields that are not found this way, so if not checked, you may find more content, but it will be slower. Regardless of this setting, when at least one match is found , text in all text fields may be replaced."
 msgstr ""
 
-#: ./configure.zcml:70
-msgid "collective.searchandreplace (Dexterity)"
+#: ./interfaces.py:41
+msgid "When 'Restrict the enable types' is checked, only the selected types are searched. Otherwise this list is ignored."
+msgstr ""
+
+#: ./configure.zcml:28
+msgid "collective.searchandreplace"
 msgstr ""
 
 #. Default: "Affected content"
