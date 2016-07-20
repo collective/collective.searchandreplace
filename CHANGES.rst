@@ -4,7 +4,7 @@ Changelog
 7.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- added Russian translation fixed translation mistakes [serge73]
 
 
 7.1 (2016-07-20)

@@ -1,177 +1,177 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "POT-Creation-Date: 2016-07-19 16:34+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2016-07-20 18:10+0500\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "Language-Code: ru\n"
 "Language-Name: Russian\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: SearchAndReplace\n"
 "Language: ru\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.8\n"
 
-#: ./browser/searchreplacetable.pt:13
+#: browser/searchreplacetable.pt:13
 msgid "Affected Content"
-msgstr "Затронутый контекст"
+msgstr "Затронутое содержимое"
 
-#: ./browser/searchreplacetable.pt:33
+#: browser/searchreplacetable.pt:33
 msgid "After"
 msgstr "После"
 
-#: ./browser/searchreplacetable.pt:32
+#: browser/searchreplacetable.pt:32
 msgid "Before"
 msgstr "До"
 
-#: ./browser/searchreplaceform.py:57
+#: browser/searchreplaceform.py:57
 msgid "Check the box for a case sensitive search."
 msgstr "Чувствительность к регистру."
 
-#: ./browser/searchreplaceform.py:28
+#: browser/searchreplaceform.py:28
 msgid "Enter the text to find."
 msgstr "Введите текст для поиска."
 
-#: ./browser/searchreplaceform.py:33
+#: browser/searchreplaceform.py:33
 msgid "Enter the text to replace the original text with."
 msgstr "Введите текст для замены в оригинальном тексте."
 
-#: ./browser/searchreplaceform.py:62
+#: browser/searchreplaceform.py:62
 msgid "Fast search"
-msgstr ""
+msgstr "Быстрый поиск"
 
-#: ./browser/searchreplaceform.py:27
+#: browser/searchreplaceform.py:27
 msgid "Find What"
 msgstr "Что ищем"
 
-#: ./interfaces.py:32
+#: interfaces.py:32
 msgid "If checked, only the enabled types are searched, otherwise all types are searched."
-msgstr ""
+msgstr "Если отмеченон, просматриваются только выбранные типы , в противном случае просматриваются все типы."
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-#: ./browser/searchreplaceform.py:48
+#: browser/searchreplaceform.py:48
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-msgstr "Искать рекурсивно в любых выбранных папках и дочерних элементах, заменяя на каждом уровне."
+msgstr "Если отмечено. то ищется рекурсивно в любых выбранных папках и дочерних элементах, замена производится на каждом уровне."
 
-#: ./configure.zcml:28
+#: configure.zcml:28
 msgid "Installs the collective.searchandreplace package"
-msgstr "Устанавливает пакет ""Найти и Заменить"""
+msgstr "Поиск и замена текста в содержимом элементов. Ищет  в названии, описании и в тексте документа, по всем текстовым полям."
 
-#: ./browser/searchreplacetable.pt:31
+#: browser/searchreplacetable.pt:31
 msgid "Line"
 msgstr "Строка"
 
-#: ./interfaces.py:40
+#: interfaces.py:40
 msgid "List of types that are searched."
-msgstr ""
+msgstr "Перечень типов для поиска"
 
-#: ./browser/searchreplaceform.py:56
+#: browser/searchreplaceform.py:56
 msgid "Match Case"
 msgstr "Учитывать регистр"
 
-#: ./browser/searchreplaceform.py:37
+#: browser/searchreplaceform.py:37
 msgid "Maximum Number of Results"
-msgstr ""
+msgstr "Максимальное количество результатов"
 
-#: ./browser/searchreplaceform.py:38
+#: browser/searchreplaceform.py:38
 msgid "Maximum number of results to show. Warning: this has no effect on how many found texts are replaced when you use the Replace button directly without using the Preview."
-msgstr ""
+msgstr "Максимальное количество показываемых результатов. Внимание: это не имеет никакого влияния на количество найденных текстов, замена производится напрямую при использовании кнопки Заменить, без использования предварительного просмотра."
 
-#: ./interfaces.py:61
+#: interfaces.py:61
 msgid "Maximum text characters"
-msgstr ""
+msgstr "Максимум символов."
 
-#: ./browser/searchreplacetable.pt:30
+#: browser/searchreplacetable.pt:30
 msgid "Path"
-msgstr ""
+msgstr "Путь"
 
-#: ./browser/searchreplaceform.py:94
+#: browser/searchreplaceform.py:94
 msgid "Preview"
-msgstr "Предпросмотр"
+msgstr "Предварительный просмотр"
 
-#: ./browser/searchreplaceform.py:101
+#: browser/searchreplaceform.py:101
 msgid "Replace"
 msgstr "Заменить"
 
-#: ./browser/searchreplaceform.py:32
+#: browser/searchreplaceform.py:32
 msgid "Replace With"
 msgstr "Заменить на"
 
-#: ./searchreplaceutility.py:156
+#: searchreplaceutility.py:156
 msgid "Replaced: ${old} -> ${new}"
-msgstr ""
+msgstr "Заменено:  ${old} -> ${new}"
 
-#: ./browser/searchreplaceform.py:146
+#: browser/searchreplaceform.py:146
 msgid "Reset"
 msgstr "Сброс"
 
-#: ./interfaces.py:31
+#: interfaces.py:31
 msgid "Restrict the enabled types."
-msgstr ""
+msgstr "Ограничиться отмеченными типами."
 
-#: ./browser/searchreplaceform.py:47
+#: browser/searchreplaceform.py:47
 msgid "Search Subfolders"
 msgstr "Искать в подпапках"
 
-#: ./browser/searchreplaceform.py:90
+#: browser/searchreplaceform.py:90
 msgid "Search and Replace"
-msgstr "Найти и заменить"
+msgstr "Поиск и Замена"
 
-#: ./browser/controlpanel.py:16
-#: ./profiles/default/controlpanel.xml
+#: browser/controlpanel.py:16 profiles/default/controlpanel.xml
 msgid "Search and Replace settings"
-msgstr ""
+msgstr "Настройки \"Поиск и Замена\""
 
 #. Default: "Search and Replace text"
-#: ./profiles/default/actions.xml
+#: profiles/default/actions.xml
 msgid "Search and Replace text"
 msgstr "Найти и заменить текст"
 
-#: ./browser/pageform.pt:50
+#: browser/pageform.pt:50
 msgid "Search and replace in parent folder"
-msgstr ""
+msgstr "Найти и заменить в родительской папке"
 
-#: ./browser/searchreplaceform.py:91
+#: browser/searchreplaceform.py:91
 msgid "Search and replace text found in documents."
-msgstr "Найти и заменить найденный текст в документах"
+msgstr "Найти и заменить найденный текст в документах."
 
-#: ./browser/searchreplaceform.py:127
+#: browser/searchreplaceform.py:127
 msgid "Search text replaced in ${replaced} of ${items} instance(s)."
 msgstr "Заменить найденный текст на ${replaced} в ${items} экземпляре(ах)."
 
-#: ./browser/searchreplaceform.py:142
+#: browser/searchreplaceform.py:142
 msgid "Search text replaced in all ${items} instance(s)."
 msgstr "Заменить найденный текст во всех ${items} экземплярах"
 
 #. Default: "Search/Replace"
-#: ./profiles/default/actions.xml
+#: profiles/default/actions.xml
 msgid "Search/Replace"
-msgstr "Найти/Заменить"
+msgstr "Поиск/Замена"
 
-#: ./browser/searchreplacetable.pt:20
+#: browser/searchreplacetable.pt:20
 msgid "Select all items"
-msgstr ""
+msgstr "Выбрать все элементы"
 
-#: ./interfaces.py:62
+#: interfaces.py:62
 msgid "The maximum number of characters to show before and after the found text."
-msgstr ""
+msgstr "Максимальное количество символов, которые будет показаны до и после найденного текста."
 
-#: ./browser/searchreplaceform.py:63
+#: browser/searchreplaceform.py:63
 msgid "Use the catalog to search, just like the search form does. This only finds keywords, not html tags. You might have some text fields that are not found this way, so if not checked, you may find more content, but it will be slower. Regardless of this setting, when at least one match is found, text in all text fields may be replaced."
-msgstr ""
+msgstr "Используйте каталог для поиска, так же, как это делает форма поиска. Ищутся только ключевые слова, а не HTML-теги. Вы можете иметь некоторые текстовые поля, которые не нашли этот путь, так что если не установлен, вы можете найти больше содержания, но это будет медленнее. Вне зависимости от этого параметра, когда по крайней мере, найдено одно совпадение, текст во всех текстовых полях может быть заменён."
 
-#: ./interfaces.py:41
+#: interfaces.py:41
 msgid "When 'Restrict the enable types' is checked, only the selected types are searched. Otherwise this list is ignored."
-msgstr ""
+msgstr "Когда 'Ограничиться отмеченными типами.' отмечено, производится поиск только выбранных типов. В противном случае этот список игнорируется."
 
-#: ./configure.zcml:28
+#: configure.zcml:28
 msgid "collective.searchandreplace"
-msgstr "Найти и Заменить (collective.searchandreplace)"
+msgstr "Поиск и Замена (collective.searchandreplace)"
 
 #. Default: "Affected content"
-#: ./browser/searchreplacetable.pt:16
+#: browser/searchreplacetable.pt:16
 msgid "summary_affected_content"
-msgstr "Затронутый контекст"
+msgstr "Затронутое содержимое"
