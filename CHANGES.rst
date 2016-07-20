@@ -4,10 +4,6 @@ Changelog
 7.0.2 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - Allow overriding the permission that is checked on an object.  By
@@ -16,12 +12,9 @@ New features:
   for example when you require doing changes with check-out/check-in
   from Iterate, then you may want to use a different permission.  You
   can then override the utility in your own code.  [maurits]
+
 - Save a new version in the repository, when CMFEditions is enabled
   for the changed type.  [maurits]
-
-Bug fixes:
-
-- *add item here*
 
 
 7.0.1 (2016-07-19)
