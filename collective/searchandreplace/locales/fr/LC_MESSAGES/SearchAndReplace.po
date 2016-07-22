@@ -42,7 +42,7 @@ msgstr "Entrez le texte qui remplacera le texte original."
 
 #: ./browser/searchreplaceform.py:62
 msgid "Fast search"
-msgstr ""
+msgstr "Recherche rapide"
 
 #: ./browser/searchreplaceform.py:27
 msgid "Find What"
@@ -50,7 +50,7 @@ msgstr "Rechercher"
 
 #: ./interfaces.py:32
 msgid "If checked, only the enabled types are searched, otherwise all types are searched."
-msgstr ""
+msgstr "Si coché, uniquement les types activés seront recherchés, sinon, tout les types sont recherchés."
 
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 #: ./browser/searchreplaceform.py:48
@@ -67,7 +67,7 @@ msgstr "Ligne"
 
 #: ./interfaces.py:40
 msgid "List of types that are searched."
-msgstr ""
+msgstr "Liste des types qui seront recherchés."
 
 #: ./browser/searchreplaceform.py:56
 msgid "Match Case"
@@ -87,7 +87,7 @@ msgstr "Caratères de texte maximum"
 
 #: ./browser/searchreplacetable.pt:30
 msgid "Path"
-msgstr ""
+msgstr "Chemin"
 
 #: ./browser/searchreplaceform.py:94
 msgid "Preview"
@@ -103,7 +103,7 @@ msgstr "Remplacer par"
 
 #: ./searchreplaceutility.py:156
 msgid "Replaced: ${old} -> ${new}"
-msgstr ""
+msgstr "Remplacé: ${old} -> ${new}"
 
 #: ./browser/searchreplaceform.py:146
 msgid "Reset"
@@ -111,7 +111,7 @@ msgstr "Reset"
 
 #: ./interfaces.py:31
 msgid "Restrict the enabled types."
-msgstr ""
+msgstr "Restreindre les types activés."
 
 #: ./browser/searchreplaceform.py:47
 msgid "Search Subfolders"
@@ -124,7 +124,7 @@ msgstr "Rechercher et Remplacer"
 #: ./browser/controlpanel.py:16
 #: ./profiles/default/controlpanel.xml
 msgid "Search and Replace settings"
-msgstr ""
+msgstr "Paramètre de Rechercher et Remplacer"
 
 #. Default: "Search and Replace text"
 #: ./profiles/default/actions.xml
@@ -154,7 +154,7 @@ msgstr "Rechercher/Remplacer"
 
 #: ./browser/searchreplacetable.pt:20
 msgid "Select all items"
-msgstr ""
+msgstr "Tous selectionner"
 
 #: ./interfaces.py:62
 msgid "The maximum number of characters to show before and after the found text."
@@ -162,11 +162,11 @@ msgstr "Le nombre maximum de caratères à afficher avant et après le texte tro
 
 #: ./browser/searchreplaceform.py:63
 msgid "Use the catalog to search, just like the search form does. This only finds keywords, not html tags. You might have some text fields that are not found this way, so if not checked, you may find more content, but it will be slower. Regardless of this setting, when at least one match is found, text in all text fields may be replaced."
-msgstr ""
+msgstr "Utilise le catalogue pour rechercher, comme le formulaire de recherche fait. Cela permet uniquement de trouver des mots-clés, et non des tags HTML. Vous pouvez avoir certain champs texte qui ne seront pas trouvé de cette facon, vous pourrez donc trouver plus de contenu si non coché, mais cela sera plus lent. Peut-importe ce paramètre, une fois une occurence trouvée, les textes de tous les champs texte pourront être remplacé."
 
 #: ./interfaces.py:41
 msgid "When 'Restrict the enable types' is checked, only the selected types are searched. Otherwise this list is ignored."
-msgstr ""
+msgstr "Quand 'Restreindre les types activés' est coché, uniquement les types séléctionnés seront recherchés. Sinon, la liste est ignoré."
 
 #: ./configure.zcml:28
 msgid "collective.searchandreplace"
