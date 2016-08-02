@@ -4,11 +4,13 @@ Changelog
 7.1.1 (unreleased)
 ------------------
 
+Bug fixes:
+
 - Fix UnicodeEncodeError when searching for non ascii characters.
   Fixes https://github.com/collective/collective.searchandreplace/issues/33
   [maurits]
 
-- added Russian translation fixed translation mistakes [serge73]
+- Added Russian translation and fixed translation mistakes.  [serge73]
 
 
 7.1 (2016-07-20)
