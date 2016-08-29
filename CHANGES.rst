@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Do not use base object when replacing [Gagaro]
 
 
 7.1.1 (2016-08-02)
