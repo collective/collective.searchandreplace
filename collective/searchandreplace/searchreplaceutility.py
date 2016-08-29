@@ -324,10 +324,10 @@ class SearchReplaceUtility(object):
         return getRawText(obj, fieldname)
 
     def _setTextField(self, obj, fieldname, text):
-        obj = aq_base(obj)
-        if getattr(obj, 'Schema', None):
+        obj_base = aq_base(obj)
+        if getattr(obj_base, 'Schema', None):
             # Archetypes
-            field = obj.getField(fieldname)
+            field = obj_base.getField(fieldname)
             if field is None:
                 logger.warn('Field %s not found for %s',
                             fieldname, obj.getId())
@@ -335,7 +335,7 @@ class SearchReplaceUtility(object):
             field.set(obj, text)
         else:
             # Dexterity
-            field = self._getField(obj, fieldname)
+            field = self._getField(obj_base, fieldname)
             if field is None:
                 logger.warn('Field %s not found for %s',
                             fieldname, obj.getId())
