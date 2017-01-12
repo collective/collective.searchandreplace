@@ -1,5 +1,4 @@
 from collective.searchandreplace.interfaces import ISearchReplaceSettings
-from plone.dexterity.interfaces import IDexterityFTI
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
@@ -54,6 +53,12 @@ def remove_behavior(context):
     # no longer needed.  So we remove it from existing types, otherwise you get
     # warnings and errors in the logs when accessing a type.  It seems to cause
     # no harm.
+    try:
+        from plone.dexterity.interfaces import IDexterityFTI
+    except ImportError:
+        logger.info('No dexterity available, '
+                    'so there is no behavior to remove.')
+        return
     behavior_name = 'collective.searchandreplace.interfaces.ISearchReplaceable'
     for name, fti in getUtilitiesFor(IDexterityFTI):
         behaviors = list(fti.behaviors)

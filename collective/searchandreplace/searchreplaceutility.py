@@ -7,7 +7,6 @@ from collective.searchandreplace.interfaces import ISearchReplaceSettings
 from plone.app.layout.navigation.defaultpage import isDefaultPage
 from plone.app.textfield import RichTextValue
 from plone.app.textfield.interfaces import IRichText
-from plone.dexterity.utils import iterSchemata
 from plone.registry.interfaces import IRegistry
 from Products.Archetypes.interfaces import ITextField
 from Products.CMFCore.permissions import ModifyPortalContent
@@ -19,8 +18,16 @@ from zope.schema.interfaces import IText
 from zope.schema.interfaces import ITextLine
 
 import logging
+import pkg_resources
 import re
 
+try:
+    pkg_resources.get_distribution('plone.dexterity')
+except pkg_resources.DistributionNotFound:
+    HAS_DEXTERITY = False
+else:
+    HAS_DEXTERITY = True
+    from plone.dexterity.utils import iterSchemata
 
 logger = logging.getLogger('collective.searchreplace')
 searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
@@ -294,7 +301,7 @@ class SearchReplaceUtility(object):
                 if not ITextField.providedBy(field):
                     continue
                 text_fields.append(field)
-        else:
+        elif HAS_DEXTERITY:
             # Dexterity
             for schemata in iterSchemata(obj):
                 fields = getFieldsInOrder(schemata)
