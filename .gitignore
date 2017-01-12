@@ -4,6 +4,7 @@
 *.pyo
 *.swp
 *~
+.Python
 .egg-info
 .idea
 .installed.cfg
@@ -14,6 +15,9 @@ develop-eggs
 dist
 downloads
 eggs
+include/
+lib/
 local.cfg
 parts
+pip-selfcheck.json
 var

@@ -4,7 +4,7 @@ Changelog
 7.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed ImportErrors when dexterity is not available.  [maurits]
 
 
 7.1.2 (2016-08-29)
