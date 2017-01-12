@@ -16,14 +16,6 @@ Changelog
 7.1.2 (2016-08-29)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Do not use base object when replacing [Gagaro]
