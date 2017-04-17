@@ -4,7 +4,8 @@ Changelog
 7.1.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add confirmation prompt when replacing without viewing first.
+  [Gagaro]
 
 
 7.1.3 (2017-01-12)
