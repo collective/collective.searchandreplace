@@ -12,6 +12,7 @@ from Products.Archetypes.interfaces import ITextField
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
+from zope.component.hooks import getSite
 from zope.i18n import translate
 from zope.schema import getFieldsInOrder
 from zope.schema.interfaces import IText
@@ -228,7 +229,14 @@ class SearchReplaceUtility(object):
 
         # don't have to utf-8 encoding
         if replaced:
-            obj.reindexObject()
+            registry = getUtility(IRegistry)
+            settings = registry.forInterface(ISearchReplaceSettings, check=False)
+            if settings.update_modified:
+                obj.reindexObject()
+            else:
+                site = getSite()
+                catalog = getToolByName(site, 'portal_catalog')
+                obj.reindexObject(idxs=catalog.indexes)
         return replaced
 
     def _replaceText(self, matcher, text, rtext, indexes):

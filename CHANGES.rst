@@ -4,7 +4,7 @@ Changelog
 7.1.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added update_modified setting to allow replacing without updating the modified index/metadata.  [Gagaro]
 
 
 7.1.3 (2017-01-12)
