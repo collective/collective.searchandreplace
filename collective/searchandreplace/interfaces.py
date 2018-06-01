@@ -65,3 +65,12 @@ class ISearchReplaceSettings(Interface):
         required=False,
         default=50,
     )
+
+    update_modified = schema.Bool(
+        title=_(u'Update the modified datetime when replacing.'),
+        description=_(
+            u'If checked, the modified index/metadata of the object '
+            u'having text replaced will be updated.'),
+        required=False,
+        default=True,
+    )

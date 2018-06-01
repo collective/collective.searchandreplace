@@ -75,6 +75,16 @@
         handler=".upgrade.remove_behavior"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+    source="2000"
+    destination="2001"
+    profile="collective.searchandreplace:default">
+    <genericsetup:upgradeStep
+        title="Update registry"
+        description="Add update_modified settings"
+        handler=".upgrade.run_registry_step"
+        />
+  </genericsetup:upgradeSteps>
 
   <utility
      provides=".interfaces.ISearchReplaceUtility"
