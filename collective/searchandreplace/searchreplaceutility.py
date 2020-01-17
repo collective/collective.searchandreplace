@@ -20,6 +20,7 @@ from zope.schema.interfaces import ITextLine
 import logging
 import pkg_resources
 import re
+import six
 
 try:
     pkg_resources.get_distribution('plone.dexterity')
@@ -49,8 +50,8 @@ CUSTOM_HANDLED_TEXT_FIELDS = [
 
 
 def _to_unicode(s):
-    assert isinstance(s, basestring)
-    if not isinstance(s, unicode):
+    assert isinstance(s, six.string_types)
+    if not isinstance(s, six.text_type):
         s = s.decode('utf-8')
     return s
 
@@ -437,7 +438,7 @@ def getRawTextField(obj, field):
         if isinstance(baseunit, tuple):
             #  LinesField
             text = '\n'.join(baseunit)
-        elif isinstance(baseunit.raw, unicode):
+        elif isinstance(baseunit.raw, six.text_type):
             text = baseunit.raw
         else:
             text = _to_unicode(field.getRaw(obj))
