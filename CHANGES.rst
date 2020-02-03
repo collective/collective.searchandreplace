@@ -5,6 +5,8 @@ Changelog
 ------------------
 
 - Added update_modified setting to allow replacing without updating the modified index/metadata.  [Gagaro]
+- Don't assume Archetypes is available [cillianderoiste]
+- Add Python 3 support [cillianderoiste]
 
 
 7.1.3 (2017-01-12)
