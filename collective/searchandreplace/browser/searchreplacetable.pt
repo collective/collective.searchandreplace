@@ -6,8 +6,8 @@
                  items view/getItems;
                  findText request/form.findWhat|nothing;
                  replaceText request/form.replaceWith|nothing;
-                 maximum_text_characters python:context.portal_registry.get('collective.searchandreplace.interfaces.ISearchReplaceSettings.maximum_text_characters', 50)
-                 ">
+                 maximum_text_characters view/maximum_text_characters;
+                 "> 
 
   <label for="form.affectedContent">
     <span i18n:translate="">Affected Content</span> (<span tal:replace="python:len(items)"></span>)

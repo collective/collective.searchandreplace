@@ -7,6 +7,10 @@ from zope.publisher.browser import BrowserView
 class SearchReplaceTable(BrowserView):
     """ View class for search and replace preivew table widget."""
 
+    def maximum_text_characters(self):
+        srutil = getUtility(ISearchReplaceUtility)
+        return srutil.settings.maximum_text_characters
+
     def getItems(self):
         """ Get preview items """
         # Set search parameters

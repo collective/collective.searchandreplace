@@ -54,6 +54,11 @@ class SearchReplaceUtility(object):
     # Permission to check before modifying content.
     permission = ModifyPortalContent
 
+    @property
+    def settings(self):
+        registry = getUtility(IRegistry)
+        return registry.forInterface(ISearchReplaceSettings, check=False)
+
     def searchObjects(self, context, find, **kwargs):
         """ Search objects and optionally do a replace. """
         # Get search parameters
@@ -98,10 +103,8 @@ class SearchReplaceUtility(object):
             query['query'] = '/'.join(container.getPhysicalPath())
         catalog = getToolByName(context, 'portal_catalog')
         parameters = dict(path=query)
-        registry = getUtility(IRegistry)
-        settings = registry.forInterface(ISearchReplaceSettings, check=False)
-        if settings.restrict_searchable_types:
-            parameters['portal_type'] = settings.enabled_types
+        if self.settings.restrict_searchable_types:
+            parameters['portal_type'] = self.settings.enabled_types
         if onlySearchableText:
             parameters['SearchableText'] = u'*{0}*'.format(find)
         brains = catalog(**parameters)
@@ -229,9 +232,7 @@ class SearchReplaceUtility(object):
 
         # don't have to utf-8 encoding
         if replaced:
-            registry = getUtility(IRegistry)
-            settings = registry.forInterface(ISearchReplaceSettings, check=False)
-            if settings.update_modified:
+            if self.settings.update_modified:
                 obj.reindexObject()
             else:
                 site = getSite()
