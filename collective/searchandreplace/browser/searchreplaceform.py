@@ -108,7 +108,7 @@ class SearchReplaceForm(AddForm):
         if 'form.affectedContent' in self.request:
             # Do only the selected items
             # nitems = len(self.request['form.affectedContent'])
-            items = srutil.parseItems(self.request['form.affectedContent'])
+            items = parseItems(self.request['form.affectedContent'])
             nitems = 0
             for page_url, page_result in items.items():
                 for field, indexes in page_result.items():
@@ -148,3 +148,30 @@ class SearchReplaceForm(AddForm):
             name=u'Reset')
     def action_reset(self, action, data):
         """ Reset the form fields to their defaults. """
+
+
+def parseItems(items):
+    """ Get list of items from form values """
+    itemd = {}
+    if not isinstance([], type(items)):
+        items = [items]
+    for x in items:
+        try:
+            line, pos, path = x.split(':')
+        except ValueError:
+            continue
+        if path not in itemd:
+            itemd[path] = {}
+        if 'title' == line:
+            if 'title' not in itemd[path]:
+                itemd[path]['title'] = []
+            itemd[path]['title'].append(int(pos))
+        elif ' ' in line:
+            try:
+                fieldname, line_number = line.split(' ')
+            except ValueError:
+                continue
+            if fieldname not in itemd[path]:
+                itemd[path][fieldname] = []
+            itemd[path][fieldname].append(int(pos))
+    return itemd
