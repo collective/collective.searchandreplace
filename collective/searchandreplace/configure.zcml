@@ -40,27 +40,30 @@
       source="1000"
       destination="1001"
       profile="collective.searchandreplace:default">
-    <genericsetup:upgradeStep
+    <genericsetup:upgradeDepends
         title="Update actions"
         description="Uses UseSearchAndReplace permission for our object action"
-        handler=".upgrade.run_actions_step"
-        />
-    <genericsetup:upgradeStep
+        import_profile="collective.searchandreplace:default"
+        import_steps="actions"
+    />
+    <genericsetup:upgradeDepends
         title="Update rolemap"
         description="Adds UseSearchAndReplace permission"
-        handler=".upgrade.run_rolemap_step"
-        />
+        import_profile="collective.searchandreplace:default"
+        import_steps="rolemap"
+    />
   </genericsetup:upgradeSteps>
 
   <genericsetup:upgradeSteps
       source="1001"
       destination="1002"
       profile="collective.searchandreplace:default">
-    <genericsetup:upgradeStep
+    <genericsetup:upgradeDepends
         title="Update registry"
         description="Add maximum_text_characters settings"
-        handler=".upgrade.run_registry_step"
-        />
+        import_profile="collective.searchandreplace:default"
+        import_steps="plone.app.registry"
+    />
   </genericsetup:upgradeSteps>
   <genericsetup:upgradeSteps
       source="1002"
@@ -79,11 +82,12 @@
     source="2000"
     destination="2001"
     profile="collective.searchandreplace:default">
-    <genericsetup:upgradeStep
+    <genericsetup:upgradeDepends
         title="Update registry"
         description="Add update_modified settings"
-        handler=".upgrade.run_registry_step"
-        />
+        import_profile="collective.searchandreplace:default"
+        import_steps="plone.app.registry"
+    />
   </genericsetup:upgradeSteps>
 
   <utility
