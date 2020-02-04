@@ -237,7 +237,7 @@ class SearchReplaceUtility(object):
             else:
                 site = getSite()
                 catalog = getToolByName(site, 'portal_catalog')
-                obj.reindexObject(idxs=catalog.indexes)
+                obj.reindexObject(idxs=catalog.indexes())
         return replaced
 
     def _replaceText(self, matcher, text, rtext, indexes):

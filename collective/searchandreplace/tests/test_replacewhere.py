@@ -7,6 +7,7 @@ from plone.app.testing import setRoles
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
+from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
 
 import unittest
@@ -325,3 +326,64 @@ class TestReplaceWhere(unittest.TestCase):
         # Note: replacing returns an int, not a list.
         self.assertEqual(results, 1)
         self.assertEqual(getRawText(doc1), 'My <em>Test</em> Case')
+
+
+class TestModified(unittest.TestCase):
+    """Test update_modified setting"""
+
+    layer = SEARCH_REPLACE_INTEGRATION_LAYER
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+        self.srutil = getUtility(ISearchReplaceUtility)
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.portal.invokeFactory('Document', 'doc1')
+        doc1 = getattr(self.portal, 'doc1')
+        edit_content(
+            doc1,
+            title='Test Title',
+            description='Test Description',
+            text='Test Case')
+        # when an object has never been saved to repository
+        # any call to save to repository, like in _afterReplace,
+        # triggers a change in the modification date
+        # for this reason, save the document to avoid noise when testing
+        # modification date
+        repository = getToolByName(self.portal, 'portal_repository', None)
+        repository.save(doc1)
+
+    def test_update_modified(self):
+        doc1 = getattr(self.portal, 'doc1')
+        modified = doc1.modified()
+        self.search_and_replace()
+        self.assertNotEqual(doc1.modified(), modified)
+
+    def test_update_not_modified(self):
+        self.srutil.settings.update_modified = False
+        doc1 = getattr(self.portal, 'doc1')
+        modified = doc1.modified()
+        self.search_and_replace()
+        self.assertEqual(doc1.modified(), modified)
+
+    def search_and_replace(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
+        doc1 = getattr(self.portal, 'doc1')
+        self.assertEqual(getRawText(doc1), 'Test Case')
+        # Search it.
+        parameters = dict(
+            context=doc1,
+            find='test case',
+            replaceText='foo',
+            matchCase=False)
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(getRawText(doc1), 'Test Case')
+        # Replace it after 1 second
+        import time
+        time.sleep(1)
+        parameters['doReplace'] = True
+        results = self.srutil.searchObjects(**parameters)
+        self.assertEqual(results, 1)
+        self.assertEqual(getRawText(doc1), 'foo')
+
+
