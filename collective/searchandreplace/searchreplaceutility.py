@@ -23,28 +23,28 @@ import pkg_resources
 import re
 
 try:
-    pkg_resources.get_distribution('plone.dexterity')
+    pkg_resources.get_distribution("plone.dexterity")
 except pkg_resources.DistributionNotFound:
     HAS_DEXTERITY = False
 else:
     HAS_DEXTERITY = True
     from plone.dexterity.utils import iterSchemata
 
-logger = logging.getLogger('collective.searchreplace')
+logger = logging.getLogger("collective.searchreplace")
 searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
 # List of text fields that are handled separately, instead of together with all
 # text fields.  Note that 'title' is a string field, so we handle it
 # separately, being the only string field that we want to change.  But we list
 # it here to be on the safe side.
 CUSTOM_HANDLED_TEXT_FIELDS = [
-    'title',
+    "title",
 ]
 
 
 def _to_unicode(s):
     assert isinstance(s, basestring)
     if not isinstance(s, unicode):
-        s = s.decode('utf-8')
+        s = s.decode("utf-8")
     return s
 
 
@@ -53,20 +53,19 @@ def make_matcher(findWhat, matchCase):
     return re.compile(findWhat, sflags)
 
 
-def make_catalog_query_args(context, findWhat, searchSubFolders,
-        onlySearchableText):
+def make_catalog_query_args(context, findWhat, searchSubFolders, onlySearchableText):
     # Get items to search
-    query = {'query': '/'.join(context.getPhysicalPath())}
+    query = {"query": "/".join(context.getPhysicalPath())}
     if context.isPrincipiaFolderish and not searchSubFolders:
-        query['depth'] = 1
+        query["depth"] = 1
     container = aq_parent(context)
     if isDefaultPage(container, context) and searchSubFolders:
-        query['query'] = '/'.join(container.getPhysicalPath())
+        query["query"] = "/".join(container.getPhysicalPath())
     catalog_query_args = dict(path=query)
     if settings().restrict_searchable_types:
-        catalog_query_args['portal_type'] = settings().enabled_types
+        catalog_query_args["portal_type"] = settings().enabled_types
     if onlySearchableText:
-        catalog_query_args['SearchableText'] = u'*{0}*'.format(findWhat)
+        catalog_query_args["SearchableText"] = u"*{0}*".format(findWhat)
     return catalog_query_args
 
 
@@ -81,17 +80,19 @@ class SearchReplaceUtility(object):
     # Permission to check before modifying content.
     permission = ModifyPortalContent
 
-    def replaceAllMatches(self, context, findWhat, replaceWith,
-                matchCase=False,
-                onlySearchableText=True,
-                searchSubFolders=True):
+    def replaceAllMatches(
+        self,
+        context,
+        findWhat,
+        replaceWith,
+        matchCase=False,
+        onlySearchableText=True,
+        searchSubFolders=True,
+    ):
         matcher = make_matcher(findWhat, matchCase)
-        catalog = portal.get_tool('portal_catalog')
+        catalog = portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
-                context,
-                findWhat,
-                searchSubFolders,
-                onlySearchableText,
+            context, findWhat, searchSubFolders, onlySearchableText,
         )
         brains = catalog(**catalog_query_args)
         repl_count = 0
@@ -100,32 +101,32 @@ class SearchReplaceUtility(object):
                 obj = b.getObject()
             except (KeyError, AttributeError):
                 ipath = b.getPath()
-                logger.warn('getObject failed for %s', ipath)
+                logger.warn("getObject failed for %s", ipath)
                 continue
-            mtool = portal.get_tool('portal_membership')
+            mtool = portal.get_tool("portal_membership")
             if not mtool.checkPermission(self.permission, obj):
                 continue
-            count = replace_all_in_object(matcher,
-                                  obj,
-                                  replaceWith,
-            )
+            count = replace_all_in_object(matcher, obj, replaceWith,)
             if count:
                 reindexObject(obj)
                 afterReplace(obj, findWhat, replaceWith)
-                repl_count += count 
+                repl_count += count
         return repl_count
 
-    def replaceFilteredOccurences(self, context, findWhat, replaceWith, occurences,
-                matchCase=False,
-                onlySearchableText=True,
-                searchSubFolders=True):
+    def replaceFilteredOccurences(
+        self,
+        context,
+        findWhat,
+        replaceWith,
+        occurences,
+        matchCase=False,
+        onlySearchableText=True,
+        searchSubFolders=True,
+    ):
         matcher = make_matcher(findWhat, matchCase)
-        catalog = portal.get_tool('portal_catalog')
+        catalog = portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
-                context,
-                findWhat,
-                searchSubFolders,
-                onlySearchableText,
+            context, findWhat, searchSubFolders, onlySearchableText,
         )
         brains = catalog(**catalog_query_args)
         repl_count = 0
@@ -136,15 +137,13 @@ class SearchReplaceUtility(object):
             try:
                 obj = b.getObject()
             except (KeyError, AttributeError):
-                logger.warn('getObject failed for %s', ipath)
+                logger.warn("getObject failed for %s", ipath)
                 continue
-            mtool = portal.get_tool('portal_membership')
+            mtool = portal.get_tool("portal_membership")
             if not mtool.checkPermission(self.permission, obj):
                 continue
-            count = replace_occurences_in_object(matcher,
-                                  obj,
-                                  replaceWith,
-                                  occurences[ipath],
+            count = replace_occurences_in_object(
+                matcher, obj, replaceWith, occurences[ipath],
             )
             if count:
                 reindexObject(obj)
@@ -152,18 +151,19 @@ class SearchReplaceUtility(object):
                 repl_count += count
         return repl_count
 
-    def findObjects(self, context, findWhat,
-                matchCase=False,
-                onlySearchableText=True,
-                searchSubFolders=True,
-                maxResults=None):
+    def findObjects(
+        self,
+        context,
+        findWhat,
+        matchCase=False,
+        onlySearchableText=True,
+        searchSubFolders=True,
+        maxResults=None,
+    ):
         matcher = make_matcher(findWhat, matchCase)
-        catalog = portal.get_tool('portal_catalog')
+        catalog = portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
-                context,
-                findWhat,
-                searchSubFolders,
-                onlySearchableText,
+            context, findWhat, searchSubFolders, onlySearchableText,
         )
         brains = catalog(**catalog_query_args)
         matches = []
@@ -172,9 +172,9 @@ class SearchReplaceUtility(object):
                 obj = b.getObject()
             except (KeyError, AttributeError):
                 ipath = b.getPath()
-                logger.warn('getObject failed for %s', ipath)
+                logger.warn("getObject failed for %s", ipath)
                 continue
-            mtool = portal.get_tool('portal_membership')
+            mtool = portal.get_tool("portal_membership")
             if not mtool.checkPermission(self.permission, obj):
                 continue
             matches.extend(find_matches_in_object(matcher, obj))
@@ -193,13 +193,12 @@ def afterReplace(obj, found, rtext):
 
     By default, we will store a version in the CMFEditions repository.
     """
-    repository = getToolByName(obj, 'portal_repository', None)
+    repository = getToolByName(obj, "portal_repository", None)
     if repository is None:
         return
     if obj.portal_type not in repository.getVersionableContentTypes():
         return
-    comment = _(u'Replaced: ${old} -> ${new}',
-                mapping={'old': found, 'new': rtext})
+    comment = _(u"Replaced: ${old} -> ${new}", mapping={"old": found, "new": rtext})
     comment = translate(comment, context=obj.REQUEST)
     repository.save(obj, comment=comment)
 
@@ -214,11 +213,8 @@ def replace_all_in_object(matcher, obj, rtext):
         # Title might be acquired from parent for some types, which
         # breaks now that we have stripped away the acquisition chain
         # with aq_base.
-        title = u''
-    count, new_text = replaceText(matcher,
-                               title,
-                               rtext,
-                               None)
+        title = u""
+    count, new_text = replaceText(matcher, title, rtext, None)
     if count:
         repl_count += count
         base_obj.setTitle(new_text)
@@ -227,10 +223,7 @@ def replace_all_in_object(matcher, obj, rtext):
         text = getRawTextField(obj, field)
         if not text:
             continue
-        count, new_text = replaceText(matcher,
-                                   text,
-                                   rtext,
-                                   None)
+        count, new_text = replaceText(matcher, text, rtext, None)
         if count:
             repl_count += count
             setTextField(obj, field.__name__, new_text)
@@ -241,14 +234,11 @@ def replace_all_in_object(matcher, obj, rtext):
 def replace_occurences_in_object(matcher, obj, rtext, mobjs):
     """ Replace text in objects """
     repl_count = 0
-    title_positions = mobjs.pop('title', None)
+    title_positions = mobjs.pop("title", None)
     if title_positions is not None:
         base_obj = aq_base(obj)
         title = _to_unicode(base_obj.Title())
-        count, new_text = replaceText(matcher,
-                                   title,
-                                   rtext,
-                                   title_positions)
+        count, new_text = replaceText(matcher, title, rtext, title_positions)
         if count:
             repl_count += count
             base_obj.setTitle(new_text)
@@ -256,10 +246,7 @@ def replace_occurences_in_object(matcher, obj, rtext, mobjs):
     for fieldname, positions in mobjs.items():
         text = getRawText(obj, fieldname)
         if text:
-            count, new_text = replaceText(matcher,
-                                       text,
-                                       rtext,
-                                       positions)
+            count, new_text = replaceText(matcher, text, rtext, positions)
             if count:
                 repl_count += count
                 setTextField(obj, fieldname, new_text)
@@ -270,13 +257,13 @@ def reindexObject(obj):
     if settings().update_modified:
         obj.reindexObject()
     else:
-        catalog = portal.get_tool('portal_catalog')
+        catalog = portal.get_tool("portal_catalog")
         obj.reindexObject(idxs=catalog.indexes())
 
 
 def replaceText(matcher, text, rtext, indexes):
     """ Replace instances """
-    newtext = ''
+    newtext = ""
     mindex = 0
     repl_count = 0
     mobj = matcher.finditer(text)
@@ -294,7 +281,7 @@ def replaceText(matcher, text, rtext, indexes):
 def find_matches_in_object(matcher, obj):
     """ Find location of search strings """
     results = []
-    path = '/'.join(obj.getPhysicalPath())
+    path = "/".join(obj.getPhysicalPath())
     base = aq_base(obj)
     try:
         title = _to_unicode(base.Title())
@@ -302,18 +289,19 @@ def find_matches_in_object(matcher, obj):
         # Title might be acquired from parent for some types, which breaks
         # now that we have stripped away the acquisition chain with
         # aq_base.
-        title = u''
+        title = u""
     mobj = matcher.finditer(title)
     for x in mobj:
         start, end = x.span()
-        results.append({
-            'path': path,
-            'url': obj.absolute_url(),
-            'line': 'title',
-            'pos': '%d' % start,
-            'text': getLinePreview(title,
-                                         start,
-                                         end), })
+        results.append(
+            {
+                "path": path,
+                "url": obj.absolute_url(),
+                "line": "title",
+                "pos": "%d" % start,
+                "text": getLinePreview(title, start, end),
+            }
+        )
     text_fields = getTextFields(obj)
     if text_fields:
         for field in text_fields:
@@ -323,22 +311,22 @@ def find_matches_in_object(matcher, obj):
             mobj = matcher.finditer(text)
             for x in mobj:
                 start, end = x.span()
-                results.append({
-                    'path': path,
-                    'url': obj.absolute_url(),
-                    'line': '%s %d' % (field.__name__,
-                                       getLineNumber(text, start)),
-                    'pos': '%d' % start,
-                    'text': getLinePreview(text,
-                                                 start,
-                                                 end), })
+                results.append(
+                    {
+                        "path": path,
+                        "url": obj.absolute_url(),
+                        "line": "%s %d" % (field.__name__, getLineNumber(text, start)),
+                        "pos": "%d" % start,
+                        "text": getLinePreview(text, start, end),
+                    }
+                )
     return results
 
 
 def getTextFields(obj):
     # Get all text fields, except ones that are handled separately.
     text_fields = []
-    if getattr(aq_base(obj), 'Schema', None):
+    if getattr(aq_base(obj), "Schema", None):
         # Archetypes
         for field in obj.Schema().values():
             if field.__name__ in CUSTOM_HANDLED_TEXT_FIELDS:
@@ -369,20 +357,18 @@ def getTextFields(obj):
 
 def setTextField(obj, fieldname, text):
     obj_base = aq_base(obj)
-    if getattr(obj_base, 'Schema', None):
+    if getattr(obj_base, "Schema", None):
         # Archetypes
         field = obj_base.getField(fieldname)
         if field is None:
-            logger.warn('Field %s not found for %s',
-                        fieldname, obj.getId())
+            logger.warn("Field %s not found for %s", fieldname, obj.getId())
             return
         field.set(obj, text)
     else:
         # Dexterity
         field = getField(obj_base, fieldname)
         if field is None:
-            logger.warn('Field %s not found for %s',
-                        fieldname, obj.getId())
+            logger.warn("Field %s not found for %s", fieldname, obj.getId())
             return
         if IRichText.providedBy(field):
             # Get mimetype from old value.
@@ -390,32 +376,29 @@ def setTextField(obj, fieldname, text):
             if old is None:
                 text = RichTextValue(text)
             else:
-                text = RichTextValue(
-                    text, old.mimeType, old.outputMimeType)
+                text = RichTextValue(text, old.mimeType, old.outputMimeType)
         field.set(obj, text)
 
 
 def getLineNumber(text, index):
-    return text.count('\n', 0, index) + 1
+    return text.count("\n", 0, index) + 1
 
 
 def getLinePreview(text, start, end):
-    sindex = text[:start].rfind('\n')
+    sindex = text[:start].rfind("\n")
     if -1 == sindex:
         sindex = 0
-    eindex = text[end:].find('\n')
+    eindex = text[end:].find("\n")
     if -1 == eindex:
         eindex = None
     else:
         eindex += end
-    return (text[sindex:start],
-            text[start:end],
-            text[end:eindex])
+    return (text[sindex:start], text[start:end], text[end:eindex])
 
 
 def getField(obj, fieldname):
     obj = aq_base(obj)
-    if getattr(obj, 'Schema', None):
+    if getattr(obj, "Schema", None):
         # Archetypes
         return obj.getField(fieldname)
     # Dexterity
@@ -429,12 +412,12 @@ def getField(obj, fieldname):
 def getRawTextField(obj, field):
     text = None
     obj = aq_base(obj)
-    if hasattr(field, 'getRaw'):
+    if hasattr(field, "getRaw"):
         # Archetypes
         baseunit = field.getRaw(obj, raw=True)
         if isinstance(baseunit, tuple):
             #  LinesField
-            text = '\n'.join(baseunit)
+            text = "\n".join(baseunit)
         elif isinstance(baseunit.raw, unicode):
             text = baseunit.raw
         else:
@@ -443,16 +426,16 @@ def getRawTextField(obj, field):
         # Dexterity
         baseunit = field.get(obj)
         if baseunit is None:
-            text = u''
+            text = u""
         else:
             # Rich text has a raw attribute, plain text simply has text
             # (unicode).
-            text = getattr(baseunit, 'raw', baseunit)
+            text = getattr(baseunit, "raw", baseunit)
     return text
 
 
-def getRawText(obj, fieldname='text'):
+def getRawText(obj, fieldname="text"):
     field = getField(obj, fieldname)
     if field is None:
-        return u''
+        return u""
     return getRawTextField(obj, field)
