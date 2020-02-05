@@ -113,13 +113,12 @@ class SearchReplaceForm(AddForm):
             for page_url, page_result in occurences.items():
                 for field, indexes in page_result.items():
                     occur_count += len(indexes)
-            repl_count = srutil.searchObjects(
+            repl_count = srutil.replaceObjects(
                 self.context,
                 data['findWhat'],
                 searchSubFolders=data.get('searchSubfolders', False),
                 matchCase=data['matchCase'],
                 replaceWith=data['replaceWith'],
-                doReplace=True,
                 occurences=occurences,
                 onlySearchableText=data['onlySearchableText'],
             )
@@ -130,14 +129,14 @@ class SearchReplaceForm(AddForm):
                 type='info')
         else:
             # Do everything you can find
-            repl_count = srutil.searchObjects(
+            repl_count = srutil.replaceObjects(
                 self.context,
                 data['findWhat'],
                 searchSubFolders=data.get('searchSubfolders', False),
                 matchCase=data['matchCase'],
                 replaceWith=data['replaceWith'],
                 onlySearchableText=data['onlySearchableText'],
-                doReplace=True)
+            )
             IStatusMessage(self.request).addStatusMessage(
                 _(u'Search text replaced in all ${items} instance(s).',
                   mapping={'items': repl_count}),

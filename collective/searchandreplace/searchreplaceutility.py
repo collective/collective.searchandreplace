@@ -89,13 +89,11 @@ class SearchReplaceUtility(object):
     # Permission to check before modifying content.
     permission = ModifyPortalContent
 
-    def searchObjects(self, context, find, **kwargs):
-        """ Search objects and optionally do a replace. """
+
+    def replaceObjects(self, context, find, **kwargs):
         config = SearchConfiguration(context, find, **kwargs)
         catalog = getToolByName(context, 'portal_catalog')
         brains = catalog(**config.catalog_query_args)
-        # Match objects
-        results = []
         repl_count = 0
         occurences = config.occurences
         for b in brains:
@@ -112,33 +110,41 @@ class SearchReplaceUtility(object):
                 # If there is a filtered list of items, and it
                 # is in the list, or if there is no filter
                 # then process the item
-                if config.doReplace:
-                    # Do a replace
-                    if occurences:
-                        occurence = occurences[ipath]
-                    else:
-                        occurence = None
-                    rep = replaceObject(config.matcher,
-                                              obj,
-                                              config.cpath,
-                                              config.replaceWith,
-                                              occurence,
-                                              config.settings.update_modified)
-                    if rep:
-                        afterReplace(obj, find, config.replaceWith)
-                        repl_count += rep
-                elif not config.doReplace:
-                    # Just find the matches and return info
-                    result = searchObject(config.matcher, obj)
-                    if result:
-                        results += result
-                    if config.maxResults is not None and len(results) > config.maxResults:
-                        results = results[:config.maxResults]
-                        break
-        if config.doReplace:
-            return repl_count
-        else:
-            return results
+                if occurences:
+                    occurence = occurences[ipath]
+                else:
+                    occurence = None
+                rep = replaceObject(config.matcher,
+                                          obj,
+                                          config.cpath,
+                                          config.replaceWith,
+                                          occurence,
+                                          config.settings.update_modified)
+                if rep:
+                    afterReplace(obj, find, config.replaceWith)
+                    repl_count += rep
+        return repl_count
+
+    def findObjects(self, context, find, **kwargs):
+        config = SearchConfiguration(context, find, **kwargs)
+        catalog = getToolByName(context, 'portal_catalog')
+        brains = catalog(**config.catalog_query_args)
+        matches = []
+        for b in brains:
+            try:
+                obj = b.getObject()
+            except (KeyError, AttributeError):
+                ipath = b.getPath()
+                logger.warn('getObject failed for %s', ipath)
+                continue
+            # Does the user have the modify permission on this object?
+            if not config.checkPermission(self.permission, obj):
+                continue
+            matches.extend(find_matches_in_object(config.matcher, obj))
+            if config.maxResults is not None and len(matches) > config.maxResults:
+                matches = matches[:config.maxResults]
+                break
+        return matches
 
 
 def afterReplace(obj, find, rtext):
@@ -246,7 +252,7 @@ def replaceText(matcher, text, rtext, indexes):
     return repl_count, newtext
 
 
-def searchObject(matcher, obj):
+def find_matches_in_object(matcher, obj):
     """ Find location of search strings """
     results = []
     path = '/'.join(obj.getPhysicalPath())

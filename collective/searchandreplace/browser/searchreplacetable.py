@@ -38,7 +38,7 @@ class SearchReplaceTable(BrowserView):
             maxResults = None
         onlySearchableText = 'form.onlySearchableText' in self.request
         # Get search results
-        results = srutil.searchObjects(
+        results = srutil.findObjects(
             self.context,
             stext,
             searchSubFolders=subfolders,
