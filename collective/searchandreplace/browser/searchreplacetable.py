@@ -1,6 +1,8 @@
 # -*- coding: us-ascii -*-
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
+from collective.searchandreplace.interfaces import ISearchReplaceSettings
 from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 from zope.publisher.browser import BrowserView
 
 
@@ -8,8 +10,9 @@ class SearchReplaceTable(BrowserView):
     """ View class for search and replace preivew table widget."""
 
     def maximum_text_characters(self):
-        srutil = getUtility(ISearchReplaceUtility)
-        return srutil.settings.maximum_text_characters
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISearchReplaceSettings, check=False)
+        return settings.maximum_text_characters
 
     def getItems(self):
         """ Get preview items """

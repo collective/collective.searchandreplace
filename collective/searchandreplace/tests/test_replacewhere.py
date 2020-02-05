@@ -1,6 +1,8 @@
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
+from collective.searchandreplace.interfaces import ISearchReplaceSettings
 from collective.searchandreplace.testing import edit_content
 from collective.searchandreplace.testing import SEARCH_REPLACE_INTEGRATION_LAYER  # noqa
+from plone.registry.interfaces import IRegistry
 from plone.app.testing import login
 from plone.app.testing import logout
 from plone.app.testing import setRoles
@@ -37,7 +39,7 @@ class TestReplaceWhere(unittest.TestCase):
         parameters = dict(
             context=doc1,
             find='test case',
-            replaceText='foo',
+            replaceWith='foo',
             matchCase=False)
         results = self.srutil.searchObjects(**parameters)
         self.assertEqual(len(results), 1)
@@ -67,7 +69,7 @@ class TestReplaceWhere(unittest.TestCase):
         parameters = dict(
             context=doc1,
             find='test title',
-            replaceText='foo',
+            replaceWith='foo',
             matchCase=False)
         results = self.srutil.searchObjects(**parameters)
         self.assertEqual(len(results), 1)
@@ -96,7 +98,7 @@ class TestReplaceWhere(unittest.TestCase):
         parameters = dict(
             context=doc1,
             find='test desc',
-            replaceText='foo',
+            replaceWith='foo',
             matchCase=False)
         results = self.srutil.searchObjects(**parameters)
         self.assertEqual(len(results), 1)
@@ -148,7 +150,7 @@ class TestReplaceWhere(unittest.TestCase):
         results = self.srutil.searchObjects(
             mainfolder,
             'test title',
-            replaceText='foo',
+            replaceWith='foo',
             matchCase=False)
         self.assertEqual(len(results), 4)
 
@@ -159,7 +161,7 @@ class TestReplaceWhere(unittest.TestCase):
         parameters = dict(
             context=mainfolder,
             find='test title',
-            replaceText='foo',
+            replaceWith='foo',
             matchCase=False)
         results = self.srutil.searchObjects(**parameters)
         self.assertEqual(len(results), 2)
@@ -214,7 +216,7 @@ class TestReplaceWhere(unittest.TestCase):
         parameters = dict(
             context=doc1,
             find='Test',
-            replaceText='Foo',
+            replaceWith='Foo',
             matchCase=False)
         results = self.srutil.searchObjects(**parameters)
         self.assertEqual(len(results), 5)
@@ -264,7 +266,7 @@ class TestReplaceWhere(unittest.TestCase):
         parameters = dict(
             context=doc1,
             find='Unsearchable',
-            replaceText='Foo',
+            replaceWith='Foo',
             onlySearchableText=True,
             matchCase=False)
         results = self.srutil.searchObjects(**parameters)
@@ -308,7 +310,7 @@ class TestReplaceWhere(unittest.TestCase):
         parameters = dict(
             context=doc1,
             find='<strong>Test</strong>',
-            replaceText='<em>Test</em>',
+            replaceWith='<em>Test</em>',
             onlySearchableText=True,
             matchCase=False)
         results = self.srutil.searchObjects(**parameters)
@@ -359,7 +361,9 @@ class TestModified(unittest.TestCase):
         self.assertNotEqual(doc1.modified(), modified)
 
     def test_update_not_modified(self):
-        self.srutil.settings.update_modified = False
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISearchReplaceSettings, check=False)
+        settings.update_modified = False
         doc1 = getattr(self.portal, 'doc1')
         modified = doc1.modified()
         self.search_and_replace()
@@ -373,7 +377,7 @@ class TestModified(unittest.TestCase):
         parameters = dict(
             context=doc1,
             find='test case',
-            replaceText='foo',
+            replaceWith='foo',
             matchCase=False)
         results = self.srutil.searchObjects(**parameters)
         self.assertEqual(len(results), 1)

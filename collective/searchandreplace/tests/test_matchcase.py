@@ -26,7 +26,7 @@ class TestMatchCase(unittest.TestCase):
         results = self.srutil.searchObjects(
             doc1,
             'test case',
-            replaceText='foo',
+            replaceWith='foo',
             matchCase=False)
         self.assertEqual(len(results), 1)
 
@@ -38,7 +38,7 @@ class TestMatchCase(unittest.TestCase):
         results = self.srutil.searchObjects(
             doc2,
             'test case',
-            replaceText='foo',
+            replaceWith='foo',
             matchCase=True)
         self.assertEqual(len(results), 0)
 
@@ -56,9 +56,9 @@ class TestMatchCase(unittest.TestCase):
         results = self.srutil.searchObjects(
             self.portal,
             'test case',
-            replaceText='foo',
+            replaceWith='foo',
             matchCase=True,
-            # searchItems=paths
+            # occurences=paths
         )
         self.assertEqual(len(results), 1)
 
@@ -82,7 +82,7 @@ class TestMultipleMatchCase(unittest.TestCase):
         results = self.srutil.searchObjects(
             self.portal,
             'Test',
-            replaceText='Bike',
+            replaceWith='Bike',
             matchCase=True,
         )
         self.assertEqual(len(results), 4)
@@ -103,7 +103,7 @@ class TestMultipleMatchCase(unittest.TestCase):
         results = self.srutil.searchObjects(
             self.portal,
             'Test',
-            replaceText='Bike',
+            replaceWith='Bike',
             matchCase=False,
         )
         self.assertEqual(len(results), 8)
@@ -113,7 +113,7 @@ class TestMultipleMatchCase(unittest.TestCase):
         results = self.srutil.searchObjects(
             self.portal,
             'Test',
-            replaceText='Bike',
+            replaceWith='Bike',
             matchCase=True,
             doReplace=True,
         )
@@ -135,10 +135,10 @@ class TestMultipleMatchCase(unittest.TestCase):
         results = self.srutil.searchObjects(
             self.portal,
             'Test',
-            replaceText='Bike',
+            replaceWith='Bike',
             matchCase=False,
             doReplace=True,
-            searchItems=paths,
+            occurences=paths,
         )
         self.assertEqual(results, 4)
         self.assertEqual(self.doc1.Title(), 'Bike test Bike test')

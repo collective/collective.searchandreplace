@@ -5,7 +5,7 @@
      tal:define="isFolderish context/isPrincipiaFolderish|nothing;
                  items view/getItems;
                  findText request/form.findWhat|nothing;
-                 replaceText request/form.replaceWith|nothing;
+                 replaceWith request/form.replaceWith|nothing;
                  maximum_text_characters view/maximum_text_characters;
                  "> 
 
@@ -65,7 +65,7 @@
             <span tal:condition="python: len(itemBeforeText) > maximum_text_characters">[...]</span><span tal:replace="python: itemBeforeText[-maximum_text_characters:]" /><i><span style="color: red" tal:content="itemFindText" /></i><span tal:replace="python: itemAfterText[:maximum_text_characters]" /><span tal:condition="python: len(itemAfterText) > maximum_text_characters">[...]</span>
           </td>
           <td>
-            <span tal:condition="python: len(itemBeforeText) > maximum_text_characters">[...]</span><span tal:replace="python: itemBeforeText[-maximum_text_characters:]" /><i><span style="color: green" tal:content="replaceText" /></i><span tal:replace="python: itemAfterText[:maximum_text_characters]" /><span tal:condition="python: len(itemAfterText) > maximum_text_characters">[...]</span>
+            <span tal:condition="python: len(itemBeforeText) > maximum_text_characters">[...]</span><span tal:replace="python: itemBeforeText[-maximum_text_characters:]" /><i><span style="color: green" tal:content="replaceWith" /></i><span tal:replace="python: itemAfterText[:maximum_text_characters]" /><span tal:condition="python: len(itemAfterText) > maximum_text_characters">[...]</span>
           </td>
         </tr>
       </tal:block>

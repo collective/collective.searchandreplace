@@ -48,110 +48,95 @@ def _to_unicode(s):
     return s
 
 
-class SearchReplaceUtility(object):
-    """ Search and replace utility. """
+class SearchConfiguration(object):
 
-    # Permission to check before modifying content.
-    permission = ModifyPortalContent
+    def __init__(self, context, find, **kwargs):
+        self.cpath = context.getPhysicalPath()
+        onlySearchableText = kwargs.get('onlySearchableText', True)
+        self.replaceWith = kwargs.get('replaceWith', u'')
+        self.doReplace = kwargs.get('doReplace', False)
+        self.occurences = kwargs.get('occurences', None)
+        self.maxResults = kwargs.get('maxResults', None)
+        # Get items to search
+        query = {'query': '/'.join(self.cpath)}
+        ssf = kwargs.get('searchSubFolders', True)
+        if context.isPrincipiaFolderish and not ssf:
+            query['depth'] = 1
+        container = aq_parent(context)
+        if isDefaultPage(container, context) and ssf:
+            query['query'] = '/'.join(container.getPhysicalPath())
+        self.catalog_query_args = dict(path=query)
+        if self.settings.restrict_searchable_types:
+            self.catalog_query_args['portal_type'] = self.settings.enabled_types
+        if onlySearchableText:
+            self.catalog_query_args['SearchableText'] = u'*{0}*'.format(find)
+        # Get Regex matcher
+        mc = kwargs.get('matchCase', False)
+        sflags = mc and searchflags or (searchflags | re.IGNORECASE)
+        self.matcher = re.compile(find, sflags)
+        memship = getToolByName(context, 'portal_membership')
+        self.checkPermission = memship.checkPermission
 
     @property
     def settings(self):
         registry = getUtility(IRegistry)
         return registry.forInterface(ISearchReplaceSettings, check=False)
 
+
+class SearchReplaceUtility(object):
+    """ Search and replace utility. """
+
+    # Permission to check before modifying content.
+    permission = ModifyPortalContent
+
     def searchObjects(self, context, find, **kwargs):
         """ Search objects and optionally do a replace. """
-        # Get search parameters
-        cpath = context.getPhysicalPath()
-        if 'searchSubFolders' in kwargs:
-            ssf = kwargs['searchSubFolders']
-        else:
-            ssf = True
-        if 'matchCase' in kwargs:
-            mc = kwargs['matchCase']
-        else:
-            mc = False
-        onlySearchableText = kwargs.get('onlySearchableText', True)
-        if 'replaceText' in kwargs:
-            rtext = kwargs['replaceText']
-            if rtext is None:
-                # Allow replacing by an empty string.
-                rtext = u''
-        else:
-            rtext = u''
-        if 'doReplace' in kwargs:
-            replace = kwargs['doReplace']
-        else:
-            replace = False
-        if 'searchItems' in kwargs:
-            sitems = kwargs['searchItems']
-        else:
-            sitems = None
-        if 'maxResults' in kwargs:
-            maxResults = kwargs['maxResults']
-        else:
-            maxResults = None
-        # Get Regex matcher
-        sflags = mc and searchflags or (searchflags | re.IGNORECASE)
-        matcher = re.compile(find, sflags)
-        # Get items to search
-        query = {'query': '/'.join(cpath)}
-        if context.isPrincipiaFolderish and not ssf:
-            query['depth'] = 1
-        container = aq_parent(context)
-        if isDefaultPage(container, context) and ssf:
-            query['query'] = '/'.join(container.getPhysicalPath())
+        config = SearchConfiguration(context, find, **kwargs)
         catalog = getToolByName(context, 'portal_catalog')
-        parameters = dict(path=query)
-        if self.settings.restrict_searchable_types:
-            parameters['portal_type'] = self.settings.enabled_types
-        if onlySearchableText:
-            parameters['SearchableText'] = u'*{0}*'.format(find)
-        brains = catalog(**parameters)
-        memship = getToolByName(context, 'portal_membership')
-        checkPermission = memship.checkPermission
+        brains = catalog(**config.catalog_query_args)
         # Match objects
         results = []
-        replaced = 0
+        repl_count = 0
+        occurences = config.occurences
         for b in brains:
             ipath = b.getPath()
-            if not sitems or ipath in sitems:
+            if not occurences or ipath in occurences:
                 try:
                     obj = b.getObject()
                 except (KeyError, AttributeError):
                     logger.warn('getObject failed for %s', ipath)
                     continue
                 # Does the user have the modify permission on this object?
-                if not checkPermission(self.permission, obj):
+                if not config.checkPermission(self.permission, obj):
                     continue
                 # If there is a filtered list of items, and it
                 # is in the list, or if there is no filter
                 # then process the item
-                if replace:
+                if config.doReplace:
                     # Do a replace
-                    if sitems:
-                        sitem = sitems[ipath]
+                    if occurences:
+                        occurence = occurences[ipath]
                     else:
-                        sitem = None
-                    rep = replaceObject(matcher,
+                        occurence = None
+                    rep = replaceObject(config.matcher,
                                               obj,
-                                              cpath,
-                                              rtext,
-                                              sitem,
-                                              self.settings.update_modified)
+                                              config.cpath,
+                                              config.replaceWith,
+                                              occurence,
+                                              config.settings.update_modified)
                     if rep:
-                        afterReplace(obj, find, rtext)
-                        replaced += rep
-                elif not replace:
+                        afterReplace(obj, find, config.replaceWith)
+                        repl_count += rep
+                elif not config.doReplace:
                     # Just find the matches and return info
-                    result = searchObject(matcher, obj)
+                    result = searchObject(config.matcher, obj)
                     if result:
                         results += result
-                    if maxResults is not None and len(results) > maxResults:
-                        results = results[:maxResults]
+                    if config.maxResults is not None and len(results) > config.maxResults:
+                        results = results[:config.maxResults]
                         break
-        if replace:
-            return replaced
+        if config.doReplace:
+            return repl_count
         else:
             return results
 
@@ -178,7 +163,7 @@ def afterReplace(obj, find, rtext):
 
 def replaceObject(matcher, obj, cpath, rtext, mobjs, update_modified):
     """ Replace text in objects """
-    replaced = 0
+    repl_count = 0
     # rtext is already unicode
     base_obj = aq_base(obj)
     if mobjs:
@@ -186,24 +171,24 @@ def replaceObject(matcher, obj, cpath, rtext, mobjs, update_modified):
         title_positions = mobjs.pop('title', None)
         if title_positions is not None:
             title = _to_unicode(base_obj.Title())
-            result = replaceText(matcher,
+            count, new_text = replaceText(matcher,
                                        title,
                                        rtext,
                                        title_positions)
-            if result[0]:
-                replaced += result[0]
-                base_obj.setTitle(result[1])
+            if count:
+                repl_count += count
+                base_obj.setTitle(new_text)
         # Handle general text fields.
         for fieldname, positions in mobjs.items():
             text = getRawText(obj, fieldname)
             if text:
-                result = replaceText(matcher,
+                count, new_text = replaceText(matcher,
                                            text,
                                            rtext,
                                            positions)
-                if result[0]:
-                    replaced += result[0]
-                    setTextField(obj, fieldname, result[1])
+                if count:
+                    repl_count += count
+                    setTextField(obj, fieldname, new_text)
     else:
         # Replace all occurences
         try:
@@ -213,42 +198,42 @@ def replaceObject(matcher, obj, cpath, rtext, mobjs, update_modified):
             # breaks now that we have stripped away the acquisition chain
             # with aq_base.
             title = u''
-        result = replaceText(matcher,
+        count, new_text = replaceText(matcher,
                                    title,
                                    rtext,
                                    None)
-        if result[0]:
-            replaced += result[0]
-            base_obj.setTitle(result[1])
+        if count:
+            repl_count += count
+            base_obj.setTitle(new_text)
         text_fields = getTextFields(obj)
         for field in text_fields:
             text = getRawTextField(obj, field)
             if not text:
                 continue
-            result = replaceText(matcher,
+            count, new_text = replaceText(matcher,
                                        text,
                                        rtext,
                                        None)
-            if result[0]:
-                replaced += result[0]
-                setTextField(obj, field.__name__, result[1])
+            if count:
+                repl_count += count
+                setTextField(obj, field.__name__, new_text)
 
     # don't have to utf-8 encoding
-    if replaced:
+    if repl_count:
         if update_modified:
             obj.reindexObject()
         else:
             site = getSite()
             catalog = getToolByName(site, 'portal_catalog')
             obj.reindexObject(idxs=catalog.indexes())
-    return replaced
+    return repl_count
 
 
 def replaceText(matcher, text, rtext, indexes):
     """ Replace instances """
     newtext = ''
     mindex = 0
-    replaced = 0
+    repl_count = 0
     mobj = matcher.finditer(text)
     for x in mobj:
         start, end = x.span()
@@ -256,9 +241,9 @@ def replaceText(matcher, text, rtext, indexes):
             newtext += text[mindex:start]
             newtext += rtext
             mindex = end
-            replaced += 1
+            repl_count += 1
     newtext += text[mindex:]
-    return replaced, newtext
+    return repl_count, newtext
 
 
 def searchObject(matcher, obj):

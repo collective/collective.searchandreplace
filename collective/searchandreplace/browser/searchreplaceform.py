@@ -108,39 +108,39 @@ class SearchReplaceForm(AddForm):
         if 'form.affectedContent' in self.request:
             # Do only the selected items
             # nitems = len(self.request['form.affectedContent'])
-            items = parseItems(self.request['form.affectedContent'])
-            nitems = 0
-            for page_url, page_result in items.items():
+            occurences = parseItems(self.request['form.affectedContent'])
+            occur_count = 0
+            for page_url, page_result in occurences.items():
                 for field, indexes in page_result.items():
-                    nitems += len(indexes)
-            replaced = srutil.searchObjects(
+                    occur_count += len(indexes)
+            repl_count = srutil.searchObjects(
                 self.context,
                 data['findWhat'],
                 searchSubFolders=data.get('searchSubfolders', False),
                 matchCase=data['matchCase'],
-                replaceText=data['replaceWith'],
+                replaceWith=data['replaceWith'],
                 doReplace=True,
-                searchItems=items,
+                occurences=occurences,
                 onlySearchableText=data['onlySearchableText'],
             )
             IStatusMessage(self.request).addStatusMessage(
                 _(u'Search text replaced in ${replaced} of ${items} '
                   'instance(s).',
-                  mapping={'replaced': replaced, 'items': nitems}),
+                  mapping={'replaced': repl_count, 'items': occur_count}),
                 type='info')
         else:
             # Do everything you can find
-            replaced = srutil.searchObjects(
+            repl_count = srutil.searchObjects(
                 self.context,
                 data['findWhat'],
                 searchSubFolders=data.get('searchSubfolders', False),
                 matchCase=data['matchCase'],
-                replaceText=data['replaceWith'],
+                replaceWith=data['replaceWith'],
                 onlySearchableText=data['onlySearchableText'],
                 doReplace=True)
             IStatusMessage(self.request).addStatusMessage(
                 _(u'Search text replaced in all ${items} instance(s).',
-                  mapping={'items': replaced}),
+                  mapping={'items': repl_count}),
                 type='info')
 
     @action(_(u'Reset'),
