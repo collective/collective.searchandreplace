@@ -119,10 +119,10 @@ class SearchReplaceForm(AddForm):
         repl_count = srutil.replaceFilteredOccurences(
             self.context,
             data['findWhat'],
-            searchSubFolders=data.get('searchSubfolders', False),
-            matchCase=data['matchCase'],
             replaceWith=data['replaceWith'],
             occurences=occurences,
+            searchSubFolders=data.get('searchSubfolders', False),
+            matchCase=data['matchCase'],
             onlySearchableText=data['onlySearchableText'],
         )
         IStatusMessage(self.request).addStatusMessage(
@@ -136,9 +136,9 @@ class SearchReplaceForm(AddForm):
         repl_count = srutil.replaceAllMatches(
             self.context,
             data['findWhat'],
+            replaceWith=data['replaceWith'],
             searchSubFolders=data.get('searchSubfolders', False),
             matchCase=data['matchCase'],
-            replaceWith=data['replaceWith'],
             onlySearchableText=data['onlySearchableText'],
         )
         IStatusMessage(self.request).addStatusMessage(

@@ -66,12 +66,12 @@ setup(
         'zope.interface',
         'zope.publisher',
         'zope.schema',
+        'plone.api',
     ],
     extras_require={
         'test': [
             'collective.dexteritytextindexer',
             'plone.app.testing',
-            'plone.api',
         ],
     },
     entry_points="""

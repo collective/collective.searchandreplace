@@ -26,7 +26,6 @@ class TestMatchCase(unittest.TestCase):
         results = self.srutil.findObjects(
             doc1,
             'test case',
-            replaceWith='foo',
             matchCase=False)
         self.assertEqual(len(results), 1)
 
@@ -38,7 +37,6 @@ class TestMatchCase(unittest.TestCase):
         results = self.srutil.findObjects(
             doc2,
             'test case',
-            replaceWith='foo',
             matchCase=True)
         self.assertEqual(len(results), 0)
 
@@ -56,7 +54,6 @@ class TestMatchCase(unittest.TestCase):
         results = self.srutil.findObjects(
             self.portal,
             'test case',
-            replaceWith='foo',
             matchCase=True,
             # occurences=paths
         )
@@ -82,7 +79,6 @@ class TestMultipleMatchCase(unittest.TestCase):
         results = self.srutil.findObjects(
             self.portal,
             'Test',
-            replaceWith='Bike',
             matchCase=True,
         )
         self.assertEqual(len(results), 4)
@@ -103,7 +99,6 @@ class TestMultipleMatchCase(unittest.TestCase):
         results = self.srutil.findObjects(
             self.portal,
             'Test',
-            replaceWith='Bike',
             matchCase=False,
         )
         self.assertEqual(len(results), 8)
@@ -135,8 +130,8 @@ class TestMultipleMatchCase(unittest.TestCase):
             self.portal,
             'Test',
             replaceWith='Bike',
-            matchCase=False,
             occurences=paths,
+            matchCase=False,
         )
         self.assertEqual(results, 4)
         self.assertEqual(self.doc1.Title(), 'Bike test Bike test')

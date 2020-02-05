@@ -4,6 +4,7 @@ from Acquisition import aq_base
 from Acquisition import aq_parent
 from collective.searchandreplace import SearchAndReplaceMessageFactory as _
 from collective.searchandreplace.interfaces import ISearchReplaceSettings
+from plone.api import portal
 from plone.app.layout.navigation.defaultpage import isDefaultPage
 from plone.app.textfield import RichTextValue
 from plone.app.textfield.interfaces import IRichText
@@ -12,7 +13,6 @@ from Products.Archetypes.interfaces import ITextField
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
-from zope.component.hooks import getSite
 from zope.i18n import translate
 from zope.schema import getFieldsInOrder
 from zope.schema.interfaces import IText
@@ -48,40 +48,31 @@ def _to_unicode(s):
     return s
 
 
-class SearchConfiguration(object):
+def make_matcher(findWhat, matchCase):
+    sflags = matchCase and searchflags or (searchflags | re.IGNORECASE)
+    return re.compile(findWhat, sflags)
 
-    def __init__(self, context, find, **kwargs):
-        self.cpath = context.getPhysicalPath()
-        onlySearchableText = kwargs.get('onlySearchableText', True)
-        self.replaceWith = kwargs.get('replaceWith', u'')
-        self.doReplace = kwargs.get('doReplace', False)
-        self.occurences = kwargs.get('occurences', None)
-        self.maxResults = kwargs.get('maxResults', None)
-        # Get items to search
-        query = {'query': '/'.join(self.cpath)}
-        ssf = kwargs.get('searchSubFolders', True)
-        if context.isPrincipiaFolderish and not ssf:
-            query['depth'] = 1
-        container = aq_parent(context)
-        if isDefaultPage(container, context) and ssf:
-            query['query'] = '/'.join(container.getPhysicalPath())
-        self.catalog_query_args = dict(path=query)
-        if self.settings.restrict_searchable_types:
-            self.catalog_query_args['portal_type'] = self.settings.enabled_types
-        if onlySearchableText:
-            self.catalog_query_args['SearchableText'] = u'*{0}*'.format(find)
-        # Get Regex matcher
-        mc = kwargs.get('matchCase', False)
-        sflags = mc and searchflags or (searchflags | re.IGNORECASE)
-        self.matcher = re.compile(find, sflags)
-        memship = getToolByName(context, 'portal_membership')
-        self.checkPermission = memship.checkPermission
-        self.update_modified = self.settings.update_modified
 
-    @property
-    def settings(self):
-        registry = getUtility(IRegistry)
-        return registry.forInterface(ISearchReplaceSettings, check=False)
+def make_catalog_query_args(context, findWhat, searchSubFolders,
+        onlySearchableText):
+    # Get items to search
+    query = {'query': '/'.join(context.getPhysicalPath())}
+    if context.isPrincipiaFolderish and not searchSubFolders:
+        query['depth'] = 1
+    container = aq_parent(context)
+    if isDefaultPage(container, context) and searchSubFolders:
+        query['query'] = '/'.join(container.getPhysicalPath())
+    catalog_query_args = dict(path=query)
+    if settings().restrict_searchable_types:
+        catalog_query_args['portal_type'] = settings().enabled_types
+    if onlySearchableText:
+        catalog_query_args['SearchableText'] = u'*{0}*'.format(findWhat)
+    return catalog_query_args
+
+
+def settings():
+    registry = getUtility(IRegistry)
+    return registry.forInterface(ISearchReplaceSettings, check=False)
 
 
 class SearchReplaceUtility(object):
@@ -90,10 +81,19 @@ class SearchReplaceUtility(object):
     # Permission to check before modifying content.
     permission = ModifyPortalContent
 
-    def replaceAllMatches(self, context, find, **kwargs):
-        config = SearchConfiguration(context, find, **kwargs)
-        catalog = getToolByName(context, 'portal_catalog')
-        brains = catalog(**config.catalog_query_args)
+    def replaceAllMatches(self, context, findWhat, replaceWith,
+                matchCase=False,
+                onlySearchableText=True,
+                searchSubFolders=True):
+        matcher = make_matcher(findWhat, matchCase)
+        catalog = portal.get_tool('portal_catalog')
+        catalog_query_args = make_catalog_query_args(
+                context,
+                findWhat,
+                searchSubFolders,
+                onlySearchableText,
+        )
+        brains = catalog(**catalog_query_args)
         repl_count = 0
         for b in brains:
             try:
@@ -102,25 +102,32 @@ class SearchReplaceUtility(object):
                 ipath = b.getPath()
                 logger.warn('getObject failed for %s', ipath)
                 continue
-            # Does the user have the modify permission on this object?
-            if not config.checkPermission(self.permission, obj):
+            mtool = portal.get_tool('portal_membership')
+            if not mtool.checkPermission(self.permission, obj):
                 continue
-            count = replace_all_in_object(config.matcher,
+            count = replace_all_in_object(matcher,
                                   obj,
-                                  config.cpath,
-                                  config.replaceWith,
+                                  replaceWith,
             )
             if count:
-                reindexObject(obj, config.update_modified)
-                afterReplace(obj, find, config.replaceWith)
+                reindexObject(obj)
+                afterReplace(obj, findWhat, replaceWith)
                 repl_count += count 
         return repl_count
 
-    def replaceFilteredOccurences(self, context, find, **kwargs):
-        config = SearchConfiguration(context, find, **kwargs)
-        occurences = config.occurences
-        catalog = getToolByName(context, 'portal_catalog')
-        brains = catalog(**config.catalog_query_args)
+    def replaceFilteredOccurences(self, context, findWhat, replaceWith, occurences,
+                matchCase=False,
+                onlySearchableText=True,
+                searchSubFolders=True):
+        matcher = make_matcher(findWhat, matchCase)
+        catalog = portal.get_tool('portal_catalog')
+        catalog_query_args = make_catalog_query_args(
+                context,
+                findWhat,
+                searchSubFolders,
+                onlySearchableText,
+        )
+        brains = catalog(**catalog_query_args)
         repl_count = 0
         for b in brains:
             ipath = b.getPath()
@@ -131,24 +138,34 @@ class SearchReplaceUtility(object):
             except (KeyError, AttributeError):
                 logger.warn('getObject failed for %s', ipath)
                 continue
-            if not config.checkPermission(self.permission, obj):
+            mtool = portal.get_tool('portal_membership')
+            if not mtool.checkPermission(self.permission, obj):
                 continue
-            count = replace_occurences_in_object(config.matcher,
+            count = replace_occurences_in_object(matcher,
                                   obj,
-                                  config.cpath,
-                                  config.replaceWith,
+                                  replaceWith,
                                   occurences[ipath],
             )
             if count:
-                reindexObject(obj, config.update_modified)
-                afterReplace(obj, find, config.replaceWith)
+                reindexObject(obj)
+                afterReplace(obj, findWhat, replaceWith)
                 repl_count += count
         return repl_count
 
-    def findObjects(self, context, find, **kwargs):
-        config = SearchConfiguration(context, find, **kwargs)
-        catalog = getToolByName(context, 'portal_catalog')
-        brains = catalog(**config.catalog_query_args)
+    def findObjects(self, context, findWhat,
+                matchCase=False,
+                onlySearchableText=True,
+                searchSubFolders=True,
+                maxResults=None):
+        matcher = make_matcher(findWhat, matchCase)
+        catalog = portal.get_tool('portal_catalog')
+        catalog_query_args = make_catalog_query_args(
+                context,
+                findWhat,
+                searchSubFolders,
+                onlySearchableText,
+        )
+        brains = catalog(**catalog_query_args)
         matches = []
         for b in brains:
             try:
@@ -157,21 +174,21 @@ class SearchReplaceUtility(object):
                 ipath = b.getPath()
                 logger.warn('getObject failed for %s', ipath)
                 continue
-            # Does the user have the modify permission on this object?
-            if not config.checkPermission(self.permission, obj):
+            mtool = portal.get_tool('portal_membership')
+            if not mtool.checkPermission(self.permission, obj):
                 continue
-            matches.extend(find_matches_in_object(config.matcher, obj))
-            if config.maxResults is not None and len(matches) > config.maxResults:
-                matches = matches[:config.maxResults]
+            matches.extend(find_matches_in_object(matcher, obj))
+            if maxResults is not None and len(matches) > maxResults:
+                matches = matches[:maxResults]
                 break
         return matches
 
 
-def afterReplace(obj, find, rtext):
+def afterReplace(obj, found, rtext):
     """Hook for doing things after a text has been replaced.
 
     - obj is the changed object
-    - find is the found text
+    - found is the found text
     - rtext is the replacement text
 
     By default, we will store a version in the CMFEditions repository.
@@ -182,12 +199,12 @@ def afterReplace(obj, find, rtext):
     if obj.portal_type not in repository.getVersionableContentTypes():
         return
     comment = _(u'Replaced: ${old} -> ${new}',
-                mapping={'old': find, 'new': rtext})
+                mapping={'old': found, 'new': rtext})
     comment = translate(comment, context=obj.REQUEST)
     repository.save(obj, comment=comment)
 
 
-def replace_all_in_object(matcher, obj, cpath, rtext):
+def replace_all_in_object(matcher, obj, rtext):
     """ Replace text in objects """
     repl_count = 0
     base_obj = aq_base(obj)
@@ -221,7 +238,7 @@ def replace_all_in_object(matcher, obj, cpath, rtext):
     return repl_count
 
 
-def replace_occurences_in_object(matcher, obj, cpath, rtext, mobjs):
+def replace_occurences_in_object(matcher, obj, rtext, mobjs):
     """ Replace text in objects """
     repl_count = 0
     title_positions = mobjs.pop('title', None)
@@ -249,12 +266,11 @@ def replace_occurences_in_object(matcher, obj, cpath, rtext, mobjs):
     return repl_count
 
 
-def reindexObject(obj, update_modified):
-    if update_modified:
+def reindexObject(obj):
+    if settings().update_modified:
         obj.reindexObject()
     else:
-        site = getSite()
-        catalog = getToolByName(site, 'portal_catalog')
+        catalog = portal.get_tool('portal_catalog')
         obj.reindexObject(idxs=catalog.indexes())
 
 

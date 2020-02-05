@@ -38,13 +38,16 @@ class TestReplaceWhere(unittest.TestCase):
         # Search it.
         parameters = dict(
             context=doc1,
-            find='test case',
-            replaceWith='foo',
+            findWhat='test case',
             matchCase=False)
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
         self.assertEqual(getRawText(doc1), 'Test Case')
-        results = self.srutil.replaceAllMatches(**parameters)
+        r_parameters = dict(
+            replaceWith='foo',
+            )
+        r_parameters.update(parameters)
+        results = self.srutil.replaceAllMatches(**r_parameters)
         # Note: replacing returns an int, not a list.
         self.assertEqual(results, 1)
         self.assertEqual(getRawText(doc1), 'foo')
@@ -66,13 +69,16 @@ class TestReplaceWhere(unittest.TestCase):
         # Search it.
         parameters = dict(
             context=doc1,
-            find='test title',
-            replaceWith='foo',
+            findWhat='test title',
             matchCase=False)
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
         self.assertEqual(doc1.Title(), 'Test Title')
-        results = self.srutil.replaceAllMatches(**parameters)
+        r_parameters = dict(
+            replaceWith='foo',
+            )
+        r_parameters.update(parameters)
+        results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 1)
         self.assertEqual(doc1.Title(), 'foo')
         # Other fields are not changed.
@@ -93,14 +99,17 @@ class TestReplaceWhere(unittest.TestCase):
         # Search it.
         parameters = dict(
             context=doc1,
-            find='test desc',
-            replaceWith='foo',
+            findWhat='test desc',
             matchCase=False)
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
         self.assertEqual(doc1.Description(), 'Test Description')
 
-        results = self.srutil.replaceAllMatches(**parameters)
+        r_parameters = dict(
+            replaceWith='foo',
+            )
+        r_parameters.update(parameters)
+        results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 1)
         # Note: we have replaced only part of the description.
         self.assertEqual(doc1.Description(), 'fooription')
@@ -144,7 +153,6 @@ class TestReplaceWhere(unittest.TestCase):
         results = self.srutil.findObjects(
             mainfolder,
             'test title',
-            replaceWith='foo',
             matchCase=False)
         self.assertEqual(len(results), 4)
 
@@ -154,8 +162,7 @@ class TestReplaceWhere(unittest.TestCase):
         # Now we can edit less: only the sub folder and sub doc.
         parameters = dict(
             context=mainfolder,
-            find='test title',
-            replaceWith='foo',
+            findWhat='test title',
             matchCase=False)
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 2)
@@ -171,7 +178,11 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(subfolder.Title(), 'Test Title')
         self.assertEqual(subfolder.Title(), 'Test Title')
 
-        results = self.srutil.replaceAllMatches(**parameters)
+        r_parameters = dict(
+            replaceWith='foo',
+            )
+        r_parameters.update(parameters)
+        results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 2)
         self.assertEqual(mainfolder.Title(), 'Test Title')
         self.assertEqual(maindoc.Title(), 'Test Title')
@@ -207,8 +218,7 @@ class TestReplaceWhere(unittest.TestCase):
         # Search it.
         parameters = dict(
             context=doc1,
-            find='Test',
-            replaceWith='Foo',
+            findWhat='Test',
             matchCase=False)
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 5)
@@ -221,7 +231,11 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(getRawText(doc1, 'line'), 'Test Line')
         self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Unsearchable')
 
-        results = self.srutil.replaceAllMatches(**parameters)
+        r_parameters = dict(
+            replaceWith='Foo',
+            )
+        r_parameters.update(parameters)
+        results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 5)
 
         # Most fields should have changed.
@@ -255,15 +269,18 @@ class TestReplaceWhere(unittest.TestCase):
         # Search it with onlySearchableText true.
         parameters = dict(
             context=doc1,
-            find='Unsearchable',
-            replaceWith='Foo',
+            findWhat='Unsearchable',
             onlySearchableText=True,
             matchCase=False)
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 0)
 
         # Replace it with onlySearchableText true.
-        results = self.srutil.replaceAllMatches(**parameters)
+        r_parameters = dict(
+            replaceWith='Foo',
+            )
+        r_parameters.update(parameters)
+        results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 0)
 
         # Nothing should have changed.
@@ -278,7 +295,8 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Unsearchable')
 
         # Replace it.
-        results = self.srutil.replaceAllMatches(**parameters)
+        r_parameters['onlySearchableText'] = False
+        results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 1)
         self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Foo')
 
@@ -296,8 +314,7 @@ class TestReplaceWhere(unittest.TestCase):
         # Search only in SearchableText.
         parameters = dict(
             context=doc1,
-            find='<strong>Test</strong>',
-            replaceWith='<em>Test</em>',
+            findWhat='<strong>Test</strong>',
             onlySearchableText=True,
             matchCase=False)
         results = self.srutil.findObjects(**parameters)
@@ -309,8 +326,12 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(getRawText(doc1), 'My <strong>Test</strong> Case')
 
+        r_parameters = dict(
+            replaceWith='<em>Test</em>',
+            )
+        r_parameters.update(parameters)
         # Replace it.
-        results = self.srutil.replaceAllMatches(**parameters)
+        results = self.srutil.replaceAllMatches(**r_parameters)
         # Note: replacing returns an int, not a list.
         self.assertEqual(results, 1)
         self.assertEqual(getRawText(doc1), 'My <em>Test</em> Case')
@@ -343,7 +364,7 @@ class TestModified(unittest.TestCase):
     def test_update_modified(self):
         doc1 = getattr(self.portal, 'doc1')
         modified = doc1.modified()
-        self.search_and_replace()
+        self.replace()
         self.assertNotEqual(doc1.modified(), modified)
 
     def test_update_not_modified(self):
@@ -352,26 +373,22 @@ class TestModified(unittest.TestCase):
         settings.update_modified = False
         doc1 = getattr(self.portal, 'doc1')
         modified = doc1.modified()
-        self.search_and_replace()
+        self.replace()
         self.assertEqual(doc1.modified(), modified)
 
-    def search_and_replace(self):
+    def replace(self):
         from collective.searchandreplace.searchreplaceutility import getRawText
         doc1 = getattr(self.portal, 'doc1')
         self.assertEqual(getRawText(doc1), 'Test Case')
-        # Search it.
-        parameters = dict(
-            context=doc1,
-            find='test case',
-            replaceWith='foo',
-            matchCase=False)
-        results = self.srutil.findObjects(**parameters)
-        self.assertEqual(len(results), 1)
-        self.assertEqual(getRawText(doc1), 'Test Case')
-        # Replace it after 1 second
+        # Replace it after 1 second to ensure different modified date
         import time
         time.sleep(1)
-        results = self.srutil.replaceAllMatches(**parameters)
+        replace_parameters = dict(
+            context=doc1,
+            findWhat='test case',
+            replaceWith='foo',
+            matchCase=False)
+        results = self.srutil.replaceAllMatches(**replace_parameters)
         self.assertEqual(results, 1)
         self.assertEqual(getRawText(doc1), 'foo')
 
