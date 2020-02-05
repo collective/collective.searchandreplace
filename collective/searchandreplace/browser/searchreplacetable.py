@@ -7,7 +7,7 @@ from zope.publisher.browser import BrowserView
 
 
 class SearchReplaceTable(BrowserView):
-    """ View class for search and replace preivew table widget."""
+    """ View class for search and replace preview table widget."""
 
     def maximum_text_characters(self):
         registry = getUtility(IRegistry)
@@ -16,33 +16,21 @@ class SearchReplaceTable(BrowserView):
 
     def getItems(self):
         """ Get preview items """
-        # Set search parameters
-        srutil = getUtility(ISearchReplaceUtility)
-        stext = None
-        if 'form.findWhat' in self.request:
-            stext = self.request['form.findWhat']
-        if not stext:
-            return []
-        if 'form.searchSubfolders' in self.request:
-            subfolders = True
-        else:
-            subfolders = False
-        if 'form.matchCase' in self.request:
-            mcase = True
-        else:
-            mcase = False
-        if 'form.maxResults' in self.request and self.request[
-                'form.maxResults']:
-            maxResults = int(self.request['form.maxResults'])
-        else:
+        findWhat = self.request.get('form.findWhat', '')
+        searchSubFolders = 'form.searchSubfolders' in self.request
+        matchCase = 'form.matchCase' in self.request
+        try:
+            maxResults = int(self.request.get('form.maxResults', ''))
+        except ValueError:
             maxResults = None
         onlySearchableText = 'form.onlySearchableText' in self.request
-        # Get search results
+
+        srutil = getUtility(ISearchReplaceUtility)
         results = srutil.findObjects(
             self.context,
-            stext,
-            searchSubFolders=subfolders,
-            matchCase=mcase,
+            findWhat=findWhat,
+            searchSubFolders=searchSubFolders,
+            matchCase=matchCase,
             maxResults=maxResults,
             onlySearchableText=onlySearchableText,
         )
