@@ -1,14 +1,12 @@
-sudo: false
-language: python
-cache:
-  directories:
-  - buildout-cache
-python: 2.7
-env:
-  - PLONE_VERSION=4
-  - PLONE_VERSION=5
-install:
-  - mkdir -p buildout-cache/downloads
-  - python bootstrap.py -c travis-${PLONE_VERSION}.cfg
-  - bin/buildout -N -t 3 -c travis-${PLONE_VERSION}.cfg
-script: bin/test
+version: ~> 1.0
+import: collective/buildout.plonetest:travis/default.yml
+matrix:
+  include:
+    - python: "2.7"
+      env: PLONE_VERSION=4.3
+    - python: "2.7"
+      env: PLONE_VERSION=5.1
+    - python: "2.7"
+      env: PLONE_VERSION=5.2
+    - python: "3.7"
+      env: PLONE_VERSION=5.2
