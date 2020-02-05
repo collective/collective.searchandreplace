@@ -76,6 +76,7 @@ class SearchConfiguration(object):
         self.matcher = re.compile(find, sflags)
         memship = getToolByName(context, 'portal_membership')
         self.checkPermission = memship.checkPermission
+        self.update_modified = self.settings.update_modified
 
     @property
     def settings(self):
@@ -89,40 +90,59 @@ class SearchReplaceUtility(object):
     # Permission to check before modifying content.
     permission = ModifyPortalContent
 
-
-    def replaceObjects(self, context, find, **kwargs):
+    def replaceAllMatches(self, context, find, **kwargs):
         config = SearchConfiguration(context, find, **kwargs)
         catalog = getToolByName(context, 'portal_catalog')
         brains = catalog(**config.catalog_query_args)
         repl_count = 0
+        for b in brains:
+            try:
+                obj = b.getObject()
+            except (KeyError, AttributeError):
+                ipath = b.getPath()
+                logger.warn('getObject failed for %s', ipath)
+                continue
+            # Does the user have the modify permission on this object?
+            if not config.checkPermission(self.permission, obj):
+                continue
+            count = replace_all_in_object(config.matcher,
+                                  obj,
+                                  config.cpath,
+                                  config.replaceWith,
+            )
+            if count:
+                reindexObject(obj, config.update_modified)
+                afterReplace(obj, find, config.replaceWith)
+                repl_count += count 
+        return repl_count
+
+    def replaceFilteredOccurences(self, context, find, **kwargs):
+        config = SearchConfiguration(context, find, **kwargs)
         occurences = config.occurences
+        catalog = getToolByName(context, 'portal_catalog')
+        brains = catalog(**config.catalog_query_args)
+        repl_count = 0
         for b in brains:
             ipath = b.getPath()
-            if not occurences or ipath in occurences:
-                try:
-                    obj = b.getObject()
-                except (KeyError, AttributeError):
-                    logger.warn('getObject failed for %s', ipath)
-                    continue
-                # Does the user have the modify permission on this object?
-                if not config.checkPermission(self.permission, obj):
-                    continue
-                # If there is a filtered list of items, and it
-                # is in the list, or if there is no filter
-                # then process the item
-                if occurences:
-                    occurence = occurences[ipath]
-                else:
-                    occurence = None
-                rep = replaceObject(config.matcher,
-                                          obj,
-                                          config.cpath,
-                                          config.replaceWith,
-                                          occurence,
-                                          config.settings.update_modified)
-                if rep:
-                    afterReplace(obj, find, config.replaceWith)
-                    repl_count += rep
+            if ipath not in occurences:
+                continue
+            try:
+                obj = b.getObject()
+            except (KeyError, AttributeError):
+                logger.warn('getObject failed for %s', ipath)
+                continue
+            if not config.checkPermission(self.permission, obj):
+                continue
+            count = replace_occurences_in_object(config.matcher,
+                                  obj,
+                                  config.cpath,
+                                  config.replaceWith,
+                                  occurences[ipath],
+            )
+            if count:
+                reindexObject(obj, config.update_modified)
+                afterReplace(obj, find, config.replaceWith)
+                repl_count += count
         return repl_count
 
     def findObjects(self, context, find, **kwargs):
@@ -167,72 +187,75 @@ def afterReplace(obj, find, rtext):
     repository.save(obj, comment=comment)
 
 
-def replaceObject(matcher, obj, cpath, rtext, mobjs, update_modified):
+def replace_all_in_object(matcher, obj, cpath, rtext):
     """ Replace text in objects """
     repl_count = 0
-    # rtext is already unicode
     base_obj = aq_base(obj)
-    if mobjs:
-        # Replace only the objects specified in mobjs
-        title_positions = mobjs.pop('title', None)
-        if title_positions is not None:
-            title = _to_unicode(base_obj.Title())
-            count, new_text = replaceText(matcher,
-                                       title,
-                                       rtext,
-                                       title_positions)
-            if count:
-                repl_count += count
-                base_obj.setTitle(new_text)
-        # Handle general text fields.
-        for fieldname, positions in mobjs.items():
-            text = getRawText(obj, fieldname)
-            if text:
-                count, new_text = replaceText(matcher,
-                                           text,
-                                           rtext,
-                                           positions)
-                if count:
-                    repl_count += count
-                    setTextField(obj, fieldname, new_text)
-    else:
-        # Replace all occurences
-        try:
-            title = _to_unicode(base_obj.Title())
-        except AttributeError:
-            # Title might be acquired from parent for some types, which
-            # breaks now that we have stripped away the acquisition chain
-            # with aq_base.
-            title = u''
+    try:
+        title = _to_unicode(base_obj.Title())
+    except AttributeError:
+        # Title might be acquired from parent for some types, which
+        # breaks now that we have stripped away the acquisition chain
+        # with aq_base.
+        title = u''
+    count, new_text = replaceText(matcher,
+                               title,
+                               rtext,
+                               None)
+    if count:
+        repl_count += count
+        base_obj.setTitle(new_text)
+    text_fields = getTextFields(obj)
+    for field in text_fields:
+        text = getRawTextField(obj, field)
+        if not text:
+            continue
         count, new_text = replaceText(matcher,
-                                   title,
+                                   text,
                                    rtext,
                                    None)
         if count:
             repl_count += count
+            setTextField(obj, field.__name__, new_text)
+
+    return repl_count
+
+
+def replace_occurences_in_object(matcher, obj, cpath, rtext, mobjs):
+    """ Replace text in objects """
+    repl_count = 0
+    title_positions = mobjs.pop('title', None)
+    if title_positions is not None:
+        base_obj = aq_base(obj)
+        title = _to_unicode(base_obj.Title())
+        count, new_text = replaceText(matcher,
+                                   title,
+                                   rtext,
+                                   title_positions)
+        if count:
+            repl_count += count
             base_obj.setTitle(new_text)
-        text_fields = getTextFields(obj)
-        for field in text_fields:
-            text = getRawTextField(obj, field)
-            if not text:
-                continue
+    # Handle general text fields.
+    for fieldname, positions in mobjs.items():
+        text = getRawText(obj, fieldname)
+        if text:
             count, new_text = replaceText(matcher,
                                        text,
                                        rtext,
-                                       None)
+                                       positions)
             if count:
                 repl_count += count
-                setTextField(obj, field.__name__, new_text)
-
-    # don't have to utf-8 encoding
-    if repl_count:
-        if update_modified:
-            obj.reindexObject()
-        else:
-            site = getSite()
-            catalog = getToolByName(site, 'portal_catalog')
-            obj.reindexObject(idxs=catalog.indexes())
+                setTextField(obj, fieldname, new_text)
     return repl_count
+
+
+def reindexObject(obj, update_modified):
+    if update_modified:
+        obj.reindexObject()
+    else:
+        site = getSite()
+        catalog = getToolByName(site, 'portal_catalog')
+        obj.reindexObject(idxs=catalog.indexes())
 
 
 def replaceText(matcher, text, rtext, indexes):

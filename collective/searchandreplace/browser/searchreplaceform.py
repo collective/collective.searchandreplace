@@ -104,43 +104,47 @@ class SearchReplaceForm(AddForm):
     def action_replace(self, action, data):
         """ Replace text for all files. """
         self.form_reset = False
-        srutil = getUtility(ISearchReplaceUtility)
         if 'form.affectedContent' in self.request:
-            # Do only the selected items
-            # nitems = len(self.request['form.affectedContent'])
-            occurences = parseItems(self.request['form.affectedContent'])
-            occur_count = 0
-            for page_url, page_result in occurences.items():
-                for field, indexes in page_result.items():
-                    occur_count += len(indexes)
-            repl_count = srutil.replaceObjects(
-                self.context,
-                data['findWhat'],
-                searchSubFolders=data.get('searchSubfolders', False),
-                matchCase=data['matchCase'],
-                replaceWith=data['replaceWith'],
-                occurences=occurences,
-                onlySearchableText=data['onlySearchableText'],
-            )
-            IStatusMessage(self.request).addStatusMessage(
-                _(u'Search text replaced in ${replaced} of ${items} '
-                  'instance(s).',
-                  mapping={'replaced': repl_count, 'items': occur_count}),
-                type='info')
+            self.replace_filtered(data)
         else:
-            # Do everything you can find
-            repl_count = srutil.replaceObjects(
-                self.context,
-                data['findWhat'],
-                searchSubFolders=data.get('searchSubfolders', False),
-                matchCase=data['matchCase'],
-                replaceWith=data['replaceWith'],
-                onlySearchableText=data['onlySearchableText'],
-            )
-            IStatusMessage(self.request).addStatusMessage(
-                _(u'Search text replaced in all ${items} instance(s).',
-                  mapping={'items': repl_count}),
-                type='info')
+            self.replace_all(data)
+
+    def replace_filtered(self, data):
+        occurences = parseItems(self.request['form.affectedContent'])
+        occur_count = 0
+        for page_url, page_result in occurences.items():
+            for field, indexes in page_result.items():
+                occur_count += len(indexes)
+        srutil = getUtility(ISearchReplaceUtility)
+        repl_count = srutil.replaceFilteredOccurences(
+            self.context,
+            data['findWhat'],
+            searchSubFolders=data.get('searchSubfolders', False),
+            matchCase=data['matchCase'],
+            replaceWith=data['replaceWith'],
+            occurences=occurences,
+            onlySearchableText=data['onlySearchableText'],
+        )
+        IStatusMessage(self.request).addStatusMessage(
+            _(u'Search text replaced in ${replaced} of ${items} '
+              'instance(s).',
+              mapping={'replaced': repl_count, 'items': occur_count}),
+            type='info')
+
+    def replace_all(self, data):
+        srutil = getUtility(ISearchReplaceUtility)
+        repl_count = srutil.replaceAllMatches(
+            self.context,
+            data['findWhat'],
+            searchSubFolders=data.get('searchSubfolders', False),
+            matchCase=data['matchCase'],
+            replaceWith=data['replaceWith'],
+            onlySearchableText=data['onlySearchableText'],
+        )
+        IStatusMessage(self.request).addStatusMessage(
+            _(u'Search text replaced in all ${items} instance(s).',
+              mapping={'items': repl_count}),
+            type='info')
 
     @action(_(u'Reset'),
             validator=None,

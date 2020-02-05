@@ -110,7 +110,7 @@ class TestMultipleMatchCase(unittest.TestCase):
 
     def testReplaceAll(self):
         from collective.searchandreplace.searchreplaceutility import getRawText
-        results = self.srutil.replaceObjects(
+        results = self.srutil.replaceAllMatches(
             self.portal,
             'Test',
             replaceWith='Bike',
@@ -131,7 +131,7 @@ class TestMultipleMatchCase(unittest.TestCase):
                 'text': [5, 15],
             }
         }
-        results = self.srutil.replaceObjects(
+        results = self.srutil.replaceFilteredOccurences(
             self.portal,
             'Test',
             replaceWith='Bike',

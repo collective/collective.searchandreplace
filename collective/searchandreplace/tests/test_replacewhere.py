@@ -44,7 +44,7 @@ class TestReplaceWhere(unittest.TestCase):
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
         self.assertEqual(getRawText(doc1), 'Test Case')
-        results = self.srutil.replaceObjects(**parameters)
+        results = self.srutil.replaceAllMatches(**parameters)
         # Note: replacing returns an int, not a list.
         self.assertEqual(results, 1)
         self.assertEqual(getRawText(doc1), 'foo')
@@ -72,7 +72,7 @@ class TestReplaceWhere(unittest.TestCase):
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
         self.assertEqual(doc1.Title(), 'Test Title')
-        results = self.srutil.replaceObjects(**parameters)
+        results = self.srutil.replaceAllMatches(**parameters)
         self.assertEqual(results, 1)
         self.assertEqual(doc1.Title(), 'foo')
         # Other fields are not changed.
@@ -100,7 +100,7 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(doc1.Description(), 'Test Description')
 
-        results = self.srutil.replaceObjects(**parameters)
+        results = self.srutil.replaceAllMatches(**parameters)
         self.assertEqual(results, 1)
         # Note: we have replaced only part of the description.
         self.assertEqual(doc1.Description(), 'fooription')
@@ -171,7 +171,7 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(subfolder.Title(), 'Test Title')
         self.assertEqual(subfolder.Title(), 'Test Title')
 
-        results = self.srutil.replaceObjects(**parameters)
+        results = self.srutil.replaceAllMatches(**parameters)
         self.assertEqual(results, 2)
         self.assertEqual(mainfolder.Title(), 'Test Title')
         self.assertEqual(maindoc.Title(), 'Test Title')
@@ -221,7 +221,7 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(getRawText(doc1, 'line'), 'Test Line')
         self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Unsearchable')
 
-        results = self.srutil.replaceObjects(**parameters)
+        results = self.srutil.replaceAllMatches(**parameters)
         self.assertEqual(results, 5)
 
         # Most fields should have changed.
@@ -263,7 +263,7 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(len(results), 0)
 
         # Replace it with onlySearchableText true.
-        results = self.srutil.replaceObjects(**parameters)
+        results = self.srutil.replaceAllMatches(**parameters)
         self.assertEqual(results, 0)
 
         # Nothing should have changed.
@@ -278,7 +278,7 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Unsearchable')
 
         # Replace it.
-        results = self.srutil.replaceObjects(**parameters)
+        results = self.srutil.replaceAllMatches(**parameters)
         self.assertEqual(results, 1)
         self.assertEqual(getRawText(doc1, 'unsearchable'), 'Test Foo')
 
@@ -310,7 +310,7 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(getRawText(doc1), 'My <strong>Test</strong> Case')
 
         # Replace it.
-        results = self.srutil.replaceObjects(**parameters)
+        results = self.srutil.replaceAllMatches(**parameters)
         # Note: replacing returns an int, not a list.
         self.assertEqual(results, 1)
         self.assertEqual(getRawText(doc1), 'My <em>Test</em> Case')
@@ -371,7 +371,7 @@ class TestModified(unittest.TestCase):
         # Replace it after 1 second
         import time
         time.sleep(1)
-        results = self.srutil.replaceObjects(**parameters)
+        results = self.srutil.replaceAllMatches(**parameters)
         self.assertEqual(results, 1)
         self.assertEqual(getRawText(doc1), 'foo')
 
