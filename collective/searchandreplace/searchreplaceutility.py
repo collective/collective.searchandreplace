@@ -9,7 +9,6 @@ from plone.app.layout.navigation.defaultpage import isDefaultPage
 from plone.app.textfield import RichTextValue
 from plone.app.textfield.interfaces import IRichText
 from plone.registry.interfaces import IRegistry
-from Products.Archetypes.interfaces import ITextField
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
@@ -29,6 +28,14 @@ except pkg_resources.DistributionNotFound:
 else:
     HAS_DEXTERITY = True
     from plone.dexterity.utils import iterSchemata
+
+try:
+    pkg_resources.get_distribution("Products.Archetypes")
+except pkg_resources.DistributionNotFound:
+    HAS_ARCHETYPES = False
+else:
+    HAS_ARCHETYPES = True
+    from Products.Archetypes.interfaces import ITextField
 
 logger = logging.getLogger("collective.searchreplace")
 searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
@@ -326,7 +333,7 @@ def find_matches_in_object(matcher, obj):
 def getTextFields(obj):
     # Get all text fields, except ones that are handled separately.
     text_fields = []
-    if getattr(aq_base(obj), "Schema", None):
+    if HAS_ARCHETYPES and getattr(aq_base(obj), "Schema", None):
         # Archetypes
         for field in obj.Schema().values():
             if field.__name__ in CUSTOM_HANDLED_TEXT_FIELDS:

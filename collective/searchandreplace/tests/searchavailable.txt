@@ -22,10 +22,11 @@ Open the portal and login as Member
     >>> portal.portal_membership.addMember('member','secret',('Member',),())
     >>> import transaction
     >>> transaction.commit()
-    >>> browser.open(portal_url + '/login_form')
-    >>> browser.getControl(name='__ac_name').value = 'member'
-    >>> browser.getControl(name='__ac_password').value = 'secret'
-    >>> browser.getControl(name='submit').click()
+    >>> browser.open(portal_url + '/page')
+    >>> browser.getLink('Log in').click()
+    >>> browser.getControl('Login Name').value = 'member'
+    >>> browser.getControl('Password').value = 'secret'
+    >>> browser.getControl('Log in').click()
     >>> 'Login failed.' in browser.contents
     False
 
@@ -39,10 +40,11 @@ Open the portal and login as Contributor
     >>> browser.getLink('Log out').click()
     >>> portal.portal_membership.addMember('contrib','secret',('Contributor',),())
     >>> transaction.commit()
-    >>> browser.open(portal_url + '/login_form')
-    >>> browser.getControl(name='__ac_name').value = 'contrib'
-    >>> browser.getControl(name='__ac_password').value = 'secret'
-    >>> browser.getControl(name='submit').click()
+    >>> browser.open(portal_url + '/page')
+    >>> browser.getLink('Log in').click()
+    >>> browser.getControl('Login Name').value = 'contrib'
+    >>> browser.getControl('Password').value = 'secret'
+    >>> browser.getControl('Log in').click()
     >>> 'Login failed.' in browser.contents
     False
 
