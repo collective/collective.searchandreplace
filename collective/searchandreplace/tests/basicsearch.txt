@@ -30,7 +30,6 @@ for results.
     >>> browser.getLink('Search/Replace').click()
     >>> browser.getControl(name='form.findWhat').value = 'get plone'
     >>> browser.getControl('Preview').click()
-    >>> open('/tmp/test.html', 'w').write(browser.contents)
     >>> 'Get Plone' in browser.contents
     True
 
