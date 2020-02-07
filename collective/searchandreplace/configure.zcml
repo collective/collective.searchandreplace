@@ -84,7 +84,7 @@
     profile="collective.searchandreplace:default">
     <genericsetup:upgradeDepends
         title="Update registry"
-        description="Add update_modified settings"
+        description="Add update_modified and include_textline_fields settings"
         import_profile="collective.searchandreplace:default"
         import_steps="plone.app.registry"
     />

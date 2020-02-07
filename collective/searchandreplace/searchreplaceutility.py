@@ -38,6 +38,7 @@ except pkg_resources.DistributionNotFound:
 else:
     HAS_ARCHETYPES = True
     from Products.Archetypes.interfaces import ITextField
+    from Products.Archetypes.interfaces import IStringField
 
 logger = logging.getLogger("collective.searchreplace")
 searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
@@ -47,6 +48,7 @@ searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
 # it here to be on the safe side.
 CUSTOM_HANDLED_TEXT_FIELDS = [
     "title",
+    "id",
 ]
 
 
@@ -339,16 +341,18 @@ def find_matches_in_object(matcher, obj):
 
 
 def getTextFields(obj):
-    # Get all text fields, except ones that are handled separately.
+    include_textline_fields = settings().include_textline_fields
     text_fields = []
     if HAS_ARCHETYPES and getattr(aq_base(obj), "Schema", None):
         # Archetypes
         for field in obj.Schema().values():
             if field.__name__ in CUSTOM_HANDLED_TEXT_FIELDS:
                 continue
-            if not ITextField.providedBy(field):
+            if include_textline_fields and IStringField.providedBy(field):
+                text_fields.append(field)
                 continue
-            text_fields.append(field)
+            if ITextField.providedBy(field):
+                text_fields.append(field)
     elif HAS_DEXTERITY:
         # Dexterity
         for schemata in iterSchemata(obj):
@@ -360,13 +364,12 @@ def getTextFields(obj):
                     text_fields.append(field)
                     continue
                 # ITextLine inherits from IText.
-                # We want to replace in texts, but not textlines.
-                # Maybe this can be made configurable.
-                if ITextLine.providedBy(field):
+                # That we want to replace in texts, but not textlines
+                # is by configuration.
+                if not include_textline_fields and ITextLine.providedBy(field):
                     continue
-                if not IText.providedBy(field):
-                    continue
-                text_fields.append(field)
+                if IText.providedBy(field):
+                    text_fields.append(field)
     return text_fields
 
 
@@ -433,7 +436,7 @@ def getRawTextField(obj, field):
         if isinstance(baseunit, tuple):
             #  LinesField
             text = "\n".join(baseunit)
-        elif isinstance(baseunit.raw, unicode):
+        elif hasattr(baseunit, 'raw') and isinstance(baseunit.raw, six.text_type):
             text = baseunit.raw
         else:
             text = _to_unicode(field.getRaw(obj))

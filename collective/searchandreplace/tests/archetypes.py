@@ -3,8 +3,8 @@ from AccessControl.Permissions import add_documents_images_and_files
 from App.class_init import InitializeClass
 from Products.Archetypes.atapi import BaseContent
 from Products.Archetypes.atapi import BaseSchema
-from Products.Archetypes.atapi import LinesField
-from Products.Archetypes.atapi import LinesWidget
+from Products.Archetypes.atapi import StringField
+from Products.Archetypes.atapi import StringWidget
 from Products.Archetypes.atapi import listTypes
 from Products.Archetypes.atapi import MetadataSchema
 from Products.Archetypes.atapi import process_types
@@ -37,11 +37,11 @@ SampleTypeSchema = (
                 searchable=True,
                 widget=TextAreaWidget(description="", label=u"Plain Text"),
             ),
-            LinesField(
+            StringField(
                 "line",
                 required=False,
                 searchable=True,
-                widget=LinesWidget(description="", label=u"Text Line"),
+                widget=StringWidget(description="", label=u"Text Line"),
             ),
             TextField(
                 "unsearchable",

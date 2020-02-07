@@ -78,3 +78,14 @@ class ISearchReplaceSettings(Interface):
         required=False,
         default=True,
     )
+ 
+    include_textline_fields = schema.Bool(
+        title=_(u"Search also textline fields"),
+        description=_(
+            u"If checked, single line fields "
+            u"will also be searched and replaced,"
+            u"not only title and text fields",
+        ),
+        required=False,
+        default=False,
+    )
