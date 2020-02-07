@@ -17,6 +17,13 @@ Features include:
 - disable the fast search to be able to search and replace raw html tags, for example replace ``<strong>text</strong>`` by ``<em>text</em>``
 
 
+Development
+-----------
+
+.. image:: https://coveralls.io/repos/github/collective/collective.searchandreplace/badge.svg
+:target: https://coveralls.io/github/collective/collective.searchandreplace
+
+
 Compatibility
 -------------
 
