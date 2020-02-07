@@ -4,7 +4,7 @@ from Acquisition import aq_base
 from Acquisition import aq_parent
 from collective.searchandreplace import SearchAndReplaceMessageFactory as _
 from collective.searchandreplace.interfaces import ISearchReplaceSettings
-from plone.api import portal
+from plone import api
 from plone.app.layout.navigation.defaultpage import isDefaultPage
 from plone.app.textfield import RichTextValue
 from plone.app.textfield.interfaces import IRichText
@@ -98,7 +98,7 @@ class SearchReplaceUtility(object):
         searchSubFolders=True,
     ):
         matcher = make_matcher(findWhat, matchCase)
-        catalog = portal.get_tool("portal_catalog")
+        catalog = api.portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
             context, findWhat, searchSubFolders, onlySearchableText,
         )
@@ -111,7 +111,7 @@ class SearchReplaceUtility(object):
                 ipath = b.getPath()
                 logger.warn("getObject failed for %s", ipath)
                 continue
-            mtool = portal.get_tool("portal_membership")
+            mtool = api.portal.get_tool("portal_membership")
             if not mtool.checkPermission(self.permission, obj):
                 continue
             count = replace_all_in_object(matcher, obj, replaceWith,)
@@ -132,7 +132,7 @@ class SearchReplaceUtility(object):
         searchSubFolders=True,
     ):
         matcher = make_matcher(findWhat, matchCase)
-        catalog = portal.get_tool("portal_catalog")
+        catalog = api.portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
             context, findWhat, searchSubFolders, onlySearchableText,
         )
@@ -147,7 +147,7 @@ class SearchReplaceUtility(object):
             except (KeyError, AttributeError):
                 logger.warn("getObject failed for %s", ipath)
                 continue
-            mtool = portal.get_tool("portal_membership")
+            mtool = api.portal.get_tool("portal_membership")
             if not mtool.checkPermission(self.permission, obj):
                 continue
             count = replace_occurences_in_object(
@@ -169,7 +169,7 @@ class SearchReplaceUtility(object):
         maxResults=None,
     ):
         matcher = make_matcher(findWhat, matchCase)
-        catalog = portal.get_tool("portal_catalog")
+        catalog = api.portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
             context, findWhat, searchSubFolders, onlySearchableText,
         )
@@ -182,7 +182,7 @@ class SearchReplaceUtility(object):
                 ipath = b.getPath()
                 logger.warn("getObject failed for %s", ipath)
                 continue
-            mtool = portal.get_tool("portal_membership")
+            mtool = api.portal.get_tool("portal_membership")
             if not mtool.checkPermission(self.permission, obj):
                 continue
             matches.extend(find_matches_in_object(matcher, obj))
@@ -265,7 +265,7 @@ def reindexObject(obj):
     if settings().update_modified:
         obj.reindexObject()
     else:
-        catalog = portal.get_tool("portal_catalog")
+        catalog = api.portal.get_tool("portal_catalog")
         obj.reindexObject(idxs=catalog.indexes())
 
 
