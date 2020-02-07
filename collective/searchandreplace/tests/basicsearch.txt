@@ -12,11 +12,11 @@ Create the browser object we'll be using.
 
 Open the portal and login
 
-    >>> browser.open(portal_url + '/login_form')
-    >>> browser.getControl(name='__ac_name').value = SITE_OWNER_NAME
-    >>> browser.getControl(name='__ac_password').value = SITE_OWNER_PASSWORD
-    >>> browser.getControl(name='submit').click()
-
+    >>> browser.open(portal_url + '/page')
+    >>> browser.getLink('Log in').click()
+    >>> browser.getControl('Login Name').value = SITE_OWNER_NAME
+    >>> browser.getControl('Password').value = SITE_OWNER_PASSWORD
+    >>> browser.getControl('Log in').click()
 
 Test to ensure basic search and replace works. Search for 'get' and check preview page
 for results.
@@ -30,7 +30,6 @@ for results.
     >>> browser.getLink('Search/Replace').click()
     >>> browser.getControl(name='form.findWhat').value = 'get plone'
     >>> browser.getControl('Preview').click()
-    >>> open('/tmp/test.html', 'w').write(browser.contents)
     >>> 'Get Plone' in browser.contents
     True
 

@@ -23,10 +23,9 @@ class TestMatchCase(unittest.TestCase):
         create_doc(self.portal, id='doc1', title=u'Test Title',
                    text=u'Test Case')
         doc1 = getattr(self.portal, 'doc1')
-        results = self.srutil.searchObjects(
+        results = self.srutil.findObjects(
             doc1,
             'test case',
-            replaceText='foo',
             matchCase=False)
         self.assertEqual(len(results), 1)
 
@@ -35,10 +34,9 @@ class TestMatchCase(unittest.TestCase):
         self.portal.invokeFactory('Document', 'doc2')
         doc2 = getattr(self.portal, 'doc2')
         edit_content(doc2, title='test title', text='Test Case')
-        results = self.srutil.searchObjects(
+        results = self.srutil.findObjects(
             doc2,
             'test case',
-            replaceText='foo',
             matchCase=True)
         self.assertEqual(len(results), 0)
 
@@ -53,12 +51,11 @@ class TestMatchCase(unittest.TestCase):
         # path1 = '%s' %  '/'.join(doc1.getPhysicalPath())
         # path2 = '%s' % '/'.join(doc2.getPhysicalPath())
         # paths = {path1: {'body': [0]}, path2: {'body': [0]}}
-        results = self.srutil.searchObjects(
+        results = self.srutil.findObjects(
             self.portal,
             'test case',
-            replaceText='foo',
             matchCase=True,
-            # searchItems=paths
+            # occurences=paths
         )
         self.assertEqual(len(results), 1)
 
@@ -79,10 +76,9 @@ class TestMultipleMatchCase(unittest.TestCase):
                      text='Test test\nTest test')
 
     def testSearchCase(self):
-        results = self.srutil.searchObjects(
+        results = self.srutil.findObjects(
             self.portal,
             'Test',
-            replaceText='Bike',
             matchCase=True,
         )
         self.assertEqual(len(results), 4)
@@ -100,22 +96,20 @@ class TestMultipleMatchCase(unittest.TestCase):
         self.assertEqual(results[3]['pos'], '10')
 
     def testSearchNoCase(self):
-        results = self.srutil.searchObjects(
+        results = self.srutil.findObjects(
             self.portal,
             'Test',
-            replaceText='Bike',
             matchCase=False,
         )
         self.assertEqual(len(results), 8)
 
     def testReplaceAll(self):
         from collective.searchandreplace.searchreplaceutility import getRawText
-        results = self.srutil.searchObjects(
+        results = self.srutil.replaceAllMatches(
             self.portal,
             'Test',
-            replaceText='Bike',
+            replaceWith='Bike',
             matchCase=True,
-            doReplace=True,
         )
         self.assertEqual(results, 4)
         self.assertEqual(self.doc1.Title(), 'Bike test Bike test')
@@ -132,13 +126,12 @@ class TestMultipleMatchCase(unittest.TestCase):
                 'text': [5, 15],
             }
         }
-        results = self.srutil.searchObjects(
+        results = self.srutil.replaceFilteredOccurences(
             self.portal,
             'Test',
-            replaceText='Bike',
+            replaceWith='Bike',
+            occurences=paths,
             matchCase=False,
-            doReplace=True,
-            searchItems=paths,
         )
         self.assertEqual(results, 4)
         self.assertEqual(self.doc1.Title(), 'Bike test Bike test')

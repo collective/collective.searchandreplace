@@ -14,18 +14,6 @@ def dummy_upgrade_step(context):
     return
 
 
-def run_actions_step(context):
-    context.runImportStepFromProfile(PROFILE_ID, 'actions')
-
-
-def run_rolemap_step(context):
-    context.runImportStepFromProfile(PROFILE_ID, 'rolemap')
-
-
-def run_registry_step(context):
-    context.runImportStepFromProfile(PROFILE_ID, 'plone.app.registry')
-
-
 def add_control_panel_and_upgrade_settings(context):
     # We have added an interface ISearchReplaceSettings and want a controlpanel
     # for it.  First we must remove the old maximum_text_characters setting,

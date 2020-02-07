@@ -1,0 +1,10 @@
+[report]
+omit =
+    **/lib/python*
+    **/bin/test
+    **/eggs/*
+    **/parts/test/*
+    **/tests/*
+
+exclude_lines =
+    pragma: no cover

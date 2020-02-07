@@ -1,20 +1,11 @@
-from collective.searchandreplace.interfaces import ISearchReplaceUtility
-from collective.searchandreplace.testing import SEARCH_REPLACE_INTEGRATION_LAYER  # noqa
-from zope.component import getUtility
-
 import unittest
 
 
-class TestUtilityHelpers(unittest.TestCase):
+class TestFormHelpers(unittest.TestCase):
     """Test some helper methods from the utility."""
 
-    layer = SEARCH_REPLACE_INTEGRATION_LAYER
-
-    def setUp(self):
-        self.portal = self.layer['portal']
-        self.srutil = getUtility(ISearchReplaceUtility)
-
     def test_parseItems(self):
+        from collective.searchandreplace.browser.searchreplaceform import parseItems
         # parseItems parses lines of format 'line:pos:path'.  line is title or
         # description or fieldname plus space plus line number.
         items = [
@@ -25,7 +16,7 @@ class TestUtilityHelpers(unittest.TestCase):
             'new 1:7:path2',
             'new 4:63:path2',
         ]
-        result = self.srutil.parseItems(items)
+        result = parseItems(items)
         self.assertEqual(len(result), 2)
         self.assertTrue('path1' in result)
         self.assertTrue('path2' in result)
@@ -39,6 +30,7 @@ class TestUtilityHelpers(unittest.TestCase):
         self.assertEqual(result['path2']['new'], [7, 63])
 
     def test_parseItems_broken(self):
+        from collective.searchandreplace.browser.searchreplaceform import parseItems
         # We ignore broken instructions.
         items = [
             'title:0:path1',
@@ -50,7 +42,7 @@ class TestUtilityHelpers(unittest.TestCase):
             'no_space:63:path7',
             'okay_again 20:3000:path8',
         ]
-        result = self.srutil.parseItems(items)
+        result = parseItems(items)
         # paths with broken instructions may end up in the result, but the
         # instructions will be empty.
         self.assertTrue(result)
