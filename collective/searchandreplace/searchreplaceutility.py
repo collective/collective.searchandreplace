@@ -10,6 +10,7 @@ from plone.app.textfield import RichTextValue
 from plone.app.textfield.interfaces import IRichText
 from plone.registry.interfaces import IRegistry
 from Products.CMFPlone import PloneMessageFactory
+from Products.CMFPlone.utils import safe_unicode
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
@@ -50,13 +51,6 @@ CUSTOM_HANDLED_TEXT_FIELDS = [
     "title",
     "id",
 ]
-
-
-def _to_unicode(s):
-    assert isinstance(s, six.string_types)
-    if not isinstance(s, six.text_type):
-        s = s.decode("utf-8")
-    return s
 
 
 def make_matcher(findWhat, matchCase):
@@ -219,7 +213,7 @@ def replace_all_in_object(matcher, obj, rtext):
     repl_count = 0
     base_obj = aq_base(obj)
     try:
-        title = _to_unicode(base_obj.Title())
+        title = safe_unicode(base_obj.Title())
     except AttributeError:
         # Title might be acquired from parent for some types, which
         # breaks now that we have stripped away the acquisition chain
@@ -248,7 +242,7 @@ def replace_occurences_in_object(matcher, obj, rtext, mobjs):
     title_positions = mobjs.pop("title", None)
     if title_positions is not None:
         base_obj = aq_base(obj)
-        title = _to_unicode(base_obj.Title())
+        title = safe_unicode(base_obj.Title())
         count, new_text = replaceText(matcher, title, rtext, title_positions)
         if count:
             repl_count += count
@@ -295,7 +289,7 @@ def find_matches_in_object(matcher, obj):
     path = "/".join(obj.getPhysicalPath())
     base = aq_base(obj)
     try:
-        title = _to_unicode(base.Title())
+        title = safe_unicode(base.Title())
     except AttributeError:
         # Title might be acquired from parent for some types, which breaks
         # now that we have stripped away the acquisition chain with
@@ -439,7 +433,7 @@ def getRawTextField(obj, field):
         elif hasattr(baseunit, 'raw') and isinstance(baseunit.raw, six.text_type):
             text = baseunit.raw
         else:
-            text = _to_unicode(field.getRaw(obj))
+            text = safe_unicode(field.getRaw(obj))
     else:
         # Dexterity
         baseunit = field.get(obj)
