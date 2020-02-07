@@ -9,47 +9,47 @@ from plone.app.testing.layers import IntegrationTesting
 from plone.testing import z2
 
 
-PLONE_VERSION = get_distribution('Products.CMFPlone').version
+PLONE_VERSION = get_distribution("Products.CMFPlone").version
 MAJOR_PLONE_VERSION = int(PLONE_VERSION[0])
 
 
 class SearchReplaceLayer(PloneSandboxLayer):
-
     def setUpZope(self, app, configurationContext):
         import collective.searchandreplace
+
         self.loadZCML(package=collective.searchandreplace)
-        self.loadZCML('testing.zcml', package=collective.searchandreplace)
+        self.loadZCML("testing.zcml", package=collective.searchandreplace)
         if MAJOR_PLONE_VERSION >= 5:
             import plone.app.contenttypes
+
             self.loadZCML(package=plone.app.contenttypes)
             import collective.dexteritytextindexer
+
             self.loadZCML(package=collective.dexteritytextindexer)
         else:
             # Needed for our Archetypes SampleType.
-            z2.installProduct(app, 'collective.searchandreplace')
+            z2.installProduct(app, "collective.searchandreplace")
 
     def setUpPloneSite(self, portal):
         if MAJOR_PLONE_VERSION >= 5:
-            applyProfile(portal, 'plone.app.contenttypes:default')
-            applyProfile(
-                portal, 'collective.searchandreplace:testing-dexterity')
+            applyProfile(portal, "plone.app.contenttypes:default")
+            applyProfile(portal, "collective.searchandreplace:testing-dexterity")
         else:
-            applyProfile(
-                portal, 'collective.searchandreplace:testing-archetypes')
+            applyProfile(portal, "collective.searchandreplace:testing-archetypes")
 
-        applyProfile(portal, 'collective.searchandreplace:default')
-        setRoles(portal, TEST_USER_ID, ['Manager'])
-        create_doc(portal, text=u'Get Plone now')
-        setRoles(portal, TEST_USER_ID, ['Member'])
+        applyProfile(portal, "collective.searchandreplace:default")
+        setRoles(portal, TEST_USER_ID, ["Manager"])
+        create_doc(portal, text=u"Get Plone now")
+        setRoles(portal, TEST_USER_ID, ["Member"])
 
 
 SEARCH_REPLACE_FIXTURE = SearchReplaceLayer()
 SEARCH_REPLACE_INTEGRATION_LAYER = IntegrationTesting(
-    bases=(SEARCH_REPLACE_FIXTURE, ),
-    name='SearchReplaceLayer:Integration')
+    bases=(SEARCH_REPLACE_FIXTURE,), name="SearchReplaceLayer:Integration"
+)
 SEARCH_REPLACE_FUNCTIONAL_LAYER = FunctionalTesting(
-    bases=(SEARCH_REPLACE_FIXTURE, ),
-    name='SearchReplaceLayer:Functional')
+    bases=(SEARCH_REPLACE_FIXTURE,), name="SearchReplaceLayer:Functional"
+)
 
 
 def rich_text(text):
@@ -58,21 +58,25 @@ def rich_text(text):
         return text
     # Use dexterity text field.
     from plone.app.textfield.value import RichTextValue
-    return RichTextValue(
-        raw=text,
-        mimeType='text/html',
-        outputMimeType='text/html',
-    )
+
+    return RichTextValue(raw=text, mimeType="text/html", outputMimeType="text/html",)
 
 
-def create_doc(container, id='page', title=u'Title of page', text=u''):
+def create_doc(container, id="page", title=u"Title of page", text=u""):
     text = rich_text(text)
-    api.content.create(container, 'Document', id=id, title=title,
-                       text=text)
+    api.content.create(container, "Document", id=id, title=title, text=text)
 
 
-def edit_content(context, title=None, description=None, text=None,
-                 rich=None, plain=None, line=None, unsearchable=None):
+def edit_content(
+    context,
+    title=None,
+    description=None,
+    text=None,
+    rich=None,
+    plain=None,
+    line=None,
+    unsearchable=None,
+):
     if MAJOR_PLONE_VERSION >= 5:
         # Dexterity
         if title is not None:

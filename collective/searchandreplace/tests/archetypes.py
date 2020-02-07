@@ -17,56 +17,49 @@ from Products.CMFCore.utils import ContentInit
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 
-PROJECTNAME = 'collective.searchandreplace'
+PROJECTNAME = "collective.searchandreplace"
 
-SampleTypeSchema = BaseSchema.copy() + MetadataSchema(()) + Schema((
-
-    TextField(
-        'rich',
-        required=False,
-        searchable=True,
-        default_output_type='text/x-html-safe',
-        widget=RichWidget(
-            description='',
-            label=u'Rich Text')
-    ),
-
-    TextField(
-        'plain',
-        required=False,
-        searchable=True,
-        widget=TextAreaWidget(
-            description='',
-            label=u'Plain Text')
-    ),
-
-    LinesField(
-        'line',
-        required=False,
-        searchable=True,
-        widget=LinesWidget(
-            description='',
-            label=u'Text Line')
-    ),
-
-    TextField(
-        'unsearchable',
-        required=False,
-        searchable=False,
-        default_output_type='text/x-html-safe',
-        widget=RichWidget(
-            description='',
-            label=u'Unsearchable Text')
-    ),
-
-))
+SampleTypeSchema = (
+    BaseSchema.copy()
+    + MetadataSchema(())
+    + Schema(
+        (
+            TextField(
+                "rich",
+                required=False,
+                searchable=True,
+                default_output_type="text/x-html-safe",
+                widget=RichWidget(description="", label=u"Rich Text"),
+            ),
+            TextField(
+                "plain",
+                required=False,
+                searchable=True,
+                widget=TextAreaWidget(description="", label=u"Plain Text"),
+            ),
+            LinesField(
+                "line",
+                required=False,
+                searchable=True,
+                widget=LinesWidget(description="", label=u"Text Line"),
+            ),
+            TextField(
+                "unsearchable",
+                required=False,
+                searchable=False,
+                default_output_type="text/x-html-safe",
+                widget=RichWidget(description="", label=u"Unsearchable Text"),
+            ),
+        )
+    )
+)
 
 
 class SampleType(BaseContent, BrowserDefaultMixin):
 
     schema = SampleTypeSchema
-    portal_type = 'SampleType'
-    archetype_name = 'SampleType'
+    portal_type = "SampleType"
+    archetype_name = "SampleType"
     security = ClassSecurityInfo()
 
 
@@ -78,9 +71,7 @@ def initialize_archetypes_testing(context):
     """Initializer called when initializing with testing.zcml."""
     listOfTypes = listTypes(PROJECTNAME)
 
-    content_types, constructors, ftis = process_types(
-        listOfTypes,
-        PROJECTNAME)
+    content_types, constructors, ftis = process_types(listOfTypes, PROJECTNAME)
 
     allTypes = zip(content_types, constructors)
     for atype, constructor in allTypes:

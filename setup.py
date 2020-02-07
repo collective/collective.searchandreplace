@@ -20,14 +20,13 @@
 
 from setuptools import setup, find_packages
 
-version = '7.1.4.dev0'
+version = "7.1.4.dev0"
 
 setup(
-    name='collective.searchandreplace',
+    name="collective.searchandreplace",
     version=version,
     description="Batch Search and Replace",
-    long_description=(open("README.rst").read() + "\n" +
-                      open("CHANGES.rst").read()),
+    long_description=(open("README.rst").read() + "\n" + open("CHANGES.rst").read()),
     # Get more strings from
     # https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -40,42 +39,37 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    keywords='batch search replace',
-    author='enPraxis',
-    author_email='info@enpraxis.net',
-    maintainer='Maurits van Rees',
-    maintainer_email='m.van.rees@zestsoftware.nl',
-    url='https://github.com/collective/collective.searchandreplace',
-    license='GPL',
-    packages=find_packages(exclude=['ez_setup']),
-    namespace_packages=['collective'],
+    keywords="batch search replace",
+    author="enPraxis",
+    author_email="info@enpraxis.net",
+    maintainer="Maurits van Rees",
+    maintainer_email="m.van.rees@zestsoftware.nl",
+    url="https://github.com/collective/collective.searchandreplace",
+    license="GPL",
+    packages=find_packages(exclude=["ez_setup"]),
+    namespace_packages=["collective"],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'Acquisition',
-        'five.formlib',
-        'plone.app.layout',
-        'plone.app.textfield',
-        'plone.resource',
-        'Products.CMFCore',
-        'Products.CMFPlone',
-        'Products.statusmessages',
-        'setuptools',
-        'Zope2',
-        'zope.component',
-        'zope.formlib',
-        'zope.i18nmessageid',
-        'zope.interface',
-        'zope.publisher',
-        'zope.schema',
-        'plone.api',
+        "Acquisition",
+        "five.formlib",
+        "plone.app.layout",
+        "plone.app.textfield",
+        "plone.resource",
+        "Products.CMFCore",
+        "Products.CMFPlone",
+        "Products.statusmessages",
+        "setuptools",
+        "Zope2",
+        "zope.component",
+        "zope.formlib",
+        "zope.i18nmessageid",
+        "zope.interface",
+        "zope.publisher",
+        "zope.schema",
+        "plone.api",
     ],
-    extras_require={
-        'test': [
-            'collective.dexteritytextindexer',
-            'plone.app.testing',
-        ],
-    },
+    extras_require={"test": ["collective.dexteritytextindexer", "plone.app.testing",],},
     entry_points="""
     # -*- Entry points: -*-
     [z3c.autoinclude.plugin]

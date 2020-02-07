@@ -12,5 +12,6 @@ class SearchReplaceControlPanelForm(RegistryEditForm):
 
 
 SearchReplaceControlPanelView = layout.wrap_form(
-    SearchReplaceControlPanelForm, ControlPanelFormWrapper)
+    SearchReplaceControlPanelForm, ControlPanelFormWrapper
+)
 SearchReplaceControlPanelView.label = _(u"Search and Replace settings")

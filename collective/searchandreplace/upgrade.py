@@ -6,8 +6,8 @@ from zope.component import getUtility
 import logging
 
 
-PROFILE_ID = 'profile-collective.searchandreplace:default'
-logger = logging.getLogger('collective.searchandreplace')
+PROFILE_ID = "profile-collective.searchandreplace:default"
+logger = logging.getLogger("collective.searchandreplace")
 
 
 def dummy_upgrade_step(context):
@@ -21,14 +21,14 @@ def add_control_panel_and_upgrade_settings(context):
     # settings, the controlpanel gets confused, complaining that the record
     # does not exist.
     registry = getUtility(IRegistry)
-    record_name = 'collective.searchandreplace.maximum_text_characters'
+    record_name = "collective.searchandreplace.maximum_text_characters"
     maximum_text_characters = registry.get(record_name)
     if maximum_text_characters is not None:
         del registry.records[record_name]
     # Run the registry step, registering our interface
-    context.runImportStepFromProfile(PROFILE_ID, 'plone.app.registry')
+    context.runImportStepFromProfile(PROFILE_ID, "plone.app.registry")
     # Register our control panel.
-    context.runImportStepFromProfile(PROFILE_ID, 'controlpanel')
+    context.runImportStepFromProfile(PROFILE_ID, "controlpanel")
     # Restore the previous setting.
     if maximum_text_characters is not None:
         # Use the new interface to set the value.
@@ -44,14 +44,13 @@ def remove_behavior(context):
     try:
         from plone.dexterity.interfaces import IDexterityFTI
     except ImportError:
-        logger.info('No dexterity available, '
-                    'so there is no behavior to remove.')
+        logger.info("No dexterity available, " "so there is no behavior to remove.")
         return
-    behavior_name = 'collective.searchandreplace.interfaces.ISearchReplaceable'
+    behavior_name = "collective.searchandreplace.interfaces.ISearchReplaceable"
     for name, fti in getUtilitiesFor(IDexterityFTI):
         behaviors = list(fti.behaviors)
         if behavior_name not in behaviors:
             continue
         behaviors.remove(behavior_name)
-        fti._updateProperty('behaviors', tuple(behaviors))
-        logger.info('Removed behavior %s from type %s.', behavior_name, name)
+        fti._updateProperty("behaviors", tuple(behaviors))
+        logger.info("Removed behavior %s from type %s.", behavior_name, name)

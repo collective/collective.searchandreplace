@@ -5,28 +5,32 @@ from unittest import TestSuite
 import doctest
 
 
-oflags = (doctest.ELLIPSIS |
-          doctest.NORMALIZE_WHITESPACE)
+oflags = doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE
 
 
 def test_suite():
     suite = TestSuite()
 
-    basicsearchtest = layered(doctest.DocFileSuite(
-        'tests/basicsearch.txt',
-        package='collective.searchandreplace',
-        optionflags=oflags),
-        layer=SEARCH_REPLACE_FUNCTIONAL_LAYER)
+    basicsearchtest = layered(
+        doctest.DocFileSuite(
+            "tests/basicsearch.txt",
+            package="collective.searchandreplace",
+            optionflags=oflags,
+        ),
+        layer=SEARCH_REPLACE_FUNCTIONAL_LAYER,
+    )
 
-    searchavailabletest = layered(doctest.DocFileSuite(
-        'tests/searchavailable.txt',
-        package='collective.searchandreplace',
-        optionflags=oflags),
-        layer=SEARCH_REPLACE_FUNCTIONAL_LAYER)
+    searchavailabletest = layered(
+        doctest.DocFileSuite(
+            "tests/searchavailable.txt",
+            package="collective.searchandreplace",
+            optionflags=oflags,
+        ),
+        layer=SEARCH_REPLACE_FUNCTIONAL_LAYER,
+    )
 
-    suite.addTests([
-        basicsearchtest,
-        searchavailabletest,
-    ])
+    suite.addTests(
+        [basicsearchtest, searchavailabletest,]
+    )
 
     return suite
