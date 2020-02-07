@@ -4,6 +4,12 @@ Changelog
 7.1.4 (unreleased)
 ------------------
 
+- Python 3 support for 5.2
+  [gotcha]
+
+- Major refactoring for readability
+  [gotcha]
+
 - Added update_modified setting to allow replacing without updating the modified index/metadata.  [Gagaro]
 
 
