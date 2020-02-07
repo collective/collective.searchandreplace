@@ -4,6 +4,9 @@ Changelog
 7.1.4 (unreleased)
 ------------------
 
+- Translate field names in preview table
+  [gotcha]
+
 - Python 3 support for 5.2
   [gotcha]
 

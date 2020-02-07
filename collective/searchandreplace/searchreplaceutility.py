@@ -9,6 +9,7 @@ from plone.app.layout.navigation.defaultpage import isDefaultPage
 from plone.app.textfield import RichTextValue
 from plone.app.textfield.interfaces import IRichText
 from plone.registry.interfaces import IRegistry
+from Products.CMFPlone import PloneMessageFactory
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
@@ -306,6 +307,7 @@ def find_matches_in_object(matcher, obj):
                 "path": path,
                 "url": obj.absolute_url(),
                 "line": "title",
+                "linecol": translate(PloneMessageFactory(u'Title'), context=obj.REQUEST),
                 "pos": "%d" % start,
                 "text": getLinePreview(title, start, end),
             }
@@ -313,6 +315,10 @@ def find_matches_in_object(matcher, obj):
     text_fields = getTextFields(obj)
     if text_fields:
         for field in text_fields:
+            if hasattr(field, "widget"):
+                label = translate(field.widget.label, context=obj.REQUEST)
+            else:
+                label = translate(field.title, context=obj.REQUEST)
             text = getRawTextField(obj, field)
             if not text:
                 continue
@@ -324,6 +330,7 @@ def find_matches_in_object(matcher, obj):
                         "path": path,
                         "url": obj.absolute_url(),
                         "line": "%s %d" % (field.__name__, getLineNumber(text, start)),
+                        "linecol": "%s %d" % (label, getLineNumber(text, start)),
                         "pos": "%d" % start,
                         "text": getLinePreview(text, start, end),
                     }

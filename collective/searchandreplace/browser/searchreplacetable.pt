@@ -60,7 +60,7 @@
               <img src="++theme++collective.searchandreplace/edit_inline.png" alt="edit" title="edit" i18n:domain="plone" i18n:attributes="alt title" />
             </a>
           </td>
-          <td tal:content="itemline">1</td>
+          <td tal:content="item/linecol">1</td>
           <td>
             <span tal:condition="python: len(itemBeforeText) > maximum_text_characters">[...]</span><span tal:replace="python: itemBeforeText[-maximum_text_characters:]" /><i><span style="color: red" tal:content="itemFindText" /></i><span tal:replace="python: itemAfterText[:maximum_text_characters]" /><span tal:condition="python: len(itemAfterText) > maximum_text_characters">[...]</span>
           </td>
