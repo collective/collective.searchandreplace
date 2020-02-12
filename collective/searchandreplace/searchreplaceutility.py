@@ -4,11 +4,13 @@ from Acquisition import aq_base
 from Acquisition import aq_parent
 from collective.searchandreplace import SearchAndReplaceMessageFactory as _
 from collective.searchandreplace.interfaces import ISearchReplaceSettings
-from plone.api import portal
+from plone import api
 from plone.app.layout.navigation.defaultpage import isDefaultPage
 from plone.app.textfield import RichTextValue
 from plone.app.textfield.interfaces import IRichText
 from plone.registry.interfaces import IRegistry
+from Products.CMFPlone import PloneMessageFactory
+from Products.CMFPlone.utils import safe_unicode
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
@@ -37,6 +39,7 @@ except pkg_resources.DistributionNotFound:
 else:
     HAS_ARCHETYPES = True
     from Products.Archetypes.interfaces import ITextField
+    from Products.Archetypes.interfaces import IStringField
 
 logger = logging.getLogger("collective.searchreplace")
 searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
@@ -46,14 +49,8 @@ searchflags = re.DOTALL | re.UNICODE | re.MULTILINE
 # it here to be on the safe side.
 CUSTOM_HANDLED_TEXT_FIELDS = [
     "title",
+    "id",
 ]
-
-
-def _to_unicode(s):
-    assert isinstance(s, six.string_types)
-    if not isinstance(s, six.text_type):
-        s = s.decode("utf-8")
-    return s
 
 
 def make_matcher(findWhat, matchCase):
@@ -98,7 +95,7 @@ class SearchReplaceUtility(object):
         searchSubFolders=True,
     ):
         matcher = make_matcher(findWhat, matchCase)
-        catalog = portal.get_tool("portal_catalog")
+        catalog = api.portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
             context, findWhat, searchSubFolders, onlySearchableText,
         )
@@ -111,7 +108,7 @@ class SearchReplaceUtility(object):
                 ipath = b.getPath()
                 logger.warn("getObject failed for %s", ipath)
                 continue
-            mtool = portal.get_tool("portal_membership")
+            mtool = api.portal.get_tool("portal_membership")
             if not mtool.checkPermission(self.permission, obj):
                 continue
             count = replace_all_in_object(matcher, obj, replaceWith,)
@@ -132,7 +129,7 @@ class SearchReplaceUtility(object):
         searchSubFolders=True,
     ):
         matcher = make_matcher(findWhat, matchCase)
-        catalog = portal.get_tool("portal_catalog")
+        catalog = api.portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
             context, findWhat, searchSubFolders, onlySearchableText,
         )
@@ -147,7 +144,7 @@ class SearchReplaceUtility(object):
             except (KeyError, AttributeError):
                 logger.warn("getObject failed for %s", ipath)
                 continue
-            mtool = portal.get_tool("portal_membership")
+            mtool = api.portal.get_tool("portal_membership")
             if not mtool.checkPermission(self.permission, obj):
                 continue
             count = replace_occurences_in_object(
@@ -169,7 +166,7 @@ class SearchReplaceUtility(object):
         maxResults=None,
     ):
         matcher = make_matcher(findWhat, matchCase)
-        catalog = portal.get_tool("portal_catalog")
+        catalog = api.portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
             context, findWhat, searchSubFolders, onlySearchableText,
         )
@@ -182,7 +179,7 @@ class SearchReplaceUtility(object):
                 ipath = b.getPath()
                 logger.warn("getObject failed for %s", ipath)
                 continue
-            mtool = portal.get_tool("portal_membership")
+            mtool = api.portal.get_tool("portal_membership")
             if not mtool.checkPermission(self.permission, obj):
                 continue
             matches.extend(find_matches_in_object(matcher, obj))
@@ -216,7 +213,7 @@ def replace_all_in_object(matcher, obj, rtext):
     repl_count = 0
     base_obj = aq_base(obj)
     try:
-        title = _to_unicode(base_obj.Title())
+        title = safe_unicode(base_obj.Title())
     except AttributeError:
         # Title might be acquired from parent for some types, which
         # breaks now that we have stripped away the acquisition chain
@@ -245,7 +242,7 @@ def replace_occurences_in_object(matcher, obj, rtext, mobjs):
     title_positions = mobjs.pop("title", None)
     if title_positions is not None:
         base_obj = aq_base(obj)
-        title = _to_unicode(base_obj.Title())
+        title = safe_unicode(base_obj.Title())
         count, new_text = replaceText(matcher, title, rtext, title_positions)
         if count:
             repl_count += count
@@ -265,7 +262,7 @@ def reindexObject(obj):
     if settings().update_modified:
         obj.reindexObject()
     else:
-        catalog = portal.get_tool("portal_catalog")
+        catalog = api.portal.get_tool("portal_catalog")
         obj.reindexObject(idxs=catalog.indexes())
 
 
@@ -292,7 +289,7 @@ def find_matches_in_object(matcher, obj):
     path = "/".join(obj.getPhysicalPath())
     base = aq_base(obj)
     try:
-        title = _to_unicode(base.Title())
+        title = safe_unicode(base.Title())
     except AttributeError:
         # Title might be acquired from parent for some types, which breaks
         # now that we have stripped away the acquisition chain with
@@ -306,6 +303,7 @@ def find_matches_in_object(matcher, obj):
                 "path": path,
                 "url": obj.absolute_url(),
                 "line": "title",
+                "linecol": translate(PloneMessageFactory(u'Title'), context=obj.REQUEST),
                 "pos": "%d" % start,
                 "text": getLinePreview(title, start, end),
             }
@@ -313,6 +311,10 @@ def find_matches_in_object(matcher, obj):
     text_fields = getTextFields(obj)
     if text_fields:
         for field in text_fields:
+            if hasattr(field, "widget"):
+                label = translate(field.widget.label, context=obj.REQUEST)
+            else:
+                label = translate(field.title, context=obj.REQUEST)
             text = getRawTextField(obj, field)
             if not text:
                 continue
@@ -324,6 +326,7 @@ def find_matches_in_object(matcher, obj):
                         "path": path,
                         "url": obj.absolute_url(),
                         "line": "%s %d" % (field.__name__, getLineNumber(text, start)),
+                        "linecol": "%s %d" % (label, getLineNumber(text, start)),
                         "pos": "%d" % start,
                         "text": getLinePreview(text, start, end),
                     }
@@ -332,16 +335,18 @@ def find_matches_in_object(matcher, obj):
 
 
 def getTextFields(obj):
-    # Get all text fields, except ones that are handled separately.
+    include_textline_fields = settings().include_textline_fields
     text_fields = []
     if HAS_ARCHETYPES and getattr(aq_base(obj), "Schema", None):
         # Archetypes
         for field in obj.Schema().values():
             if field.__name__ in CUSTOM_HANDLED_TEXT_FIELDS:
                 continue
-            if not ITextField.providedBy(field):
+            if include_textline_fields and IStringField.providedBy(field):
+                text_fields.append(field)
                 continue
-            text_fields.append(field)
+            if ITextField.providedBy(field):
+                text_fields.append(field)
     elif HAS_DEXTERITY:
         # Dexterity
         for schemata in iterSchemata(obj):
@@ -353,13 +358,12 @@ def getTextFields(obj):
                     text_fields.append(field)
                     continue
                 # ITextLine inherits from IText.
-                # We want to replace in texts, but not textlines.
-                # Maybe this can be made configurable.
-                if ITextLine.providedBy(field):
+                # That we want to replace in texts, but not textlines
+                # is by configuration.
+                if not include_textline_fields and ITextLine.providedBy(field):
                     continue
-                if not IText.providedBy(field):
-                    continue
-                text_fields.append(field)
+                if IText.providedBy(field):
+                    text_fields.append(field)
     return text_fields
 
 
@@ -426,10 +430,10 @@ def getRawTextField(obj, field):
         if isinstance(baseunit, tuple):
             #  LinesField
             text = "\n".join(baseunit)
-        elif isinstance(baseunit.raw, unicode):
+        elif hasattr(baseunit, 'raw') and isinstance(baseunit.raw, six.text_type):
             text = baseunit.raw
         else:
-            text = _to_unicode(field.getRaw(obj))
+            text = safe_unicode(field.getRaw(obj))
     else:
         # Dexterity
         baseunit = field.get(obj)

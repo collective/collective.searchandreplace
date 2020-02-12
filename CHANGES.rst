@@ -4,6 +4,16 @@ Changelog
 7.1.4 (unreleased)
 ------------------
 
+- use safe_unicode from CMFPlone
+  [maurits, gotcha]
+
+- If configured with include_textline_fields, enable search and replace on string fields
+  (Archetypes IStringField and dexterity TextLine)
+  [gotcha]
+
+- Translate field names in preview table
+  [gotcha]
+
 - Python 3 support for 5.2
   [gotcha]
 

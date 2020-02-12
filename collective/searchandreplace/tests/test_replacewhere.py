@@ -218,6 +218,65 @@ class TestReplaceWhere(unittest.TestCase):
         # But not the textline field.
         self.assertEqual(getRawText(doc1, "line"), "Test Line")
 
+    def testReplaceAllFields(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
+
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISearchReplaceSettings, check=False)
+        settings.include_textline_fields = True
+
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        # Note: we use our sample type here, which has extra fields.
+        # This currently is Archetypes when testing on Plone 4,
+        # and Dexterity when testing on Plone 5.
+        self.portal.invokeFactory("SampleType", "doc1")
+        doc1 = getattr(self.portal, "doc1")
+        edit_content(
+            doc1,
+            title="Test Title",
+            description="Test Description",
+            rich="Test Rich",
+            plain="Test Plain",
+            line="Test Line",
+            unsearchable="Test Unsearchable",
+        )
+
+        # Test the initial values.
+        self.assertEqual(doc1.Title(), "Test Title")
+        self.assertEqual(doc1.Description(), "Test Description")
+        self.assertEqual(getRawText(doc1, "rich"), "Test Rich")
+        self.assertEqual(getRawText(doc1, "plain"), "Test Plain")
+        self.assertEqual(getRawText(doc1, "line"), "Test Line")
+        self.assertEqual(getRawText(doc1, "unsearchable"), "Test Unsearchable")
+
+        # Search it.
+        parameters = dict(context=doc1, findWhat="Test", matchCase=False)
+        results = self.srutil.findObjects(**parameters)
+        self.assertEqual(len(results), 6)
+
+        # Nothing should have changed.
+        self.assertEqual(doc1.Title(), "Test Title")
+        self.assertEqual(doc1.Description(), "Test Description")
+        self.assertEqual(getRawText(doc1, "rich"), "Test Rich")
+        self.assertEqual(getRawText(doc1, "plain"), "Test Plain")
+        self.assertEqual(getRawText(doc1, "line"), "Test Line")
+        self.assertEqual(getRawText(doc1, "unsearchable"), "Test Unsearchable")
+
+        r_parameters = dict(replaceWith="Foo",)
+        r_parameters.update(parameters)
+        results = self.srutil.replaceAllMatches(**r_parameters)
+        self.assertEqual(results, 6)
+
+        # All fields should have changed.
+        self.assertEqual(doc1.Title(), "Foo Title")
+        self.assertEqual(doc1.Description(), "Foo Description")
+        self.assertEqual(getRawText(doc1, "rich"), "Foo Rich")
+        self.assertEqual(getRawText(doc1, "plain"), "Foo Plain")
+        self.assertEqual(getRawText(doc1, "unsearchable"), "Foo Unsearchable")
+
+        # including the textline field.
+        self.assertEqual(getRawText(doc1, "line"), "Foo Line")
+
     def testReplaceUnsearchableTextFields(self):
         from collective.searchandreplace.searchreplaceutility import getRawText
 

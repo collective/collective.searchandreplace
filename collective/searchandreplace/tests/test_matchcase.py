@@ -1,4 +1,5 @@
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
+from collective.searchandreplace.testing import MAJOR_PLONE_VERSION
 from collective.searchandreplace.testing import create_doc
 from collective.searchandreplace.testing import edit_content
 from collective.searchandreplace.testing import SEARCH_REPLACE_INTEGRATION_LAYER  # noqa
@@ -72,15 +73,25 @@ class TestMultipleMatchCase(unittest.TestCase):
         results = self.srutil.findObjects(self.portal, "Test", matchCase=True,)
         self.assertEqual(len(results), 4)
         # title field, first match
+        self.assertEqual(results[0]["linecol"], "Title")
         self.assertEqual(results[0]["line"], "title")
         self.assertEqual(results[0]["pos"], "0")
         # title field, second match
+        self.assertEqual(results[1]["linecol"], "Title")
         self.assertEqual(results[1]["line"], "title")
         self.assertEqual(results[1]["pos"], "10")
         # text field, line 1
+        if MAJOR_PLONE_VERSION >= 5:
+            self.assertEqual(results[2]["linecol"], "Text 1")
+        else: # Plone 4
+            self.assertEqual(results[2]["linecol"], "Body Text 1")
         self.assertEqual(results[2]["line"], "text 1")
         self.assertEqual(results[2]["pos"], "0")
         # text field, line 2
+        if MAJOR_PLONE_VERSION >= 5:
+            self.assertEqual(results[3]["linecol"], "Text 2")
+        else: # Plone 4
+            self.assertEqual(results[3]["linecol"], "Body Text 2")
         self.assertEqual(results[3]["line"], "text 2")
         self.assertEqual(results[3]["pos"], "10")
 
