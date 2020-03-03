@@ -5,7 +5,12 @@ Introduction
    :target: https://travis-ci.org/#!/collective/collective.searchandreplace
 
 The collective.searchandreplace product is a Plone Add-on designed to find and replace text in Plone content objects.
-It looks in title, description, and document text, and since version 7 it looks in all text fields.
+
+It searches in all text fields (since version 7.0) and all string fields (since 8.0).
+
+This includes default content types fields like title, description, and document text.
+It excludes the id/short name string field.
+
 It operates over single or multiple Plone content objects and can show a preview of changes as well as immediately perform them.
 
 Features include:
@@ -27,7 +32,17 @@ Development
 Compatibility
 -------------
 
-From collective.searchandreplace version 5.0, we are compatible with
+From version 8.0, we are compatible with
+Plone 4.3, 5.1 and 5.2.
+
+.. warning:: 8.0 is not backward-compatible.
+
+   - The Python API of the searchandreplace utility has changed. If your setup customizes searchandreplace, it will need some work.
+
+   - String fields are now searched. You can turn that feature off to keep 7.x functionality by setting the registry
+     ``include_textline_fields`` to ``False``
+
+From version 5.0, we are compatible with
 Plone 4.3 and 5.0.
 
 The collective.searchandreplace product was initally built for use
