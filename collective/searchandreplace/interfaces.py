@@ -87,5 +87,5 @@ class ISearchReplaceSettings(Interface):
             u"not only title and text fields",
         ),
         required=False,
-        default=False,
+        default=True,
     )
