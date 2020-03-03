@@ -163,8 +163,12 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(subfolder.Title(), "foo")
         self.assertEqual(subfolder.Title(), "foo")
 
-    def testReplaceAllTextFields(self):
+    def testReplaceTextFieldsButNotTextlineFields(self):
         from collective.searchandreplace.searchreplaceutility import getRawText
+
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISearchReplaceSettings, check=False)
+        settings.include_textline_fields = False
 
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         # Note: we use our sample type here, which has extra fields.
@@ -220,10 +224,6 @@ class TestReplaceWhere(unittest.TestCase):
 
     def testReplaceAllFields(self):
         from collective.searchandreplace.searchreplaceutility import getRawText
-
-        registry = getUtility(IRegistry)
-        settings = registry.forInterface(ISearchReplaceSettings, check=False)
-        settings.include_textline_fields = True
 
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         # Note: we use our sample type here, which has extra fields.
