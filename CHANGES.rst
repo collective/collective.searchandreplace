@@ -1,7 +1,7 @@
 Changelog
 =========
 
-7.1.4 (unreleased)
+8.0.0 (2020-03-06)
 ------------------
 
 - use safe_unicode from CMFPlone
