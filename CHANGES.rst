@@ -7,8 +7,8 @@ Changelog
 - use safe_unicode from CMFPlone
   [maurits, gotcha]
 
-- If configured with include_textline_fields, enable search and replace on string fields
-  (Archetypes IStringField and dexterity TextLine)
+- Enable search and replace on string fields, Archetypes ``IStringField`` and dexterity ``ITextLine``
+  Disable by putting registry ``include_textline_fields`` to False
   [gotcha]
 
 - Translate field names in preview table
