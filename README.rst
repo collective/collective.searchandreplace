@@ -25,8 +25,8 @@ Features include:
 Development
 -----------
 
-.. image:: https://coveralls.io/repos/github/collective/collective.searchandreplace/badge.svg
-:target: https://coveralls.io/github/collective/collective.searchandreplace
+.. image:: https://coveralls.io/repos/github/collective/collective.searchandreplace/badge.svg?branch=master
+  :target: https://coveralls.io/github/collective/collective.searchandreplace?branch=master
 
 
 Compatibility
