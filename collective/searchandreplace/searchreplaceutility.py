@@ -18,6 +18,7 @@ from zope.i18n import translate
 from zope.schema import getFieldsInOrder
 from zope.schema.interfaces import IText
 from zope.schema.interfaces import ITextLine
+from zope.schema.interfaces import ITuple
 
 import logging
 import pkg_resources
@@ -39,6 +40,7 @@ except pkg_resources.DistributionNotFound:
 else:
     HAS_ARCHETYPES = True
     from Products.Archetypes.interfaces import ITextField
+    from Products.Archetypes.interfaces import ILinesField
     from Products.Archetypes.interfaces import IStringField
 
 logger = logging.getLogger("collective.searchreplace")
@@ -336,6 +338,7 @@ def find_matches_in_object(matcher, obj):
 
 def getTextFields(obj):
     include_textline_fields = settings().include_textline_fields
+    include_lines_fields = settings().include_lines_fields
     text_fields = []
     if HAS_ARCHETYPES and getattr(aq_base(obj), "Schema", None):
         # Archetypes
@@ -346,6 +349,8 @@ def getTextFields(obj):
                 text_fields.append(field)
                 continue
             if ITextField.providedBy(field):
+                text_fields.append(field)
+            if include_lines_fields and ILinesField.providedBy(field):
                 text_fields.append(field)
     elif HAS_DEXTERITY:
         # Dexterity
@@ -364,10 +369,13 @@ def getTextFields(obj):
                     continue
                 if IText.providedBy(field):
                     text_fields.append(field)
+                if include_lines_fields and ITuple.providedBy(field) and ITextLine.providedBy(field.value_type):
+                    text_fields.append(field)
     return text_fields
 
 
 def setTextField(obj, fieldname, text):
+    text = six.text_type(text)
     obj_base = aq_base(obj)
     if getattr(obj_base, "Schema", None):
         # Archetypes
@@ -389,7 +397,9 @@ def setTextField(obj, fieldname, text):
                 text = RichTextValue(text)
             else:
                 text = RichTextValue(text, old.mimeType, old.outputMimeType)
-        field.set(obj, text)
+        if ITuple.providedBy(field) and ITextLine.providedBy(field.value_type):
+            text = tuple(text.split('\n'))
+        setattr(field.interface(obj), field.__name__, text)
 
 
 def getLineNumber(text, index):
@@ -436,9 +446,11 @@ def getRawTextField(obj, field):
             text = safe_unicode(field.getRaw(obj))
     else:
         # Dexterity
-        baseunit = field.get(obj)
+        baseunit = getattr(field.interface(obj), field.__name__)
         if baseunit is None:
             text = u""
+        elif isinstance(baseunit, tuple):
+            text = "\n".join(baseunit)
         else:
             # Rich text has a raw attribute, plain text simply has text
             # (unicode).

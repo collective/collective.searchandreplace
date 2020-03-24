@@ -21,33 +21,33 @@ class TestMatchCase(unittest.TestCase):
 
     def testNoMatchCase(self):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
-        create_doc(self.portal, id="doc1", title=u"Test Title", text=u"Test Case")
+        create_doc(self.portal, id="doc1", title=u"Find Title", text=u"Find Case")
         doc1 = getattr(self.portal, "doc1")
-        results = self.srutil.findObjects(doc1, "test case", matchCase=False)
+        results = self.srutil.findObjects(doc1, "find case", matchCase=False)
         self.assertEqual(len(results), 1)
 
     def testMatchCase(self):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         self.portal.invokeFactory("Document", "doc2")
         doc2 = getattr(self.portal, "doc2")
-        edit_content(doc2, title="test title", text="Test Case")
-        results = self.srutil.findObjects(doc2, "test case", matchCase=True)
+        edit_content(doc2, title="find title", text="Find Case")
+        results = self.srutil.findObjects(doc2, "find case", matchCase=True)
         self.assertEqual(len(results), 0)
 
     def testOneMatch(self):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         self.portal.invokeFactory("Document", "doc1")
         doc1 = getattr(self.portal, "doc1")
-        edit_content(doc1, title="Test Title", text="Test Case")
+        edit_content(doc1, title="Find Title", text="Find Case")
         self.portal.invokeFactory("Document", "doc2")
         doc2 = getattr(self.portal, "doc2")
-        edit_content(doc2, title="test title", text="test case")
+        edit_content(doc2, title="find title", text="find case")
         # path1 = '%s' %  '/'.join(doc1.getPhysicalPath())
         # path2 = '%s' % '/'.join(doc2.getPhysicalPath())
         # paths = {path1: {'body': [0]}, path2: {'body': [0]}}
         results = self.srutil.findObjects(
             self.portal,
-            "test case",
+            "find case",
             matchCase=True,
             # occurences=paths
         )
@@ -66,11 +66,11 @@ class TestMultipleMatchCase(unittest.TestCase):
         self.portal.invokeFactory("Document", "doc1")
         self.doc1 = getattr(self.portal, "doc1")
         edit_content(
-            self.doc1, title="Test test Test test", text="Test test\nTest test"
+            self.doc1, title="Find find Find find", text="Find find\nFind find"
         )
 
     def testSearchCase(self):
-        results = self.srutil.findObjects(self.portal, "Test", matchCase=True,)
+        results = self.srutil.findObjects(self.portal, "Find", matchCase=True,)
         self.assertEqual(len(results), 4)
         # title field, first match
         self.assertEqual(results[0]["linecol"], "Title")
@@ -96,18 +96,18 @@ class TestMultipleMatchCase(unittest.TestCase):
         self.assertEqual(results[3]["pos"], "10")
 
     def testSearchNoCase(self):
-        results = self.srutil.findObjects(self.portal, "Test", matchCase=False,)
+        results = self.srutil.findObjects(self.portal, "Find", matchCase=False,)
         self.assertEqual(len(results), 8)
 
     def testReplaceAll(self):
         from collective.searchandreplace.searchreplaceutility import getRawText
 
         results = self.srutil.replaceAllMatches(
-            self.portal, "Test", replaceWith="Bike", matchCase=True,
+            self.portal, "Find", replaceWith="Bike", matchCase=True,
         )
         self.assertEqual(results, 4)
-        self.assertEqual(self.doc1.Title(), "Bike test Bike test")
-        self.assertEqual(getRawText(self.doc1), "Bike test\nBike test")
+        self.assertEqual(self.doc1.Title(), "Bike find Bike find")
+        self.assertEqual(getRawText(self.doc1), "Bike find\nBike find")
 
     def testReplacePaths(self):
         from collective.searchandreplace.searchreplaceutility import getRawText
@@ -122,8 +122,8 @@ class TestMultipleMatchCase(unittest.TestCase):
             }
         }
         results = self.srutil.replaceFilteredOccurences(
-            self.portal, "Test", replaceWith="Bike", occurences=paths, matchCase=False,
+            self.portal, "Find", replaceWith="Bike", occurences=paths, matchCase=False,
         )
         self.assertEqual(results, 4)
-        self.assertEqual(self.doc1.Title(), "Bike test Bike test")
-        self.assertEqual(getRawText(self.doc1), "Test Bike\nTest Bike")
+        self.assertEqual(self.doc1.Title(), "Bike find Bike find")
+        self.assertEqual(getRawText(self.doc1), "Find Bike\nFind Bike")
