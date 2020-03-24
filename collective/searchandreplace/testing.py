@@ -76,6 +76,7 @@ def edit_content(
     plain=None,
     line=None,
     unsearchable=None,
+    subject=None,
 ):
     if MAJOR_PLONE_VERSION >= 5:
         # Dexterity
@@ -93,6 +94,8 @@ def edit_content(
             context.line = line
         if unsearchable is not None:
             context.unsearchable = rich_text(unsearchable)
+        if subject is not None:
+            context.subject = subject
     else:
         # Archetypes
         if title is not None:
@@ -109,4 +112,6 @@ def edit_content(
             context.setLine(line)
         if unsearchable is not None:
             context.setUnsearchable(unsearchable)
+        if subject is not None:
+            context.setSubject(subject)
     context.reindexObject()

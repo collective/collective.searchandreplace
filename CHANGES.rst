@@ -4,7 +4,10 @@ Changelog
 8.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Enable search and replace on lines fields, Archetypes ``ILinesField`` and dexterity ``ITuple`` with ``value_type==ITextLine``
+  Can be enabled with registry ``include_lines_fields`` to True
+  [gotcha]
+
 
 
 8.0.0 (2020-03-06)
@@ -14,7 +17,7 @@ Changelog
   [maurits, gotcha]
 
 - Enable search and replace on string fields, Archetypes ``IStringField`` and dexterity ``ITextLine``
-  Disable by putting registry ``include_textline_fields`` to False
+  Can be disabled with registry ``include_textline_fields`` to False
   [gotcha]
 
 - Translate field names in preview table
