@@ -439,7 +439,7 @@ def getRawTextField(obj, field):
         baseunit = field.getRaw(obj, raw=True)
         if isinstance(baseunit, tuple):
             #  LinesField
-            text = "\n".join(baseunit)
+            text = safe_unicode("\n".join(baseunit))
         elif hasattr(baseunit, 'raw') and isinstance(baseunit.raw, six.text_type):
             text = baseunit.raw
         else:
@@ -450,7 +450,7 @@ def getRawTextField(obj, field):
         if baseunit is None:
             text = u""
         elif isinstance(baseunit, tuple):
-            text = "\n".join(baseunit)
+            text = safe_unicode("\n".join(baseunit))
         else:
             # Rich text has a raw attribute, plain text simply has text
             # (unicode).

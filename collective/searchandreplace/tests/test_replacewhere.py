@@ -464,6 +464,50 @@ class TestReplaceWhere(unittest.TestCase):
         # Other fields are not changed.
         self.assertEqual(doc1.Title(), "Find Title")
 
+    def testReplaceSubjectUnicode(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
+
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISearchReplaceSettings, check=False)
+        settings.include_lines_fields = True
+
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.portal.invokeFactory("Document", "doc1")
+        doc1 = getattr(self.portal, "doc1")
+        edit_content(
+            doc1, title="Find Title", subject=("Find subject", "Remplac\xc3\xa9")
+        )
+        self.assertEqual(doc1.Subject(), ("Find subject", "Remplac\xc3\xa9"))
+        # Search it.
+        parameters = dict(context=doc1, findWhat="find subject", matchCase=False,
+            onlySearchableText=True
+        )
+        results = self.srutil.findObjects(**parameters)
+        self.assertEqual(len(results), 1)
+        r_parameters = dict(replaceWith="replaced",)
+        r_parameters.update(parameters)
+        results = self.srutil.replaceAllMatches(**r_parameters)
+        # Note: replacing returns an int, not a list.
+        self.assertEqual(results, 1)
+        self.assertEqual(doc1.Subject(), ("replaced", "Remplac\xc3\xa9"))
+        # Other fields are not changed.
+        self.assertEqual(doc1.Title(), "Find Title")
+
+        edit_content(
+            doc1, title="Find Title", subject=("Find subject", "Replaced")
+        )
+        self.assertEqual(doc1.Subject(), ("Find subject", "Replaced"))
+        # Search it.
+        parameters = dict(context=doc1, findWhat="find subject", matchCase=False,
+            onlySearchableText=True
+        )
+        results = self.srutil.findObjects(**parameters)
+        self.assertEqual(len(results), 1)
+        r_parameters = dict(replaceWith="Remplac\xc3\xa9".decode('utf8'),)
+        r_parameters.update(parameters)
+        results = self.srutil.replaceAllMatches(**r_parameters)
+        self.assertEqual(results, 1)
+        self.assertEqual(doc1.Subject(), ("Remplac\xc3\xa9", "Replaced"))
 
 class TestModified(unittest.TestCase):
     """Test update_modified setting"""
