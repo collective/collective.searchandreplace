@@ -69,7 +69,16 @@ setup(
         "zope.schema",
         "plone.api",
     ],
-    extras_require={"test": ["collective.dexteritytextindexer", "plone.app.testing",],},
+    extras_require=dict(
+        test=[
+           "collective.dexteritytextindexer",
+           "plone.app.testing",
+        ],
+        pytest=[
+           'pytest',
+           'gocept.pytestlayer',
+        ],
+    ),
     entry_points="""
     # -*- Entry points: -*-
     [z3c.autoinclude.plugin]
