@@ -89,7 +89,17 @@
         import_steps="plone.app.registry"
     />
   </genericsetup:upgradeSteps>
-
+  <genericsetup:upgradeSteps
+    source="2001"
+    destination="2002"
+    profile="collective.searchandreplace:default">
+    <genericsetup:upgradeDepends
+        title="Update registry"
+        description="Add include_lines_fields settings"
+        import_profile="collective.searchandreplace:default"
+        import_steps="plone.app.registry"
+    />
+  </genericsetup:upgradeSteps>
   <utility
      provides=".interfaces.ISearchReplaceUtility"
      factory=".searchreplaceutility.SearchReplaceUtility"
