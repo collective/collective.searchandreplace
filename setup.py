@@ -77,6 +77,8 @@ setup(
         pytest=[
            'pytest',
            'gocept.pytestlayer',
+           'pathlib2',
+           'requests',
         ],
     ),
     entry_points="""
