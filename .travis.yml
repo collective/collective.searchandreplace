@@ -1,5 +1,5 @@
 version: ~> 1.0
-import: collective/buildout.plonetest:travis/default.yml
+import: collective/buildout.plonetest:travis/pytest.yml@pytest
 matrix:
   include:
     - python: "2.7"
