@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
 from collective.searchandreplace.interfaces import ISearchReplaceSettings
 from collective.searchandreplace.testing import edit_content
@@ -11,6 +12,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
+import six
 
 import unittest
 
@@ -503,11 +505,14 @@ class TestReplaceWhere(unittest.TestCase):
         )
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
-        r_parameters = dict(replaceWith="Remplac\xc3\xa9".decode('utf8'),)
+        r_parameters = dict(replaceWith=u"Remplacé",)
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 1)
-        self.assertEqual(doc1.Subject(), ("Remplac\xc3\xa9", "Replaced"))
+        if six.PY3:
+            self.assertEqual(doc1.Subject(), (u"Remplacé", "Replaced"))
+        if six.PY2:
+            self.assertEqual(doc1.Subject(), (u"Remplacé".encode('utf8'), "Replaced"))
 
 class TestModified(unittest.TestCase):
     """Test update_modified setting"""
