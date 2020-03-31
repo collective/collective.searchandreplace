@@ -1,7 +1,7 @@
 Changelog
 =========
 
-8.0.1 (unreleased)
+8.1.0 (2020-03-31)
 ------------------
 
 - use pytest as test runner
