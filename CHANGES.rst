@@ -4,6 +4,9 @@ Changelog
 8.0.1 (unreleased)
 ------------------
 
+- use pytest as test runner
+  [gotcha]
+
 - Enable search and replace on lines fields, Archetypes ``ILinesField`` and dexterity ``ITuple`` with ``value_type==ITextLine``
   Can be enabled with registry ``include_lines_fields`` to True
   [gotcha]
