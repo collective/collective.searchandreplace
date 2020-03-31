@@ -43,17 +43,17 @@ develop =  %(package_path)s
         output = subprocess.check_output(
             ["bin/buildout", "query", "buildout:develop"]
         )
-        assert str(package_path) in output
+        assert str(package_path).encode('utf8') in output
 
         output = subprocess.check_output(
             ["bin/buildout", "query", "instance:recipe"]
         )
-        assert 'plone.recipe.zope2instance' in output
+        assert b'plone.recipe.zope2instance' in output
 
         output = subprocess.check_output(
             ["bin/buildout", "query", "plonesite:recipe"]
         )
-        assert 'collective.recipe.plonesite' in output
+        assert b'collective.recipe.plonesite' in output
 
     def run_buildouts(self, from_version):
         retcode = subprocess.call(
