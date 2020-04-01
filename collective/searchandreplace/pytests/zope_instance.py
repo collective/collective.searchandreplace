@@ -39,6 +39,9 @@ develop =  %(package_path)s
         os.chdir(str(tmp_path))
         retcode = subprocess.call([str(buildout_exe), "bootstrap"])
         assert retcode == 0
+        output = subprocess.check_output([str(buildout_exe), "query", "buildout:eggs-directory"])
+
+        self.eggs_directory = output.decode('utf8').split('\n')[-2]
 
         output = subprocess.check_output(
             ["bin/buildout", "query", "buildout:develop"]
@@ -59,6 +62,7 @@ develop =  %(package_path)s
         retcode = subprocess.call(
             [
                 "bin/buildout",
+                "buildout:eggs-directory=%s" % self.eggs_directory,
                 "buildout:develop=",
                 "versions:%s" % from_version,
                 "install",
@@ -68,7 +72,15 @@ develop =  %(package_path)s
         )
         assert retcode == 0
         assert pathlib.Path("bin/instance").exists()
-        retcode = subprocess.call(["bin/buildout", "install", "instance", "plonesite"])
+        retcode = subprocess.call(
+            [
+                "bin/buildout",
+                "buildout:eggs-directory=%s" % self.eggs_directory,
+                "install",
+                "instance",
+                "plonesite"
+            ]
+        )
         assert retcode == 0
         assert pathlib.Path("bin/instance").exists()
 
