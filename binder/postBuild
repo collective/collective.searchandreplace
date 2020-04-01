@@ -1,0 +1,3 @@
+set -ex
+
+buildout -v buildout:eggs-directory=eggs
