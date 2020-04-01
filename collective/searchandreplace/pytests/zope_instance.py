@@ -59,6 +59,8 @@ develop =  %(package_path)s
         assert b'collective.recipe.plonesite' in output
 
     def run_buildouts(self, from_version):
+        print()
+        print("Plone site with", from_version)
         retcode = subprocess.call(
             [
                 "bin/buildout",
@@ -72,6 +74,8 @@ develop =  %(package_path)s
         )
         assert retcode == 0
         assert pathlib.Path("bin/instance").exists()
+        print()
+        print("Plone site with develop")
         retcode = subprocess.call(
             [
                 "bin/buildout",
@@ -85,14 +89,16 @@ develop =  %(package_path)s
         assert pathlib.Path("bin/instance").exists()
 
     def start(self):
-        retcode = subprocess.call(["bin/instance", "start"])
-        assert retcode == 0
+        self.process = subprocess.Popen(["bin/instance", "console"])
+        # retcode = subprocess.call(["bin/instance", "start"])
+        # assert retcode == 0
         while not check_socket(self.host, self.port):
             time.sleep(.3)
 
     def stop(self):
-        retcode = subprocess.call(["bin/instance", "stop"])
-        assert retcode == 0
+        self.process.terminate()
+        # retcode = subprocess.call(["bin/instance", "stop"])
+        # assert retcode == 0
 
     __enter__ = start
  
