@@ -8,7 +8,7 @@ from zope_instance import ZopeInstance
 def plone_instance(tmp_path, pytestconfig):
     return ZopeInstance(tmp_path, pytestconfig)
 
-
+@pytest.mark.upgrade
 def test(plone_instance):
     plone_instance.run_buildouts("collective.searchandreplace=8.0.0")
     with plone_instance:
