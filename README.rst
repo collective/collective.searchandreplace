@@ -22,22 +22,20 @@ Features include:
 - disable the fast search to be able to search and replace raw html tags, for example replace ``<strong>text</strong>`` by ``<em>text</em>``
 
 
-Demo on mybinder.org.
-
-.. image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/collective/collective.searchandreplace/repo2docker?urlpath=zope/Plone
-
-
 Development
 -----------
 
-Running tests on mybinder.org.
-
-.. image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/collective/collective.searchandreplace/repo2docker?filepath=binder%2Fpytest.ipynb
-
 .. image:: https://coveralls.io/repos/github/collective/collective.searchandreplace/badge.svg?branch=master
   :target: https://coveralls.io/github/collective/collective.searchandreplace?branch=master
+
+
+Binder
+------
+
+Running tests and demo Plone site on mybinder.org.
+
+.. image:: https://mybinder.org/badge_logo.svg
+ :target: https://mybinder.org/v2/gh/collective/collective.searchandreplace/master?filepath=binder%2Fpytest.ipynb
 
 
 Compatibility
