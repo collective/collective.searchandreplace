@@ -1,33 +1,46 @@
-<div class="field"
-     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-     i18n:domain="SearchAndReplace"
-     tal:condition="python: request.has_key('form.actions.Preview') or request.has_key('form.actions.Replace')"
-     tal:define="isFolderish context/isPrincipiaFolderish|nothing;
+<div
+  class="field"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="SearchAndReplace"
+  tal:condition="python: request.has_key('form.actions.Preview') or request.has_key('form.actions.Replace')"
+  tal:define="isFolderish context/isPrincipiaFolderish|nothing;
                  items view/getItems;
                  findText request/form.findWhat|nothing;
                  replaceWith request/form.replaceWith|nothing;
                  maximum_text_characters view/maximum_text_characters;
-                 "> 
-
+                 "
+>
   <label for="form.affectedContent">
-    <span i18n:translate="">Affected Content</span> (<span tal:replace="python:len(items)"></span>)
+    <span i18n:translate="">Affected Content</span> (<span
+      tal:replace="python:len(items)"
+    ></span
+    >)
   </label>
 
-  <table id="sortable" class="listing" summary="Affected content" i18n:attributes="summary summary_affected_content;">
+  <table
+    id="sortable"
+    class="listing"
+    summary="Affected content"
+    i18n:attributes="summary summary_affected_content;"
+  >
     <thead>
       <tr>
         <th class="nosort">
-          <input class="noborder"
-                 src="select_all_icon.gif"
-                 name="selectButton"
-                 title="Select all items"
-                 onclick="toggleSelect(this,'form.affectedContent', true);"
-                 alt="Select all items"
-                 i18n:attributes="title;alt"
-                 type="checkbox"
-                 checked="checked" />
+          <input
+            class="noborder"
+            src="select_all_icon.gif"
+            name="selectButton"
+            title="Select all items"
+            onclick="toggleSelect(this,'form.affectedContent', true);"
+            alt="Select all items"
+            i18n:attributes="title;alt"
+            type="checkbox"
+            checked="checked"
+          />
         </th>
-        <th class="nosort" tal:condition="isFolderish" i18n:translate="">Path</th>
+        <th class="nosort" tal:condition="isFolderish" i18n:translate="">
+          Path
+        </th>
         <th class="nosort" i18n:translate="">Line</th>
         <th class="nosort" i18n:translate="">Before</th>
         <th class="nosort" i18n:translate="">After</th>
@@ -35,7 +48,8 @@
     </thead>
     <tbody>
       <tal:block tal:repeat="item items">
-        <tr tal:define="oddrow repeat/item/odd;
+        <tr
+          tal:define="oddrow repeat/item/odd;
                         itempath item/path;
                         itemrelpath python:view.getRelativePath(itempath);
                         itemurl item/url;
@@ -44,28 +58,68 @@
                         itemBeforeText python:item['text'][0];
                         itemFindText python:item['text'][1];
                         itemAfterText python:item['text'][2];"
-            tal:attributes="class python:oddrow and 'odd' or 'even';">
-          <td><input type="checkbox"
-          id="form.affectedContent"
-          checked="checked"
-          name="form.affectedContent"
-          tal:attributes="value string:$itemline:$itempos:$itempath;"/></td>
+          tal:attributes="class python:oddrow and 'odd' or 'even';"
+        >
+          <td>
+            <input
+              type="checkbox"
+              id="form.affectedContent"
+              checked="checked"
+              name="form.affectedContent"
+              tal:attributes="value string:$itemline:$itempos:$itempath;"
+            />
+          </td>
           <td tal:condition="isFolderish">
-            <a href="" alt=""
-               tal:attributes="href itemurl;
+            <a
+              href=""
+              alt=""
+              tal:attributes="href itemurl;
                                alt itemrelpath;"
-               tal:content="itemrelpath" />
-            <a href="" alt="" target="_blank"
-               tal:attributes="href string:${itemurl}/edit">
-              <img src="++theme++collective.searchandreplace/edit_inline.png" alt="edit" title="edit" i18n:domain="plone" i18n:attributes="alt title" />
+              tal:content="itemrelpath"
+            />
+            <a
+              href=""
+              alt=""
+              target="_blank"
+              tal:attributes="href string:${itemurl}/edit"
+            >
+              <img
+                src="++theme++collective.searchandreplace/edit_inline.png"
+                alt="edit"
+                title="edit"
+                i18n:domain="plone"
+                i18n:attributes="alt title"
+              />
             </a>
           </td>
           <td tal:content="item/linecol">1</td>
           <td>
-            <span tal:condition="python: len(itemBeforeText) > maximum_text_characters">[...]</span><span tal:replace="python: itemBeforeText[-maximum_text_characters:]" /><i><span style="color: red" tal:content="itemFindText" /></i><span tal:replace="python: itemAfterText[:maximum_text_characters]" /><span tal:condition="python: len(itemAfterText) > maximum_text_characters">[...]</span>
+            <span
+              tal:condition="python: len(itemBeforeText) > maximum_text_characters"
+              >[...]</span
+            ><span
+              tal:replace="python: itemBeforeText[-maximum_text_characters:]"
+            /><i><span style="color: red" tal:content="itemFindText" /></i
+            ><span
+              tal:replace="python: itemAfterText[:maximum_text_characters]"
+            /><span
+              tal:condition="python: len(itemAfterText) > maximum_text_characters"
+              >[...]</span
+            >
           </td>
           <td>
-            <span tal:condition="python: len(itemBeforeText) > maximum_text_characters">[...]</span><span tal:replace="python: itemBeforeText[-maximum_text_characters:]" /><i><span style="color: green" tal:content="replaceWith" /></i><span tal:replace="python: itemAfterText[:maximum_text_characters]" /><span tal:condition="python: len(itemAfterText) > maximum_text_characters">[...]</span>
+            <span
+              tal:condition="python: len(itemBeforeText) > maximum_text_characters"
+              >[...]</span
+            ><span
+              tal:replace="python: itemBeforeText[-maximum_text_characters:]"
+            /><i><span style="color: green" tal:content="replaceWith" /></i
+            ><span
+              tal:replace="python: itemAfterText[:maximum_text_characters]"
+            /><span
+              tal:condition="python: len(itemAfterText) > maximum_text_characters"
+              >[...]</span
+            >
           </td>
         </tr>
       </tal:block>
@@ -74,48 +128,52 @@
 </div>
 
 <script>
-if (typeof toggleSelect !== 'function') {
+  if (typeof toggleSelect !== "function") {
     // toggleSelect is not included in Plone 5, we need to include it.
 
     function toggleSelect(selectbutton, id, initialState, formName) {
-        /* required selectbutton: you can pass any object that will function as a toggle
-         * optional id: id of the the group of checkboxes that needs to be toggled (default=ids:list
-         * optional initialState: initial state of the group. (default=false)
-         * e.g. folder_contents is false, search_form=true because the item boxes
-         * are checked initially.
-         * optional formName: name of the form in which the boxes reside, use this if there are more
-         * forms on the page with boxes with the same name
-         */
+      /* required selectbutton: you can pass any object that will function as a toggle
+       * optional id: id of the the group of checkboxes that needs to be toggled (default=ids:list
+       * optional initialState: initial state of the group. (default=false)
+       * e.g. folder_contents is false, search_form=true because the item boxes
+       * are checked initially.
+       * optional formName: name of the form in which the boxes reside, use this if there are more
+       * forms on the page with boxes with the same name
+       */
 
-        /* If this browser is an IE8 or older AND this event handler has been registered on a
-         * change event AND this IS a change event, do nothing.
-         * Change events are broken in IE <= 8:
-         * http://www.quirksmode.org/dom/events/change.html
-         * jQuery tries to fix this:
-         * http://api.jquery.com/change/
-         * jquery creates simulated change event handlers which arrive here as click events.
-         * (Interesting side note, this can result in change and click event handlers
-         *  for the same object to be triggered in different orders, depending on the browser)
-         * As such, we can ignore the change events, also because they get triggered when they
-         * shouldn't, like, when clicking on some random thing AFTER clicking on a select all
-         * checkbox.
-         */
-        if (/MSIE [5-8]\./.test(navigator.userAgent) && event.type === "change" && /toggleSelect\(/.test(selectbutton.onchange.toString())) {
-            return;
-        }
-        var fid, state, base;
+      /* If this browser is an IE8 or older AND this event handler has been registered on a
+       * change event AND this IS a change event, do nothing.
+       * Change events are broken in IE <= 8:
+       * http://www.quirksmode.org/dom/events/change.html
+       * jQuery tries to fix this:
+       * http://api.jquery.com/change/
+       * jquery creates simulated change event handlers which arrive here as click events.
+       * (Interesting side note, this can result in change and click event handlers
+       *  for the same object to be triggered in different orders, depending on the browser)
+       * As such, we can ignore the change events, also because they get triggered when they
+       * shouldn't, like, when clicking on some random thing AFTER clicking on a select all
+       * checkbox.
+       */
+      if (
+        /MSIE [5-8]\./.test(navigator.userAgent) &&
+        event.type === "change" &&
+        /toggleSelect\(/.test(selectbutton.onchange.toString())
+      ) {
+        return;
+      }
+      var fid, state, base;
 
-        fid = id || 'ids:list';  // defaults to ids:list, this is the most common usage
-        state = selectbutton.isSelected;
-        if (state === undefined) {
-            state = Boolean(initialState);
-        }
+      fid = id || "ids:list"; // defaults to ids:list, this is the most common usage
+      state = selectbutton.isSelected;
+      if (state === undefined) {
+        state = Boolean(initialState);
+      }
 
-        // create and use a property on the button itself so you don't have to
-        // use a global variable and we can have as much groups on a page as we like.
-        selectbutton.isSelected = !state;
-        base = formName ? jQuery(document.forms[formName]) : jQuery(document);
-        base.find('input[name="' + fid + '"]:checkbox').prop('checked', !state);
+      // create and use a property on the button itself so you don't have to
+      // use a global variable and we can have as much groups on a page as we like.
+      selectbutton.isSelected = !state;
+      base = formName ? jQuery(document.forms[formName]) : jQuery(document);
+      base.find('input[name="' + fid + '"]:checkbox').prop("checked", !state);
     }
-}
+  }
 </script>

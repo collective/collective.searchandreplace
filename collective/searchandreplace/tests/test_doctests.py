@@ -30,7 +30,10 @@ def test_suite():
     )
 
     suite.addTests(
-        [basicsearchtest, searchavailabletest,]
+        [
+            basicsearchtest,
+            searchavailabletest,
+        ]
     )
 
     return suite

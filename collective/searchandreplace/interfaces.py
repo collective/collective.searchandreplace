@@ -26,8 +26,7 @@ class ISearchReplaceUtility(Interface):
 
 
 class ISearchReplaceSettings(Interface):
-    """Control panel settings for search and replace.
-    """
+    """Control panel settings for search and replace."""
 
     restrict_searchable_types = schema.Bool(
         title=_(u"Restrict the enabled types."),
@@ -46,7 +45,9 @@ class ISearchReplaceSettings(Interface):
             "only the selected types are searched. "
             "Otherwise this list is ignored."
         ),
-        value_type=schema.Choice(vocabulary="plone.app.vocabularies.PortalTypes",),
+        value_type=schema.Choice(
+            vocabulary="plone.app.vocabularies.PortalTypes",
+        ),
         required=False,
         default=[
             "Collection",
