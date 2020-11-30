@@ -287,6 +287,8 @@ def reindexObject(obj):
 def replaceText(matcher, text, rtext, indexes):
     """ Replace instances """
     newtext = ""
+    if not rtext:
+        rtext = ""
     mindex = 0
     repl_count = 0
     mobj = matcher.finditer(text)
