@@ -553,6 +553,35 @@ class TestReplaceWhere(unittest.TestCase):
         if six.PY2:
             self.assertEqual(doc1.Subject(), (u"Remplacé".encode("utf8"), "Replaced"))
 
+    def testReplaceEmpty(self):
+        from collective.searchandreplace.searchreplaceutility import getRawText
+
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.portal.invokeFactory("Document", "doc1")
+        doc1 = getattr(self.portal, "doc1")
+        edit_content(
+            doc1,
+            title="Find My Title",
+            description="Find My Description",
+            text="Find My Text",
+        )
+        self.assertEqual(getRawText(doc1), "Find My Text")
+        # Search it.
+        parameters = dict(context=doc1, findWhat=" My", matchCase=False)
+        results = self.srutil.findObjects(**parameters)
+        self.assertEqual(len(results), 3)
+        self.assertEqual(getRawText(doc1), "Find My Text")
+        r_parameters = dict(
+            replaceWith="",
+        )
+        r_parameters.update(parameters)
+        results = self.srutil.replaceAllMatches(**r_parameters)
+        # Note: replacing returns an int, not a list.
+        self.assertEqual(results, 3)
+        self.assertEqual(getRawText(doc1), "Find Text")
+        self.assertEqual(doc1.Title(), "Find Title")
+        self.assertEqual(doc1.Description(), "Find Description")
+
 
 class TestModified(unittest.TestCase):
     """Test update_modified setting"""
