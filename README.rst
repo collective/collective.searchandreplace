@@ -44,6 +44,9 @@ Compatibility
 From version 8.0, we are compatible with
 Plone 4.3, 5.1 and 5.2.
 
+To be able to run the buildout for a specific Plone version, you need to set an environment variable for the Plone version you want to use, eg.
+``export PLONE_VERSION=5.2``
+
 .. warning:: 8.0 is not backward-compatible.
 
    - The Python API of the searchandreplace utility has changed. If your setup customizes searchandreplace, it will need some work.

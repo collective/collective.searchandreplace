@@ -13,50 +13,46 @@ def check_socket(host, port):
 
 
 class ZopeInstance(object):
-
     def __init__(
-            self,
-            tmp_path,
-            pytestconfig,
-            host='127.0.0.1',
-            port=8080,
-            ):
+        self,
+        tmp_path,
+        pytestconfig,
+        host="127.0.0.1",
+        port=8080,
+    ):
         self.host = host
         self.port = port
         buildout_exe = pathlib.Path(
-            pytestconfig.invocation_dir,
-            sys.argv[0]
-        ).parent.joinpath('buildout')
+            pytestconfig.invocation_dir, sys.argv[0]
+        ).parent.joinpath("buildout")
         package_path = pytestconfig.rootdir
-        buildout_cfg = pathlib.Path(tmp_path, 'buildout.cfg')
+        buildout_cfg = pathlib.Path(tmp_path, "buildout.cfg")
         buildout = u"""
 [buildout]
 extends =  %(package_path)s/buildout.cfg
 develop =  %(package_path)s
-""" % dict(package_path=package_path)
+""" % dict(
+            package_path=package_path
+        )
         with buildout_cfg.open("w") as f:
             f.write(buildout)
         os.chdir(str(tmp_path))
         retcode = subprocess.call([str(buildout_exe), "bootstrap"])
         assert retcode == 0
-        output = subprocess.check_output([str(buildout_exe), "query", "buildout:eggs-directory"])
-
-        self.eggs_directory = output.decode('utf8').split('\n')[-2]
-
         output = subprocess.check_output(
-            ["bin/buildout", "query", "buildout:develop"]
+            [str(buildout_exe), "query", "buildout:eggs-directory"]
         )
-        assert str(package_path).encode('utf8') in output
 
-        output = subprocess.check_output(
-            ["bin/buildout", "query", "instance:recipe"]
-        )
-        assert b'plone.recipe.zope2instance' in output
+        self.eggs_directory = output.decode("utf8").split("\n")[-2]
 
-        output = subprocess.check_output(
-            ["bin/buildout", "query", "plonesite:recipe"]
-        )
-        assert b'collective.recipe.plonesite' in output
+        output = subprocess.check_output(["bin/buildout", "query", "buildout:develop"])
+        assert str(package_path).encode("utf8") in output
+
+        output = subprocess.check_output(["bin/buildout", "query", "instance:recipe"])
+        assert b"plone.recipe.zope2instance" in output
+
+        output = subprocess.check_output(["bin/buildout", "query", "plonesite:recipe"])
+        assert b"collective.recipe.plonesite" in output
 
     def run_buildouts(self, from_version):
         print()
@@ -69,7 +65,7 @@ develop =  %(package_path)s
                 "versions:%s" % from_version,
                 "install",
                 "instance",
-                "plonesite"
+                "plonesite",
             ]
         )
         assert retcode == 0
@@ -82,7 +78,7 @@ develop =  %(package_path)s
                 "buildout:eggs-directory=%s" % self.eggs_directory,
                 "install",
                 "instance",
-                "plonesite"
+                "plonesite",
             ]
         )
         assert retcode == 0
@@ -93,7 +89,7 @@ develop =  %(package_path)s
         # retcode = subprocess.call(["bin/instance", "start"])
         # assert retcode == 0
         while not check_socket(self.host, self.port):
-            time.sleep(.3)
+            time.sleep(0.3)
 
     def stop(self):
         self.process.terminate()
@@ -101,6 +97,6 @@ develop =  %(package_path)s
         # assert retcode == 0
 
     __enter__ = start
- 
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.stop()

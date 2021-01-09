@@ -99,7 +99,10 @@ class SearchReplaceUtility(object):
         matcher = make_matcher(findWhat, matchCase)
         catalog = api.portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
-            context, findWhat, searchSubFolders, onlySearchableText,
+            context,
+            findWhat,
+            searchSubFolders,
+            onlySearchableText,
         )
         brains = catalog(**catalog_query_args)
         repl_count = 0
@@ -113,7 +116,11 @@ class SearchReplaceUtility(object):
             mtool = api.portal.get_tool("portal_membership")
             if not mtool.checkPermission(self.permission, obj):
                 continue
-            count = replace_all_in_object(matcher, obj, replaceWith,)
+            count = replace_all_in_object(
+                matcher,
+                obj,
+                replaceWith,
+            )
             if count:
                 reindexObject(obj)
                 afterReplace(obj, findWhat, replaceWith)
@@ -133,7 +140,10 @@ class SearchReplaceUtility(object):
         matcher = make_matcher(findWhat, matchCase)
         catalog = api.portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
-            context, findWhat, searchSubFolders, onlySearchableText,
+            context,
+            findWhat,
+            searchSubFolders,
+            onlySearchableText,
         )
         brains = catalog(**catalog_query_args)
         repl_count = 0
@@ -150,7 +160,10 @@ class SearchReplaceUtility(object):
             if not mtool.checkPermission(self.permission, obj):
                 continue
             count = replace_occurences_in_object(
-                matcher, obj, replaceWith, occurences[ipath],
+                matcher,
+                obj,
+                replaceWith,
+                occurences[ipath],
             )
             if count:
                 reindexObject(obj)
@@ -170,7 +183,10 @@ class SearchReplaceUtility(object):
         matcher = make_matcher(findWhat, matchCase)
         catalog = api.portal.get_tool("portal_catalog")
         catalog_query_args = make_catalog_query_args(
-            context, findWhat, searchSubFolders, onlySearchableText,
+            context,
+            findWhat,
+            searchSubFolders,
+            onlySearchableText,
         )
         brains = catalog(**catalog_query_args)
         matches = []
@@ -305,7 +321,9 @@ def find_matches_in_object(matcher, obj):
                 "path": path,
                 "url": obj.absolute_url(),
                 "line": "title",
-                "linecol": translate(PloneMessageFactory(u'Title'), context=obj.REQUEST),
+                "linecol": translate(
+                    PloneMessageFactory(u"Title"), context=obj.REQUEST
+                ),
                 "pos": "%d" % start,
                 "text": getLinePreview(title, start, end),
             }
@@ -369,7 +387,11 @@ def getTextFields(obj):
                     continue
                 if IText.providedBy(field):
                     text_fields.append(field)
-                if include_lines_fields and ITuple.providedBy(field) and ITextLine.providedBy(field.value_type):
+                if (
+                    include_lines_fields
+                    and ITuple.providedBy(field)
+                    and ITextLine.providedBy(field.value_type)
+                ):
                     text_fields.append(field)
     return text_fields
 
@@ -398,7 +420,7 @@ def setTextField(obj, fieldname, text):
             else:
                 text = RichTextValue(text, old.mimeType, old.outputMimeType)
         if ITuple.providedBy(field) and ITextLine.providedBy(field.value_type):
-            text = tuple(text.split('\n'))
+            text = tuple(text.split("\n"))
         setattr(field.interface(obj), field.__name__, text)
 
 
@@ -440,7 +462,7 @@ def getRawTextField(obj, field):
         if isinstance(baseunit, tuple):
             #  LinesField
             text = safe_unicode("\n".join(baseunit))
-        elif hasattr(baseunit, 'raw') and isinstance(baseunit.raw, six.text_type):
+        elif hasattr(baseunit, "raw") and isinstance(baseunit.raw, six.text_type):
             text = baseunit.raw
         else:
             text = safe_unicode(field.getRaw(obj))

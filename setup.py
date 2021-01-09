@@ -71,14 +71,14 @@ setup(
     ],
     extras_require=dict(
         test=[
-           "collective.dexteritytextindexer",
-           "plone.app.testing",
+            "collective.dexteritytextindexer",
+            "plone.app.testing",
         ],
         pytest=[
-           'pytest',
-           'gocept.pytestlayer',
-           'pathlib2',
-           'requests',
+            "pytest",
+            "gocept.pytestlayer",
+            "pathlib2",
+            "requests",
         ],
     ),
     entry_points="""

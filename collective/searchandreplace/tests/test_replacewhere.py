@@ -41,7 +41,9 @@ class TestReplaceWhere(unittest.TestCase):
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
         self.assertEqual(getRawText(doc1), "Find Case")
-        r_parameters = dict(replaceWith="replaced",)
+        r_parameters = dict(
+            replaceWith="replaced",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         # Note: replacing returns an int, not a list.
@@ -66,7 +68,9 @@ class TestReplaceWhere(unittest.TestCase):
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
         self.assertEqual(doc1.Title(), "Find Title")
-        r_parameters = dict(replaceWith="replaced",)
+        r_parameters = dict(
+            replaceWith="replaced",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 1)
@@ -91,7 +95,9 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(doc1.Description(), "Find Description")
 
-        r_parameters = dict(replaceWith="replaced",)
+        r_parameters = dict(
+            replaceWith="replaced",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 1)
@@ -156,7 +162,9 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(subfolder.Title(), "Find Title")
         self.assertEqual(subfolder.Title(), "Find Title")
 
-        r_parameters = dict(replaceWith="replaced",)
+        r_parameters = dict(
+            replaceWith="replaced",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 2)
@@ -209,7 +217,9 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(getRawText(doc1, "line"), "Find Line")
         self.assertEqual(getRawText(doc1, "unsearchable"), "Find Unsearchable")
 
-        r_parameters = dict(replaceWith="Foo",)
+        r_parameters = dict(
+            replaceWith="Foo",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 5)
@@ -264,7 +274,9 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(getRawText(doc1, "line"), "Find Line")
         self.assertEqual(getRawText(doc1, "unsearchable"), "Find Unsearchable")
 
-        r_parameters = dict(replaceWith="Foo",)
+        r_parameters = dict(
+            replaceWith="Foo",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 6)
@@ -289,7 +301,9 @@ class TestReplaceWhere(unittest.TestCase):
         self.portal.invokeFactory("SampleType", "doc1")
         doc1 = getattr(self.portal, "doc1")
         edit_content(
-            doc1, title="Find Title", unsearchable="Find Unsearchable",
+            doc1,
+            title="Find Title",
+            unsearchable="Find Unsearchable",
         )
 
         # Test the initial values.
@@ -307,7 +321,9 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(len(results), 0)
 
         # Replace it with onlySearchableText true.
-        r_parameters = dict(replaceWith="Foo",)
+        r_parameters = dict(
+            replaceWith="Foo",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 0)
@@ -354,7 +370,9 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(getRawText(doc1), "My <strong>Test</strong> Case")
 
-        r_parameters = dict(replaceWith="<em>Test</em>",)
+        r_parameters = dict(
+            replaceWith="<em>Test</em>",
+        )
         r_parameters.update(parameters)
         # Replace it.
         results = self.srutil.replaceAllMatches(**r_parameters)
@@ -363,24 +381,23 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(getRawText(doc1), "My <em>Test</em> Case")
 
     def testDoNotFindSubject(self):
-        from collective.searchandreplace.searchreplaceutility import getRawText
 
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         self.portal.invokeFactory("Document", "doc1")
         doc1 = getattr(self.portal, "doc1")
-        edit_content(
-            doc1, title="Find Title", subject=("Find subject", "Replace")
-        )
+        edit_content(doc1, title="Find Title", subject=("Find subject", "Replace"))
         self.assertEqual(doc1.Subject(), ("Find subject", "Replace"))
         # Search it.
-        parameters = dict(context=doc1, findWhat="find subject", matchCase=False,
-            onlySearchableText=True
+        parameters = dict(
+            context=doc1,
+            findWhat="find subject",
+            matchCase=False,
+            onlySearchableText=True,
         )
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 0)
 
     def testReplaceSubject(self):
-        from collective.searchandreplace.searchreplaceutility import getRawText
 
         registry = getUtility(IRegistry)
         settings = registry.forInterface(ISearchReplaceSettings, check=False)
@@ -389,17 +406,20 @@ class TestReplaceWhere(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         self.portal.invokeFactory("Document", "doc1")
         doc1 = getattr(self.portal, "doc1")
-        edit_content(
-            doc1, title="Find Title", subject=("Find subject", "Replace")
-        )
+        edit_content(doc1, title="Find Title", subject=("Find subject", "Replace"))
         self.assertEqual(doc1.Subject(), ("Find subject", "Replace"))
         # Search it.
-        parameters = dict(context=doc1, findWhat="find subject", matchCase=False,
-            onlySearchableText=True
+        parameters = dict(
+            context=doc1,
+            findWhat="find subject",
+            matchCase=False,
+            onlySearchableText=True,
         )
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
-        r_parameters = dict(replaceWith="replaced",)
+        r_parameters = dict(
+            replaceWith="replaced",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         # Note: replacing returns an int, not a list.
@@ -409,7 +429,6 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(doc1.Title(), "Find Title")
 
     def testReplaceSubjectSecondItem(self):
-        from collective.searchandreplace.searchreplaceutility import getRawText
 
         registry = getUtility(IRegistry)
         settings = registry.forInterface(ISearchReplaceSettings, check=False)
@@ -423,12 +442,17 @@ class TestReplaceWhere(unittest.TestCase):
         )
         self.assertEqual(doc1.Subject(), ("Replace", "Find subject", "Replace"))
         # Search it.
-        parameters = dict(context=doc1, findWhat="find subject", matchCase=False,
-            onlySearchableText=True
+        parameters = dict(
+            context=doc1,
+            findWhat="find subject",
+            matchCase=False,
+            onlySearchableText=True,
         )
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
-        r_parameters = dict(replaceWith="replaced",)
+        r_parameters = dict(
+            replaceWith="replaced",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         # Note: replacing returns an int, not a list.
@@ -438,7 +462,6 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(doc1.Title(), "Find Title")
 
     def testReplaceSubjectTwiceInThirdItem(self):
-        from collective.searchandreplace.searchreplaceutility import getRawText
 
         registry = getUtility(IRegistry)
         settings = registry.forInterface(ISearchReplaceSettings, check=False)
@@ -448,16 +471,25 @@ class TestReplaceWhere(unittest.TestCase):
         self.portal.invokeFactory("Document", "doc1")
         doc1 = getattr(self.portal, "doc1")
         edit_content(
-            doc1, title="Find Title", subject=("Replace", "Replace", "Find subject find subject")
+            doc1,
+            title="Find Title",
+            subject=("Replace", "Replace", "Find subject find subject"),
         )
-        self.assertEqual(doc1.Subject(), ("Replace", "Replace", "Find subject find subject"))
+        self.assertEqual(
+            doc1.Subject(), ("Replace", "Replace", "Find subject find subject")
+        )
         # Search it.
-        parameters = dict(context=doc1, findWhat="find subject", matchCase=False,
-            onlySearchableText=True
+        parameters = dict(
+            context=doc1,
+            findWhat="find subject",
+            matchCase=False,
+            onlySearchableText=True,
         )
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 2)
-        r_parameters = dict(replaceWith="replaced",)
+        r_parameters = dict(
+            replaceWith="replaced",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         # Note: replacing returns an int, not a list.
@@ -467,7 +499,6 @@ class TestReplaceWhere(unittest.TestCase):
         self.assertEqual(doc1.Title(), "Find Title")
 
     def testReplaceSubjectUnicode(self):
-        from collective.searchandreplace.searchreplaceutility import getRawText
 
         registry = getUtility(IRegistry)
         settings = registry.forInterface(ISearchReplaceSettings, check=False)
@@ -481,12 +512,17 @@ class TestReplaceWhere(unittest.TestCase):
         )
         self.assertEqual(doc1.Subject(), ("Find subject", "Remplac\xc3\xa9"))
         # Search it.
-        parameters = dict(context=doc1, findWhat="find subject", matchCase=False,
-            onlySearchableText=True
+        parameters = dict(
+            context=doc1,
+            findWhat="find subject",
+            matchCase=False,
+            onlySearchableText=True,
         )
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
-        r_parameters = dict(replaceWith="replaced",)
+        r_parameters = dict(
+            replaceWith="replaced",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         # Note: replacing returns an int, not a list.
@@ -495,24 +531,28 @@ class TestReplaceWhere(unittest.TestCase):
         # Other fields are not changed.
         self.assertEqual(doc1.Title(), "Find Title")
 
-        edit_content(
-            doc1, title="Find Title", subject=("Find subject", "Replaced")
-        )
+        edit_content(doc1, title="Find Title", subject=("Find subject", "Replaced"))
         self.assertEqual(doc1.Subject(), ("Find subject", "Replaced"))
         # Search it.
-        parameters = dict(context=doc1, findWhat="find subject", matchCase=False,
-            onlySearchableText=True
+        parameters = dict(
+            context=doc1,
+            findWhat="find subject",
+            matchCase=False,
+            onlySearchableText=True,
         )
         results = self.srutil.findObjects(**parameters)
         self.assertEqual(len(results), 1)
-        r_parameters = dict(replaceWith=u"Remplacé",)
+        r_parameters = dict(
+            replaceWith=u"Remplacé",
+        )
         r_parameters.update(parameters)
         results = self.srutil.replaceAllMatches(**r_parameters)
         self.assertEqual(results, 1)
         if six.PY3:
             self.assertEqual(doc1.Subject(), (u"Remplacé", "Replaced"))
         if six.PY2:
-            self.assertEqual(doc1.Subject(), (u"Remplacé".encode('utf8'), "Replaced"))
+            self.assertEqual(doc1.Subject(), (u"Remplacé".encode("utf8"), "Replaced"))
+
 
 class TestModified(unittest.TestCase):
     """Test update_modified setting"""

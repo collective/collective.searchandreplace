@@ -70,7 +70,11 @@ class TestMultipleMatchCase(unittest.TestCase):
         )
 
     def testSearchCase(self):
-        results = self.srutil.findObjects(self.portal, "Find", matchCase=True,)
+        results = self.srutil.findObjects(
+            self.portal,
+            "Find",
+            matchCase=True,
+        )
         self.assertEqual(len(results), 4)
         # title field, first match
         self.assertEqual(results[0]["linecol"], "Title")
@@ -83,27 +87,34 @@ class TestMultipleMatchCase(unittest.TestCase):
         # text field, line 1
         if MAJOR_PLONE_VERSION >= 5:
             self.assertEqual(results[2]["linecol"], "Text 1")
-        else: # Plone 4
+        else:  # Plone 4
             self.assertEqual(results[2]["linecol"], "Body Text 1")
         self.assertEqual(results[2]["line"], "text 1")
         self.assertEqual(results[2]["pos"], "0")
         # text field, line 2
         if MAJOR_PLONE_VERSION >= 5:
             self.assertEqual(results[3]["linecol"], "Text 2")
-        else: # Plone 4
+        else:  # Plone 4
             self.assertEqual(results[3]["linecol"], "Body Text 2")
         self.assertEqual(results[3]["line"], "text 2")
         self.assertEqual(results[3]["pos"], "10")
 
     def testSearchNoCase(self):
-        results = self.srutil.findObjects(self.portal, "Find", matchCase=False,)
+        results = self.srutil.findObjects(
+            self.portal,
+            "Find",
+            matchCase=False,
+        )
         self.assertEqual(len(results), 8)
 
     def testReplaceAll(self):
         from collective.searchandreplace.searchreplaceutility import getRawText
 
         results = self.srutil.replaceAllMatches(
-            self.portal, "Find", replaceWith="Bike", matchCase=True,
+            self.portal,
+            "Find",
+            replaceWith="Bike",
+            matchCase=True,
         )
         self.assertEqual(results, 4)
         self.assertEqual(self.doc1.Title(), "Bike find Bike find")
@@ -122,7 +133,11 @@ class TestMultipleMatchCase(unittest.TestCase):
             }
         }
         results = self.srutil.replaceFilteredOccurences(
-            self.portal, "Find", replaceWith="Bike", occurences=paths, matchCase=False,
+            self.portal,
+            "Find",
+            replaceWith="Bike",
+            occurences=paths,
+            matchCase=False,
         )
         self.assertEqual(results, 4)
         self.assertEqual(self.doc1.Title(), "Bike find Bike find")

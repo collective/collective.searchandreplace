@@ -59,7 +59,11 @@ def rich_text(text):
     # Use dexterity text field.
     from plone.app.textfield.value import RichTextValue
 
-    return RichTextValue(raw=text, mimeType="text/html", outputMimeType="text/html",)
+    return RichTextValue(
+        raw=text,
+        mimeType="text/html",
+        outputMimeType="text/html",
+    )
 
 
 def create_doc(container, id="page", title=u"Title of page", text=u""):

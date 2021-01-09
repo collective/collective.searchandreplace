@@ -46,7 +46,7 @@ msgstr "Snel zoeken"
 
 #: ./browser/searchreplaceform.py:27
 msgid "Find What"
-msgstr "Vind wat"
+msgstr "Zoek naar"
 
 #: ./interfaces.py:32
 msgid "If checked, only the enabled types are searched, otherwise all types are searched."
