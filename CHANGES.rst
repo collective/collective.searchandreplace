@@ -1,7 +1,7 @@
 Changelog
 =========
 
-8.1.1 (unreleased)
+8.1.1 (2021-01-11)
 ------------------
 
 - Made "Find What" field required and allow empty "Replace With".
