@@ -16,6 +16,7 @@ class SearchReplaceTable(BrowserView):
 
     def getItems(self):
         """ Get preview items """
+        results = []
         findWhat = self.request.get("form.findWhat", "")
         searchSubFolders = "form.searchSubfolders" in self.request
         matchCase = "form.matchCase" in self.request
@@ -26,14 +27,15 @@ class SearchReplaceTable(BrowserView):
         onlySearchableText = "form.onlySearchableText" in self.request
 
         srutil = getUtility(ISearchReplaceUtility)
-        results = srutil.findObjects(
-            self.context,
-            findWhat=findWhat,
-            searchSubFolders=searchSubFolders,
-            matchCase=matchCase,
-            maxResults=maxResults,
-            onlySearchableText=onlySearchableText,
-        )
+        if findWhat:
+            results = srutil.findObjects(
+                self.context,
+                findWhat=findWhat,
+                searchSubFolders=searchSubFolders,
+                matchCase=matchCase,
+                maxResults=maxResults,
+                onlySearchableText=onlySearchableText,
+            )
         return results
 
     def getRelativePath(self, path):
