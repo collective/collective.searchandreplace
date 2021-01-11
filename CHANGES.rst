@@ -4,7 +4,9 @@ Changelog
 8.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Made "Find What" field required and allow empty "Replace With".
+  Fixes `issue 43 <https://github.com/collective/collective.searchandreplace/issues/43>`_.
+  [spereverde]
 
 
 8.1.0 (2020-03-31)
