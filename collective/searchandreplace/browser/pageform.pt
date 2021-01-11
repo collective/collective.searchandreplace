@@ -40,6 +40,12 @@
             Search and replace
           </h1>
 
+          <h2>
+            <span i18n:translate="">in</span>
+            <span tal:replace="context/Title">Title</span>
+            (<span tal:replace="context/portal_type">Item type</span>)
+          </h2>
+
           <div class="documentDescription" tal:content="view/description|nothing">Description</div>
 
           <div id="content-core">
