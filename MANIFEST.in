@@ -1,5 +1,6 @@
-recursive-include collective *
-recursive-include docs *
+graft collective
+graft docs
+graft binder
 include *.rst
 include *.txt
 include .coveragerc
