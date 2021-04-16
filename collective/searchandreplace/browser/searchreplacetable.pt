@@ -3,6 +3,66 @@
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   i18n:domain="SearchAndReplace"
   tal:condition="python: request.has_key('form.actions.Preview') or request.has_key('form.actions.Replace')"
+  tal:define="fields view/getAffectedFields;
+              filter_fields view/filter_fields;"
+  >
+  <label onclick="toggleHidden('#fieldFilter');"
+    >
+    <span i18n:translate="">Filter by fields</span> (<span
+      tal:replace="python:len(fields)"
+    ></span
+    >)
+  </label>
+
+  <div id="fieldFilter" class="hiddenStructure"
+       tal:attributes="class view/getFieldFilterClass">
+  <div>
+    <input
+      class="noborder"
+      src="select_all_icon.gif"
+      name="selectButton"
+      title="Select all items"
+      onclick="toggleSelect(this,'form.filterFields', true);"
+      alt="Select all items"
+      i18n:attributes="title;alt"
+      type="checkbox"
+      checked="checked"
+    />
+    <span i18n:translate="">Select all items</span>
+  </div>
+
+  <div>
+  <tal:fields repeat="field fields">
+  <span>
+    <input
+      type="checkbox"
+      id="form.filterFields"
+      checked="checked"
+      name="form.filterFields"
+      tal:attributes="value field/value;
+                      checked python:field.value in filter_fields"
+    />
+    <span tal:replace="field/label" />
+  </span>
+  </tal:fields>
+  </div>
+
+  <input
+     type="submit"
+     id="form.actions.Preview"
+     name="form.actions.Preview"
+     class="button"
+     i18n:attributes="value"
+     value="Preview"
+     />
+  </div>
+</div>
+
+<div
+  class="field"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="SearchAndReplace"
+  tal:condition="python: request.has_key('form.actions.Preview') or request.has_key('form.actions.Replace')"
   tal:define="isFolderish context/isPrincipiaFolderish|nothing;
                  items view/getItems;
                  findText request/form.findWhat|nothing;
@@ -128,9 +188,14 @@
 </div>
 
 <script>
+  if (typeof toggleHidden !== "function") {
+    // toggleSelect is not included in Plone 5, we need to include it.
+    function toggleHidden(selector) {
+        jQuery(selector).toggleClass('hiddenStructure');
+    }
+  }
   if (typeof toggleSelect !== "function") {
     // toggleSelect is not included in Plone 5, we need to include it.
-
     function toggleSelect(selectbutton, id, initialState, formName) {
       /* required selectbutton: you can pass any object that will function as a toggle
        * optional id: id of the the group of checkboxes that needs to be toggled (default=ids:list

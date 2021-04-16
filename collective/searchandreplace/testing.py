@@ -39,7 +39,7 @@ class SearchReplaceLayer(PloneSandboxLayer):
 
         applyProfile(portal, "collective.searchandreplace:default")
         setRoles(portal, TEST_USER_ID, ["Manager"])
-        create_doc(portal, text=u"Get Plone now")
+        create_doc(portal, text=u"Get Plone now", title=u"Plone", description=u"Plone")
         setRoles(portal, TEST_USER_ID, ["Member"])
 
 
@@ -66,9 +66,9 @@ def rich_text(text):
     )
 
 
-def create_doc(container, id="page", title=u"Title of page", text=u""):
+def create_doc(container, id="page", title=u"Title of page", text=u"", description=u""):
     text = rich_text(text)
-    api.content.create(container, "Document", id=id, title=title, text=text)
+    api.content.create(container, "Document", id=id, title=title, text=text, description=description)
 
 
 def edit_content(

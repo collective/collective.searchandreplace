@@ -29,11 +29,31 @@ def test_suite():
         layer=SEARCH_REPLACE_FUNCTIONAL_LAYER,
     )
 
+    filterfieldstest = layered(
+        doctest.DocFileSuite(
+            "tests/filterfields.txt",
+            package="collective.searchandreplace",
+            optionflags=oflags,
+        ),
+        layer=SEARCH_REPLACE_FUNCTIONAL_LAYER,
+    )
+
     suite.addTests(
         [
             basicsearchtest,
             searchavailabletest,
         ]
     )
+
+    try:
+        from zope.testbrowser.browser import webtest
+        suite.addTests(
+            [
+                filterfieldstest,
+            ]
+        )
+
+    except ImportError:
+        pass
 
     return suite

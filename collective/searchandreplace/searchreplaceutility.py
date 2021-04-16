@@ -318,14 +318,15 @@ def find_matches_in_object(matcher, obj):
     mobj = matcher.finditer(title)
     for x in mobj:
         start, end = x.span()
+        label = translate(PloneMessageFactory(u"Title"), context=obj.REQUEST)
         results.append(
             {
                 "path": path,
                 "url": obj.absolute_url(),
+                "field": "title",
+                "label": label,
                 "line": "title",
-                "linecol": translate(
-                    PloneMessageFactory(u"Title"), context=obj.REQUEST
-                ),
+                "linecol": label,
                 "pos": "%d" % start,
                 "text": getLinePreview(title, start, end),
             }
@@ -347,6 +348,8 @@ def find_matches_in_object(matcher, obj):
                     {
                         "path": path,
                         "url": obj.absolute_url(),
+                        "field": field.__name__,
+                        "label": label,
                         "line": "%s %d" % (field.__name__, getLineNumber(text, start)),
                         "linecol": "%s %d" % (label, getLineNumber(text, start)),
                         "pos": "%d" % start,

@@ -1,0 +1,66 @@
+==============================================================================
+Filter by field test
+==============================================================================
+
+Create the browser object we'll be using.
+
+    >>> from plone.testing import z2
+    >>> from plone.app.testing import SITE_OWNER_NAME
+    >>> from plone.app.testing import SITE_OWNER_PASSWORD
+    >>> browser = z2.Browser(layer['app'])
+    >>> portal_url = layer['portal'].absolute_url()
+
+Open the portal and login
+
+    >>> browser.open(portal_url + '/page')
+    >>> browser.getLink('Log in').click()
+    >>> browser.getControl('Login Name').value = SITE_OWNER_NAME
+    >>> browser.getControl('Password').value = SITE_OWNER_PASSWORD
+    >>> browser.getControl('Log in').click()
+
+Test to ensure preview works. Search for 'Plone'
+and check for three results, one per field.
+
+    >>> browser.open(portal_url)
+    >>> browser.getLink('Search/Replace').click()
+    >>> browser.getControl(name='form.findWhat').value = 'Plone'
+    >>> browser.getControl('Preview', index=0).click()
+    >>> browser.getControl(name='form.filterFields').options
+    ['description', 'text', 'title']
+    >>> browser.getControl(name='form.filterFields').value
+    ['description', 'text', 'title']
+    >>> browser.getControl(name='form.affectedContent').options
+    ['title:0:/plone/page', 'description 1:0:/plone/page', 'text 1:4:/plone/page']
+
+Show content only from title field.
+
+    >>> browser.getControl(name='form.filterFields').value = ['title']
+    >>> browser.getControl('Preview', index=0).click()
+    >>> browser.getControl(name='form.filterFields').options
+    ['description', 'text', 'title']
+    >>> browser.getControl(name='form.filterFields').value
+    ['title']
+    >>> browser.getControl(name='form.affectedContent').options
+    ['title:0:/plone/page']
+
+Show content from text and description fields.
+
+    >>> browser.getControl(name='form.filterFields').value = ['text', 'description']
+    >>> browser.getControl('Preview', index=0).click()
+    >>> browser.getControl(name='form.filterFields').options
+    ['description', 'text', 'title']
+    >>> browser.getControl(name='form.filterFields').value
+    ['description', 'text']
+    >>> browser.getControl(name='form.affectedContent').options
+    ['description 1:0:/plone/page', 'text 1:4:/plone/page']
+
+Unchecking all fields resets filter.
+
+    >>> browser.getControl(name='form.filterFields').value = []
+    >>> browser.getControl('Preview', index=0).click()
+    >>> browser.getControl(name='form.filterFields').options
+    ['description', 'text', 'title']
+    >>> browser.getControl(name='form.filterFields').value
+    ['description', 'text', 'title']
+    >>> browser.getControl(name='form.affectedContent').options
+    ['title:0:/plone/page', 'description 1:0:/plone/page', 'text 1:4:/plone/page']
