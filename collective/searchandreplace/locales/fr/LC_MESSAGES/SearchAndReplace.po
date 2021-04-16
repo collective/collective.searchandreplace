@@ -44,6 +44,10 @@ msgstr "Entrez le texte qui remplacera le texte original."
 msgid "Fast search"
 msgstr "Recherche rapide"
 
+#: ./browser/searchreplacetable.pt:11
+msgid "Filter by fields"
+msgstr "Filtrer par champs"
+
 #: ./browser/searchreplaceform.py:29
 msgid "Find What"
 msgstr "Rechercher"
@@ -174,7 +178,7 @@ msgstr "Rechercher/Remplacer"
 
 #: ./browser/searchreplacetable.pt:29
 msgid "Select all items"
-msgstr "Tout selectionner"
+msgstr "Tout sélectionner"
 
 #: ./interfaces.py:65
 msgid "The maximum number of characters to show before and after the found text."

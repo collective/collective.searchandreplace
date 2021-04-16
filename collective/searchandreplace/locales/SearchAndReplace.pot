@@ -45,6 +45,10 @@ msgstr ""
 msgid "Fast search"
 msgstr ""
 
+#: ./browser/searchreplacetable.pt:11
+msgid "Filter by fields"
+msgstr ""
+
 #: ./browser/searchreplaceform.py:29
 msgid "Find What"
 msgstr ""
