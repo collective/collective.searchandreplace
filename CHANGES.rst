@@ -4,7 +4,8 @@ Changelog
 8.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Do not show "Replace" button until user has seen Preview results.
+  [gotcha]
 
 
 8.1.1 (2021-01-11)

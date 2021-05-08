@@ -105,7 +105,14 @@ class SearchReplaceForm(AddForm):
         """ Preview files to be changed. """
         self.form_reset = False
 
-    @action(_(u"Replace"), validator=validate_searchreplaceform, name=u"Replace")
+    def show_replace(self, action):
+        return ('form.actions.Preview' in self.request.form
+                or
+                'form.actions.Replace' in self.request.form
+                )
+
+    @action(_(u"Replace"), validator=validate_searchreplaceform,
+            name=u"Replace", condition="show_replace")
     def action_replace(self, action, data):
         """ Replace text for all files. """
         self.form_reset = False
