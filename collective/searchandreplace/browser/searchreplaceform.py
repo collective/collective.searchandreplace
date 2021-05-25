@@ -39,9 +39,9 @@ class ISearchReplaceForm(Interface):
         title=_(u"Maximum Number of Results"),
         description=_(
             u"Maximum number of results to show. "
-            "Warning: this has no effect on how many found texts are "
-            "replaced when you use the Replace button directly without "
-            "using the Preview."
+            "Warning: this only affects how many preview results are shown. "
+            "It has no effect on how many found texts are "
+            "replaced when you use the Replace button."
         ),
         default=None,
         required=False,
@@ -106,13 +106,17 @@ class SearchReplaceForm(AddForm):
         self.form_reset = False
 
     def show_replace(self, action):
-        return ('form.actions.Preview' in self.request.form
-                or
-                'form.actions.Replace' in self.request.form
-                )
+        return (
+            "form.actions.Preview" in self.request.form
+            or "form.actions.Replace" in self.request.form
+        )
 
-    @action(_(u"Replace"), validator=validate_searchreplaceform,
-            name=u"Replace", condition="show_replace")
+    @action(
+        _(u"Replace"),
+        validator=validate_searchreplaceform,
+        name=u"Replace",
+        condition="show_replace",
+    )
     def action_replace(self, action, data):
         """ Replace text for all files. """
         self.form_reset = False
