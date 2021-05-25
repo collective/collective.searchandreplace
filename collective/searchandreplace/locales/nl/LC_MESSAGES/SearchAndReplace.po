@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.searchandreplace 3.2\n"
-"POT-Creation-Date: 2016-07-19 16:34+0000\n"
+"POT-Creation-Date: 2021-05-25 11:07+0000\n"
 "PO-Revision-Date: 2016-07-19 18:34+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederland <plone-plone-nl@lists.plone.org>\n"
@@ -16,44 +16,56 @@ msgstr ""
 "Domain: SearchAndReplace\n"
 "Language: nl\n"
 
-#: ./browser/searchreplacetable.pt:13
+#: ./browser/searchreplacetable.pt:14
 msgid "Affected Content"
 msgstr "Te wijzigen inhoud"
 
-#: ./browser/searchreplacetable.pt:33
+#: ./browser/searchreplacetable.pt:46
 msgid "After"
 msgstr "Na"
 
-#: ./browser/searchreplacetable.pt:32
+#: ./browser/searchreplacetable.pt:45
 msgid "Before"
 msgstr "Voor"
 
-#: ./browser/searchreplaceform.py:57
+#: ./browser/searchreplaceform.py:63
 msgid "Check the box for a case sensitive search."
 msgstr "Vink aan voor hoofdlettergevoelig zoeken."
 
-#: ./browser/searchreplaceform.py:28
+#: ./browser/searchreplaceform.py:29
 msgid "Enter the text to find."
 msgstr "Vul de tekst in om naar te zoeken."
 
-#: ./browser/searchreplaceform.py:33
+#: ./browser/searchreplaceform.py:34
 msgid "Enter the text to replace the original text with."
 msgstr "Vul de tekst in om de oorspronkelijke tekst mee te vervangen."
 
-#: ./browser/searchreplaceform.py:62
+#: ./browser/searchreplaceform.py:69
 msgid "Fast search"
 msgstr "Snel zoeken"
 
-#: ./browser/searchreplaceform.py:27
+#: ./browser/searchreplaceform.py:29
 msgid "Find What"
 msgstr "Zoek naar"
 
-#: ./interfaces.py:32
+#: ./interfaces.py:96
+msgid "If checked, multiple lines fields like subject will also be searched and replaced, not only title and text fields."
+msgstr "Als deze optie is aangevinkt, worden velden met meerdere lijnen (zoals Tags) ook doorzocht, niet enkel titel en tekst velden"
+
+#: ./interfaces.py:33
 msgid "If checked, only the enabled types are searched, otherwise all types are searched."
 msgstr "Als deze optie is aangevinkt, worden alleen de ingeschakelde types doorzocht, anders worden alle types doorzocht."
 
+#: ./interfaces.py:85
+msgid "If checked, single line fields will also be searched and replaced, not only title and text fields."
+msgstr "Als deze optie is aangevinkt, worden enkele lijn velden ook doorzocht, niet enkel titel en tekst velden"
+
+#: ./interfaces.py:75
+msgid "If checked, the modified index/metadata of the object having text replaced will be updated."
+msgstr "Als deze optie is aangevinkt, worden de index/metadata van het object waarvan tekst is vervangen bijgewerkt"
+
 #. Default: "If checked, this will recursively search through any selected folders and their children, replacing at each level."
-#: ./browser/searchreplaceform.py:48
+#: ./browser/searchreplaceform.py:52
 msgid "If checked, this will recursively search through any selected folders and their children, replacing at each level."
 msgstr "Als deze optie is aangevinkt, wordt recursief gezocht door de map en alle onderliggende mappen en items, waarbij op elk niveau vervangen wordt."
 
@@ -61,67 +73,75 @@ msgstr "Als deze optie is aangevinkt, wordt recursief gezocht door de map en all
 msgid "Installs the collective.searchandreplace package"
 msgstr "Installeert het collective.searchandreplace package"
 
-#: ./browser/searchreplacetable.pt:31
+#: ./browser/searchreplacetable.pt:44
 msgid "Line"
 msgstr "Regel"
 
-#: ./interfaces.py:40
+#: ./interfaces.py:42
 msgid "List of types that are searched."
 msgstr "Lijst van types die doorzocht worden."
 
-#: ./browser/searchreplaceform.py:56
+#: ./browser/searchreplaceform.py:62
 msgid "Match Case"
 msgstr "Hoofdlettergevoelig"
 
-#: ./browser/searchreplaceform.py:37
+#: ./browser/searchreplaceform.py:39
 msgid "Maximum Number of Results"
 msgstr "Maximum aantal resultaten"
 
-#: ./browser/searchreplaceform.py:38
-msgid "Maximum number of results to show. Warning: this has no effect on how many found texts are replaced when you use the Replace button directly without using the Preview."
-msgstr "Maximum aantal resultaten om te tonen. Let op: dit heeft geen effect op hoeveel gevonden teksten vervangen worden als je direct de knop Vervangen gebruikt, zonder de Voorvertoning te gebruiken."
+#: ./browser/searchreplaceform.py:40
+msgid "Maximum number of results to show. Warning: this only affects how many preview results are shown. It has no effect on how many found texts are replaced when you use the Replace button."
+msgstr "Maximum aantal resultaten om te tonen. Let op: dit heeft enkel effect op hoeveel resultaten getoond worden in Voorvertoning. Het heeft geen efffect op het aantal teksten dat wordt vervangen als je op de knop Vervangen drukt."
 
-#: ./interfaces.py:61
+#: ./interfaces.py:64
 msgid "Maximum text characters"
 msgstr "Maximum aantal karakters"
 
-#: ./browser/searchreplacetable.pt:30
+#: ./browser/searchreplacetable.pt:41
 msgid "Path"
 msgstr "Pad"
 
-#: ./browser/searchreplaceform.py:94
+#: ./browser/searchreplaceform.py:103
 msgid "Preview"
 msgstr "Voorvertoning"
 
-#: ./browser/searchreplaceform.py:101
+#: ./browser/searchreplaceform.py:115
 msgid "Replace"
 msgstr "Vervang"
 
-#: ./browser/searchreplaceform.py:32
+#: ./browser/searchreplaceform.py:33
 msgid "Replace With"
 msgstr "Vervang door"
 
-#: ./searchreplaceutility.py:156
+#: ./searchreplaceutility.py:224
 msgid "Replaced: ${old} -> ${new}"
 msgstr "Vervangen: ${old} -> ${new}"
 
-#: ./browser/searchreplaceform.py:146
+#: ./browser/searchreplaceform.py:170
 msgid "Reset"
 msgstr "Reset"
 
-#: ./interfaces.py:31
+#: ./interfaces.py:32
 msgid "Restrict the enabled types."
 msgstr "Beperkt de ingeschakelde types."
 
-#: ./browser/searchreplaceform.py:47
+#: ./browser/searchreplaceform.py:51
 msgid "Search Subfolders"
 msgstr "Doorzoek submappen"
 
-#: ./browser/searchreplaceform.py:90
+#: ./interfaces.py:95
+msgid "Search also lines fields"
+msgstr "Zoek ook in velden met lijnen"
+
+#: ./interfaces.py:84
+msgid "Search also textline fields"
+msgstr "Zoek ook in tekstvak velden"
+
+#: ./browser/searchreplaceform.py:99
 msgid "Search and Replace"
 msgstr "Zoek en vervang"
 
-#: ./browser/controlpanel.py:16
+#: ./browser/controlpanel.py:17
 #: ./profiles/default/controlpanel.xml
 msgid "Search and Replace settings"
 msgstr "Zoek en vervang-instellingen"
@@ -131,19 +151,19 @@ msgstr "Zoek en vervang-instellingen"
 msgid "Search and Replace text"
 msgstr "Zoek en vervang tekst"
 
-#: ./browser/pageform.pt:50
+#: ./browser/pageform.pt:56
 msgid "Search and replace in parent folder"
 msgstr "Zoek en vervang in de bovenliggende folder"
 
-#: ./browser/searchreplaceform.py:91
+#: ./browser/searchreplaceform.py:100
 msgid "Search and replace text found in documents."
 msgstr "Zoek en vervang tekst gevonden in documenten."
 
-#: ./browser/searchreplaceform.py:127
+#: ./browser/searchreplaceform.py:145
 msgid "Search text replaced in ${replaced} of ${items} instance(s)."
 msgstr "Gezochte tekst vervangen in ${replaced} van ${items} geval(len)."
 
-#: ./browser/searchreplaceform.py:142
+#: ./browser/searchreplaceform.py:163
 msgid "Search text replaced in all ${items} instance(s)."
 msgstr "Gezochte tekst vervangen in alle ${items} geval(len)."
 
@@ -152,19 +172,23 @@ msgstr "Gezochte tekst vervangen in alle ${items} geval(len)."
 msgid "Search/Replace"
 msgstr "Zoek/Vervang"
 
-#: ./browser/searchreplacetable.pt:20
+#: ./browser/searchreplacetable.pt:29
 msgid "Select all items"
 msgstr "Selecteer alle items"
 
-#: ./interfaces.py:62
+#: ./interfaces.py:65
 msgid "The maximum number of characters to show before and after the found text."
 msgstr "Maximum aantal karakters om te tonen voor en na de gevonden tekst."
 
-#: ./browser/searchreplaceform.py:63
+#: ./interfaces.py:74
+msgid "Update the modified datetime when replacing."
+msgstr "Werk de wijzigingsdatum bij na vervanging."
+
+#: ./browser/searchreplaceform.py:70
 msgid "Use the catalog to search, just like the search form does. This only finds keywords, not html tags. You might have some text fields that are not found this way, so if not checked, you may find more content, but it will be slower. Regardless of this setting, when at least one match is found, text in all text fields may be replaced."
 msgstr "Gebruik de catalogus om te zoeken, net zoals het zoekformulier doet. Dit vindt alleen woorden, geen html tags. Er kunnen tekstvelden zijn die op deze manier niet gevonden worden, dus als deze optie niet aangevinkt is, zou je meer inhoud kunnen vinden, maar het is langzamer. Ongeacht deze instelling: als minstens één overeenkomst is gevonden in een document, worden alle tekstvelden doorzocht."
 
-#: ./interfaces.py:41
+#: ./interfaces.py:43
 msgid "When 'Restrict the enable types' is checked, only the selected types are searched. Otherwise this list is ignored."
 msgstr "Als 'Beperkt de ingeschakelde types' is aangevinkt, worden alleen de geselecteerde types doorzocht. Anders wordt deze lijst genegeerd."
 
@@ -173,6 +197,6 @@ msgid "collective.searchandreplace"
 msgstr "collective.searchandreplace"
 
 #. Default: "Affected content"
-#: ./browser/searchreplacetable.pt:16
+#: ./browser/searchreplacetable.pt:20
 msgid "summary_affected_content"
 msgstr "Te wijzigen inhoud"
