@@ -1,7 +1,7 @@
 Changelog
 =========
 
-8.1.2 (unreleased)
+8.2.0 (2021-05-26)
 ------------------
 
 - Do not show "Replace" button until user has seen Preview results.
