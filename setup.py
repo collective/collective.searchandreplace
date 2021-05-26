@@ -20,7 +20,7 @@
 
 from setuptools import setup, find_packages
 
-version = "8.2.0"
+version = "8.2.1.dev0"
 
 setup(
     name="collective.searchandreplace",
