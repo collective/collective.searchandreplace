@@ -1,7 +1,7 @@
 Changelog
 =========
 
-8.2.1 (unreleased)
+8.2.1 (2022-01-06)
 ------------------
 
 - Fix the title of the action category disappearing (and displaying ``object`` instead) when installing this addon.
