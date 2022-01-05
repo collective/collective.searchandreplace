@@ -4,7 +4,8 @@ Changelog
 8.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix the title of the action category disappearing (and displaying ``object`` instead) when installing this addon.
+  [Rudd-O]
 
 
 8.2.0 (2021-05-26)
