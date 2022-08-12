@@ -6,7 +6,10 @@ from collective.searchandreplace.browser.customwidgets import (
 )  # noqa
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
 from five.formlib.formbase import AddForm
-from plone.app.layout.navigation.defaultpage import isDefaultPage
+try:
+    from plone.app.layout.navigation.defaultpage import isDefaultPage
+except ImportError:
+    from plone.base.defaultpage import is_default_page as isDefaultPage
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import getUtility

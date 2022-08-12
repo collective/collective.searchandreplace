@@ -5,7 +5,10 @@ from Acquisition import aq_parent
 from collective.searchandreplace import SearchAndReplaceMessageFactory as _
 from collective.searchandreplace.interfaces import ISearchReplaceSettings
 from plone import api
-from plone.app.layout.navigation.defaultpage import isDefaultPage
+try:
+    from plone.app.layout.navigation.defaultpage import isDefaultPage
+except ImportError:
+    from plone.base.defaultpage import is_default_page as isDefaultPage
 from plone.app.textfield import RichTextValue
 from plone.app.textfield.interfaces import IRichText
 from plone.registry.interfaces import IRegistry
