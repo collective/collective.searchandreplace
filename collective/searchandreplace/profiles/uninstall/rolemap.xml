@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <permission name="collective.searchandreplace: Use Search And Replace" remove="True">
+    </permission>
+  </permissions>
+</rolemap>

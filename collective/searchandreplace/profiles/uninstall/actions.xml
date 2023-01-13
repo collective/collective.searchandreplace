@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+  <object name="object" meta_type="CMF Action Category">
+    <object name="search_and_replace" meta_type="CMF Action" i18n:domain="SearchAndReplace" remove="True">
+    </object>
+  </object>
+
+</object>
