@@ -1,0 +1,20 @@
+bin/pip2:
+	virtualenv -p 2 .
+
+bin/buildout: bin/pip2
+	bin/pip2 install -r requirements-27.txt
+
+clean:
+	rm -rf bin/ lib/ include/ parts/ .installed.cfg
+
+plone43: bin/buildout
+	bin/buildout -v buildout:extends="plone43.cfg versions.cfg"
+
+plone51: bin/buildout
+	bin/buildout -v buildout:extends="plone51.cfg versions.cfg"
+
+plone52: bin/buildout
+	bin/buildout -v buildout:extends="plone52.cfg versions.cfg"
+
+test:
+	bin/pytest
