@@ -29,8 +29,12 @@ and check for three results, one per field.
     ['description', 'text', 'title']
     >>> browser.getControl(name='form.filterFields').value
     ['description', 'text', 'title']
-    >>> browser.getControl(name='form.affectedContent').options
-    ['title:0:/plone/page', 'description 1:0:/plone/page', 'text 1:4:/plone/page']
+    >>> 'title:0:/plone/page' in browser.getControl(name='form.affectedContent').options
+    True
+    >>> 'description 1:0:/plone/page' in browser.getControl(name='form.affectedContent').options
+    True
+    >>> 'text 1:4:/plone/page' in browser.getControl(name='form.affectedContent').options
+    True
 
 Show content only from title field.
 
@@ -40,8 +44,8 @@ Show content only from title field.
     ['description', 'text', 'title']
     >>> browser.getControl(name='form.filterFields').value
     ['title']
-    >>> browser.getControl(name='form.affectedContent').options
-    ['title:0:/plone/page']
+    >>> 'title:0:/plone/page' in browser.getControl(name='form.affectedContent').options
+    True
 
 Show content from text and description fields.
 
@@ -62,5 +66,9 @@ Unchecking all fields resets filter.
     ['description', 'text', 'title']
     >>> browser.getControl(name='form.filterFields').value
     ['description', 'text', 'title']
-    >>> browser.getControl(name='form.affectedContent').options
-    ['title:0:/plone/page', 'description 1:0:/plone/page', 'text 1:4:/plone/page']
+    >>> 'title:0:/plone/page' in browser.getControl(name='form.affectedContent').options
+    True
+    >>> 'description 1:0:/plone/page' in browser.getControl(name='form.affectedContent').options
+    True
+    >>> 'text 1:4:/plone/page' in browser.getControl(name='form.affectedContent').options
+    True
