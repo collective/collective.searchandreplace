@@ -4,7 +4,10 @@ Changelog
 8.2.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Test on GitHub Actions on Plone 4.3-6.0.  [gotcha]
+
+- Fix isDefaultPage moved to a different interface module.
+  [Rudd-O]
 
 
 8.2.1 (2022-01-06)
