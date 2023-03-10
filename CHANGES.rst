@@ -1,7 +1,7 @@
 Changelog
 =========
 
-8.2.2 (unreleased)
+8.2.2 (2023-03-10)
 ------------------
 
 - Test on GitHub Actions on Plone 4.3-6.0.  [gotcha]
