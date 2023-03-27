@@ -1,0 +1,2 @@
+setuptools==65.7.0
+zc.buildout==3.0.1
