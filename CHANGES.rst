@@ -1,10 +1,11 @@
 Changelog
 =========
 
-8.2.3 (unreleased)
+8.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Depend on z3c.form instead of zope.formlib
+  [gotcha]
 
 
 8.2.2 (2023-03-10)

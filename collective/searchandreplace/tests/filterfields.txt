@@ -23,11 +23,11 @@ and check for three results, one per field.
 
     >>> browser.open(portal_url)
     >>> browser.getLink('Search/Replace').click()
-    >>> browser.getControl(name='form.findWhat').value = 'Plone'
+    >>> browser.getControl(name='form.widgets.findWhat').value = 'Plone'
     >>> browser.getControl('Preview', index=0).click()
-    >>> browser.getControl(name='form.filterFields').options
+    >>> browser.getControl(name='form.widgets.filterFields').options
     ['description', 'text', 'title']
-    >>> browser.getControl(name='form.filterFields').value
+    >>> browser.getControl(name='form.widgets.filterFields').value
     ['description', 'text', 'title']
     >>> 'title:0:/plone/page' in browser.getControl(name='form.affectedContent').options
     True
@@ -38,33 +38,33 @@ and check for three results, one per field.
 
 Show content only from title field.
 
-    >>> browser.getControl(name='form.filterFields').value = ['title']
+    >>> browser.getControl(name='form.widgets.filterFields').value = ['title']
     >>> browser.getControl('Preview', index=0).click()
-    >>> browser.getControl(name='form.filterFields').options
+    >>> browser.getControl(name='form.widgets.filterFields').options
     ['description', 'text', 'title']
-    >>> browser.getControl(name='form.filterFields').value
+    >>> browser.getControl(name='form.widgets.filterFields').value
     ['title']
     >>> 'title:0:/plone/page' in browser.getControl(name='form.affectedContent').options
     True
 
 Show content from text and description fields.
 
-    >>> browser.getControl(name='form.filterFields').value = ['text', 'description']
+    >>> browser.getControl(name='form.widgets.filterFields').value = ['text', 'description']
     >>> browser.getControl('Preview', index=0).click()
-    >>> browser.getControl(name='form.filterFields').options
+    >>> browser.getControl(name='form.widgets.filterFields').options
     ['description', 'text', 'title']
-    >>> browser.getControl(name='form.filterFields').value
+    >>> browser.getControl(name='form.widgets.filterFields').value
     ['description', 'text']
     >>> browser.getControl(name='form.affectedContent').options
     ['description 1:0:/plone/page', 'text 1:4:/plone/page']
 
 Unchecking all fields resets filter.
 
-    >>> browser.getControl(name='form.filterFields').value = []
+    >>> browser.getControl(name='form.widgets.filterFields').value = []
     >>> browser.getControl('Preview', index=0).click()
-    >>> browser.getControl(name='form.filterFields').options
+    >>> browser.getControl(name='form.widgets.filterFields').options
     ['description', 'text', 'title']
-    >>> browser.getControl(name='form.filterFields').value
+    >>> browser.getControl(name='form.widgets.filterFields').value
     ['description', 'text', 'title']
     >>> 'title:0:/plone/page' in browser.getControl(name='form.affectedContent').options
     True
