@@ -28,15 +28,15 @@ for results.
     False
     >>> browser.open(portal_url)
     >>> browser.getLink('Search/Replace').click()
-    >>> browser.getControl(name='form.findWhat').value = 'get plone'
+    >>> browser.getControl(name='form.widgets.findWhat').value = 'get plone'
     >>> browser.getControl('Preview').click()
     >>> 'Get Plone' in browser.contents
     True
 
 Replace "get" with "love".
 
-    >>> browser.getControl(name='form.replaceWith').value = "Love Plone"
-    >>> browser.getControl(name='form.actions.Replace').click()
+    >>> browser.getControl(name='form.widgets.replaceWith').value = "Love Plone"
+    >>> browser.getControl(name='form.buttons.replace').click()
 
 View page to verify replacement was made.
 
