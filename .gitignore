@@ -5,6 +5,7 @@
 *.pyo
 *.swp
 *~
+.direnv/
 .Python
 .coverage
 .idea
