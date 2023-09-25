@@ -2,6 +2,8 @@ set -ex
 
 rm -rf bin/
 
+cat $(which buildout)
+
 buildout bootstrap
 
 bin/buildout -vv -c test-6.0.x.cfg buildout:eggs-directory=eggs install instance plonesite pytest
