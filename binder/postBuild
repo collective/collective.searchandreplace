@@ -2,6 +2,8 @@ set -ex
 
 rm -rf bin/
 
+pip install wheel
+
 buildout bootstrap
 
 bin/buildout -Nvv -c test-6.0.x.cfg buildout:eggs-directory=eggs install instance plonesite pytest
