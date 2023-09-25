@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.3 (unreleased)
-------------------
+8.3 (2023-09-25)
+----------------
 
 - Depend on z3c.form instead of zope.formlib
   [gotcha]
