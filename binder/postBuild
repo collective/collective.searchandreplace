@@ -2,7 +2,7 @@ set -ex
 
 rm -rf bin/
 
-cat $(which buildout)
+touch buildout.cfg
 
 buildout bootstrap
 
