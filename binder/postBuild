@@ -4,7 +4,7 @@ rm -rf bin/
 
 buildout bootstrap
 
-PLONE_VERSION=5.2 bin/buildout -Nvv buildout:eggs-directory=eggs install instance plonesite pytest
+bin/buildout -Nvv -c test-6.0.x.cfg buildout:eggs-directory=eggs install instance plonesite pytest
 
 # install the zope proxy extension
 mv binder/jupyter_zope_proxy.py ${NB_PYTHON_PREFIX}/lib/python*/site-packages/

@@ -1,2 +1,2 @@
--r ../requirements.txt
+-r ../requirements-plone60.txt
 jupyter-server-proxy==3.2.1
