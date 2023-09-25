@@ -2,11 +2,9 @@ set -ex
 
 rm -rf bin/
 
-pip install wheel
-
 buildout bootstrap
 
-bin/buildout -Nvv -c test-6.0.x.cfg buildout:eggs-directory=eggs install instance plonesite pytest
+bin/buildout -vv -c test-6.0.x.cfg buildout:eggs-directory=eggs install instance plonesite pytest
 
 # install the zope proxy extension
 mv binder/jupyter_zope_proxy.py ${NB_PYTHON_PREFIX}/lib/python*/site-packages/
