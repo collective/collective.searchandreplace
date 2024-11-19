@@ -7,6 +7,8 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from zope.component import getUtility
 
+from collective.searchandreplace.searchreplaceutility import make_catalog_query_args
+
 import unittest
 
 
@@ -52,6 +54,40 @@ class TestMatchCase(unittest.TestCase):
             # occurences=paths
         )
         self.assertEqual(len(results), 1)
+
+    def testPathItem(self):
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.portal.invokeFactory("Document", "doc1")
+        doc1 = getattr(self.portal, "doc1")
+
+        catalog_query_args = make_catalog_query_args(context=doc1, findWhat="Find", searchSubFolders=True, onlySearchableText=False)
+        path = catalog_query_args["path"]["query"]
+        self.assertEqual(path, '/plone/doc1')
+
+    def testPathFolder(self):
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.portal.invokeFactory("Folder", "mainfolder")
+        mainfolder = getattr(self.portal, "mainfolder")
+
+        catalog_query_args = make_catalog_query_args(context=mainfolder, findWhat="Find", searchSubFolders=True, onlySearchableText=False)
+        path = catalog_query_args["path"]["query"]
+        self.assertEqual(path, '/plone/mainfolder')
+
+    def testPathItemDefaultView(self):
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.portal.invokeFactory("Document", "index_html")
+
+        catalog_query_args = make_catalog_query_args(context=self.portal.index_html, findWhat="Find", searchSubFolders=True, onlySearchableText=False)
+        path = catalog_query_args["path"]["query"]
+        self.assertEqual(path, '/plone')
+
+    def testPathFolderDefaultView(self):
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.portal.invokeFactory("Folder", "index_html")
+
+        catalog_query_args = make_catalog_query_args(context=self.portal.index_html, findWhat="Find", searchSubFolders=True, onlySearchableText=False)
+        path = catalog_query_args["path"]["query"]
+        self.assertEqual(path, '/plone/index_html')
 
 
 class TestMultipleMatchCase(unittest.TestCase):
