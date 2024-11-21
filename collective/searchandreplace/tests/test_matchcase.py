@@ -55,12 +55,30 @@ class TestMatchCase(unittest.TestCase):
         )
         self.assertEqual(len(results), 1)
 
+
+
+class TestPath(unittest.TestCase):
+    layer = SEARCH_REPLACE_INTEGRATION_LAYER
+
+    def setUp(self):
+        self.portal = self.layer["portal"]
+        self.srutil = getUtility(ISearchReplaceUtility)
+
     def testPathItem(self):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         self.portal.invokeFactory("Document", "doc1")
         doc1 = getattr(self.portal, "doc1")
 
         catalog_query_args = make_catalog_query_args(context=doc1, findWhat="Find", searchSubFolders=True, onlySearchableText=False)
+        path = catalog_query_args["path"]["query"]
+        self.assertEqual(path, '/plone/doc1')
+
+    def testPathItemNoSubFolders(self):
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.portal.invokeFactory("Document", "doc1")
+        doc1 = getattr(self.portal, "doc1")
+
+        catalog_query_args = make_catalog_query_args(context=doc1, findWhat="Find", searchSubFolders=False, onlySearchableText=False)
         path = catalog_query_args["path"]["query"]
         self.assertEqual(path, '/plone/doc1')
 
@@ -73,6 +91,15 @@ class TestMatchCase(unittest.TestCase):
         path = catalog_query_args["path"]["query"]
         self.assertEqual(path, '/plone/mainfolder')
 
+    def testPathFolderNoSubFolders(self):
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.portal.invokeFactory("Folder", "mainfolder")
+        mainfolder = getattr(self.portal, "mainfolder")
+
+        catalog_query_args = make_catalog_query_args(context=mainfolder, findWhat="Find", searchSubFolders=False, onlySearchableText=False)
+        path = catalog_query_args["path"]["query"]
+        self.assertEqual(path, '/plone/mainfolder')
+
     def testPathItemDefaultView(self):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         self.portal.invokeFactory("Document", "index_html")
@@ -81,6 +108,14 @@ class TestMatchCase(unittest.TestCase):
         path = catalog_query_args["path"]["query"]
         self.assertEqual(path, '/plone')
 
+    def testPathItemDefaultViewNoSubFolders(self):
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.portal.invokeFactory("Document", "index_html")
+
+        catalog_query_args = make_catalog_query_args(context=self.portal.index_html, findWhat="Find", searchSubFolders=False, onlySearchableText=False)
+        path = catalog_query_args["path"]["query"]
+        self.assertEqual(path, '/plone/index_html')
+
     def testPathFolderDefaultView(self):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         self.portal.invokeFactory("Folder", "index_html")
@@ -88,6 +123,15 @@ class TestMatchCase(unittest.TestCase):
         catalog_query_args = make_catalog_query_args(context=self.portal.index_html, findWhat="Find", searchSubFolders=True, onlySearchableText=False)
         path = catalog_query_args["path"]["query"]
         self.assertEqual(path, '/plone/index_html')
+
+    def testPathFolderDefaultViewNoSubFolders(self):
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.portal.invokeFactory("Folder", "index_html")
+
+        catalog_query_args = make_catalog_query_args(context=self.portal.index_html, findWhat="Find", searchSubFolders=False, onlySearchableText=False)
+        path = catalog_query_args["path"]["query"]
+        self.assertEqual(path, '/plone/index_html')
+
 
 
 class TestMultipleMatchCase(unittest.TestCase):
