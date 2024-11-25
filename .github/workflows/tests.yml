@@ -24,13 +24,13 @@ jobs:
     runs-on: ubuntu-20.04
     name: ${{ matrix.config[1] }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.config[0] }}
     - name: Pip cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ matrix.config[0] }}-${{ hashFiles('setup.*', 'tox.ini') }}
@@ -47,7 +47,7 @@ jobs:
         echo "[buildout]" >> ~/.buildout/default.cfg
         echo "eggs-directory = ~/eggs" >> ~/.buildout/default.cfg
     - name: Cache eggs
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/eggs
         key: ${{ runner.os }}-eggs-${{ matrix.config[0] }}-${{ matrix.config[1] }}-${{ hashFiles('*cfg') }}
@@ -70,6 +70,6 @@ jobs:
       image: ${{ matrix.config[1] }}
     name: ${{ matrix.config[0] }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       run: tox -e ${{ matrix.config[0] }}
