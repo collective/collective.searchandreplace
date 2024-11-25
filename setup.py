@@ -19,6 +19,16 @@
 ##############################################################################
 
 from setuptools import setup, find_packages
+import sys
+
+pytest_extras = [
+    "pytest",
+    "gocept.pytestlayer",
+    "requests",
+]
+if sys.version_info[0] == 2:
+    pytest_extras.append("pathlib2")
+
 
 version = "8.3.1.dev0"
 
@@ -82,12 +92,7 @@ setup(
             "collective.dexteritytextindexer",
             "plone.app.testing",
         ],
-        pytest=[
-            "pytest",
-            "gocept.pytestlayer",
-            "pathlib2",
-            "requests",
-        ],
+        pytest=pytest_extras,
     ),
     entry_points="""
     # -*- Entry points: -*-
