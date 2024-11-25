@@ -4,8 +4,11 @@ Changelog
 8.3.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix the search in a folder that is set as the default view of the parent folder. [Mychae1]
 
+- Add tests for calculating the path to start the search from. [Mychae1]
+
+- Also test under python 3.12. [gotcha]
 
 8.3 (2023-09-25)
 ----------------
