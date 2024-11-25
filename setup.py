@@ -23,11 +23,15 @@ import sys
 
 pytest_extras = [
     "pytest",
-    "gocept.pytestlayer",
     "requests",
 ]
 if sys.version_info[0] == 2:
     pytest_extras.append("pathlib2")
+    pytest_extras.append("gocept.pytestlayer")
+if sys.version_info[0] == 3 and sys.version_info[1] <= 11:
+    pytest_extras.append("gocept.pytestlayer")
+if sys.version_info[0] == 3 and sys.version_info[1] >= 12:
+    pytest_extras.append("zope.pytestlayer")
 
 
 version = "8.3.1.dev0"
