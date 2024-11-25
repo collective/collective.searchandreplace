@@ -22,7 +22,11 @@ Test to ensure basic search and replace works. Search for 'get' and check previe
 for results.
 
     >>> browser.open(portal_url + '/page')
-    >>> "Get Plone now" in browser.contents
+    >>> "Get Plone now [text]" in browser.contents
+    True
+    >>> "Get Plone now [title]" in browser.contents
+    True
+    >>> "Get Plone now [description]" in browser.contents
     True
     >>> "Love Plone now" in browser.contents
     False
@@ -41,7 +45,15 @@ Replace "get" with "love".
 View page to verify replacement was made.
 
     >>> browser.open(portal_url + '/page')
-    >>> "Love Plone now" in browser.contents
+    >>> "Love Plone now [text]" in browser.contents
     True
-    >>> "Get Plone now" in browser.contents
+    >>> "Get Plone now [text]" in browser.contents
+    False
+    >>> "Love Plone now [title]" in browser.contents
+    True
+    >>> "Get Plone now [title]" in browser.contents
+    False
+    >>> "Love Plone now [description]" in browser.contents
+    True
+    >>> "Get Plone now [description]" in browser.contents
     False
