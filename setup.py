@@ -34,7 +34,7 @@ if sys.version_info[0] == 3 and sys.version_info[1] >= 12:
     pytest_extras.append("zope.pytestlayer")
 
 
-version = "8.3.1"
+version = "8.3.2.dev0"
 
 setup(
     name="collective.searchandreplace",
