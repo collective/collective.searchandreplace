@@ -1,7 +1,7 @@
 Changelog
 =========
 
-8.3.1 (unreleased)
+8.3.1 (2025-01-10)
 ------------------
 
 - Fix the search in a folder that is set as the default view of the parent folder. [Mychae1]
