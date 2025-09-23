@@ -22,26 +22,38 @@ Test to ensure basic search and replace works. Search for 'get' and check previe
 for results.
 
     >>> browser.open(portal_url + '/page')
-    >>> "Get Plone now" in browser.contents
+    >>> "Get Plone now [text]" in browser.contents
+    True
+    >>> "Get Plone now [title]" in browser.contents
+    True
+    >>> "Get Plone now [description]" in browser.contents
     True
     >>> "Love Plone now" in browser.contents
     False
     >>> browser.open(portal_url)
     >>> browser.getLink('Search/Replace').click()
-    >>> browser.getControl(name='form.findWhat').value = 'get plone'
+    >>> browser.getControl(name='form.widgets.findWhat').value = 'get plone'
     >>> browser.getControl('Preview').click()
     >>> 'Get Plone' in browser.contents
     True
 
 Replace "get" with "love".
 
-    >>> browser.getControl(name='form.replaceWith').value = "Love Plone"
-    >>> browser.getControl(name='form.actions.Replace').click()
+    >>> browser.getControl(name='form.widgets.replaceWith').value = "Love Plone"
+    >>> browser.getControl(name='form.buttons.replace').click()
 
 View page to verify replacement was made.
 
     >>> browser.open(portal_url + '/page')
-    >>> "Love Plone now" in browser.contents
+    >>> "Love Plone now [text]" in browser.contents
     True
-    >>> "Get Plone now" in browser.contents
+    >>> "Get Plone now [text]" in browser.contents
+    False
+    >>> "Love Plone now [title]" in browser.contents
+    True
+    >>> "Get Plone now [title]" in browser.contents
+    False
+    >>> "Love Plone now [description]" in browser.contents
+    True
+    >>> "Get Plone now [description]" in browser.contents
     False

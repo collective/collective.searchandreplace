@@ -5,3 +5,5 @@ include *.rst
 include *.txt
 include .coveragerc
 global-exclude *.pyc
+exclude startup.py
+include tox.ini

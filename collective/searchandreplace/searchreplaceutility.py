@@ -69,7 +69,7 @@ def make_catalog_query_args(context, findWhat, searchSubFolders, onlySearchableT
     if context.isPrincipiaFolderish and not searchSubFolders:
         query["depth"] = 1
     container = aq_parent(context)
-    if isDefaultPage(container, context) and searchSubFolders:
+    if isDefaultPage(container, context) and not context.isPrincipiaFolderish and searchSubFolders:
         query["query"] = "/".join(container.getPhysicalPath())
     catalog_query_args = dict(path=query)
     if settings().restrict_searchable_types:

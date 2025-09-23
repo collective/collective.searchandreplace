@@ -1,8 +1,9 @@
+<tal:global define="show_replace view/view/show_replace">
 <div
   class="field"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   i18n:domain="SearchAndReplace"
-  tal:condition="python: request.has_key('form.actions.Preview') or request.has_key('form.actions.Replace')"
+  tal:condition="show_replace"
   tal:define="fields view/getAffectedFields;
               filter_fields view/filter_fields;"
   >
@@ -22,7 +23,7 @@
       src="select_all_icon.gif"
       name="selectButton"
       title="Select all items"
-      onclick="toggleSelect(this,'form.filterFields', true);"
+      onclick="toggleSelect(this,'form.widgets.filterFields', true);"
       alt="Select all items"
       i18n:attributes="title;alt"
       type="checkbox"
@@ -36,9 +37,9 @@
   <span>
     <input
       type="checkbox"
-      id="form.filterFields"
+      id="form.widgets.filterFields"
       checked="checked"
-      name="form.filterFields"
+      name="form.widgets.filterFields"
       tal:attributes="value field/value;
                       checked python:field.value in filter_fields"
     />
@@ -47,26 +48,29 @@
   </tal:fields>
   </div>
 
-  <input
+  <button
      type="submit"
-     id="form.actions.Preview"
-     name="form.actions.Preview"
-     class="button"
+     id="form.buttons.filter_fields.Preview"
+     name="form.buttons.preview"
+     class="btn btn-secondary submit-widget button-field"
      i18n:attributes="value"
+     i18n:translate=""
      value="Preview"
-     />
+     >Preview</button>
   </div>
 </div>
+
+<input name="form.widgets.preview" type="hidden" value="preview" />
 
 <div
   class="field"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   i18n:domain="SearchAndReplace"
-  tal:condition="python: request.has_key('form.actions.Preview') or request.has_key('form.actions.Replace')"
+  tal:condition="show_replace"
   tal:define="isFolderish context/isPrincipiaFolderish|nothing;
                  items view/getItems;
-                 findText request/form.findWhat|nothing;
-                 replaceWith request/form.replaceWith|nothing;
+                 findText request/form.widgets.findWhat|nothing;
+                 replaceWith request/form.widgets.replaceWith|nothing;
                  maximum_text_characters view/maximum_text_characters;
                  "
 >
@@ -242,3 +246,4 @@
     }
   }
 </script>
+</tal:global>

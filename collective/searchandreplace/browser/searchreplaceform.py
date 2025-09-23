@@ -1,20 +1,23 @@
 # -*- coding: us-ascii -*-
 from Acquisition import aq_parent
 from collective.searchandreplace import SearchAndReplaceMessageFactory as _
-from collective.searchandreplace.browser.customwidgets import (
-    TwoLineTextAreaWidget,
-)  # noqa
 from collective.searchandreplace.interfaces import ISearchReplaceUtility
-from five.formlib.formbase import AddForm
+
+
 try:
     from plone.app.layout.navigation.defaultpage import isDefaultPage
 except ImportError:
     from plone.base.defaultpage import is_default_page as isDefaultPage
+
+from plone.autoform.form import AutoExtensibleForm
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
+from z3c.form import button
+from z3c.form import contentprovider
+from z3c.form import form
+from z3c.form import interfaces
 from zope.component import getUtility
-from zope.formlib.form import action
-from zope.formlib.form import FormFields
+from zope.interface import implementer
 from zope.interface import Interface
 from zope.schema import Bool
 from zope.schema import Int
@@ -58,14 +61,14 @@ class ISearchReplaceForm(Interface):
             "children, replacing at each level."
         ),
         default=True,
-        required=True,
+        required=False,
     )
 
     matchCase = Bool(
         title=_(u"Match Case"),
         description=_(u"Check the box for a case sensitive search."),
         default=False,
-        required=True,
+        required=False,
     )
 
     onlySearchableText = Bool(
@@ -84,49 +87,48 @@ class ISearchReplaceForm(Interface):
     )
 
 
-class SearchReplaceForm(AddForm):
+@implementer(interfaces.IButtonForm, interfaces.IHandlerForm,
+             interfaces.IFieldsAndContentProvidersForm)
+class SearchReplaceForm(AutoExtensibleForm, form.AddForm):
     """ """
-
-    @property
-    def form_fields(self):
-        form_fields = FormFields(ISearchReplaceForm)
-        container = aq_parent(self.context)
-        if not self.context.isPrincipiaFolderish and not isDefaultPage(
-            container, self.context
-        ):
-            form_fields = form_fields.omit("searchSubfolders")
-        form_fields["findWhat"].custom_widget = TwoLineTextAreaWidget
-        form_fields["replaceWith"].custom_widget = TwoLineTextAreaWidget
-        return form_fields
+    schema = ISearchReplaceForm
+    contentProviders = contentprovider.ContentProviders(['replacetable'])
+    contentProviders['replacetable'].position = 0
 
     label = _(u"Search and Replace")
     description = _(u"Search and replace text found in documents.")
-    template = ViewPageTemplateFile("pageform.pt")
 
-    @action(_(u"Preview"), validator=None, name=u"Preview")
-    def action_preview(self, action, data):
+    @button.buttonAndHandler(_("Preview"), name="preview")
+    def action_preview(self, action):
         """ Preview files to be changed. """
         self.form_reset = False
 
-    def show_replace(self, action):
+    def show_replace(self):
         return (
-            "form.actions.Preview" in self.request.form
-            or "form.actions.Replace" in self.request.form
+            "form.buttons.preview" in self.request.form
+            or "form.buttons.replace" in self.request.form
         )
 
-    @action(
-        _(u"Replace"),
-        validator=validate_searchreplaceform,
-        name=u"Replace",
-        condition="show_replace",
+    @button.buttonAndHandler(
+        _("Replace"), name="replace",
+        condition=lambda form: form.show_replace()
     )
-    def action_replace(self, action, data):
+    def action_replace(self, action):
         """ Replace text for all files. """
         self.form_reset = False
-        if "form.affectedContent" in self.request:
-            self.replace_filtered(data)
-        else:
-            self.replace_all(data)
+
+    def must_replace(self):
+        return "form.buttons.replace" in self.request.form
+
+    def maybe_replace(self):
+        if self.must_replace():
+            data, errors = self.extractData()
+            if "form.widgets.preview" not in self.request:
+                self.replace_all(data)
+            elif "form.affectedContent" in self.request:
+                self.replace_filtered(data)
+            else:
+                pass
 
     def replace_filtered(self, data):
         occurences = parseItems(self.request["form.affectedContent"])
@@ -170,9 +172,10 @@ class SearchReplaceForm(AddForm):
             type="info",
         )
 
-    @action(_(u"Reset"), validator=None, name=u"Reset")
-    def action_reset(self, action, data):
+    @button.buttonAndHandler(_("Reset"), name="reset")
+    def action_reset(self, action):
         """ Reset the form fields to their defaults. """
+        self.request.response.redirect('./@@searchreplaceform')
 
 
 def parseItems(items):

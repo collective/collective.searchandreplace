@@ -1,10 +1,35 @@
 Changelog
 =========
 
-8.2.2 (unreleased)
+8.3.2 (unreleased)
 ------------------
 
 - Nothing changed yet.
+
+
+8.3.1 (2025-01-10)
+------------------
+
+- Fix the search in a folder that is set as the default view of the parent folder. [Mychae1]
+
+- Add tests for calculating the path to start the search from. [Mychae1]
+
+- Also test under python 3.12. [gotcha]
+
+8.3 (2023-09-25)
+----------------
+
+- Depend on z3c.form instead of zope.formlib
+  [gotcha]
+
+
+8.2.2 (2023-03-10)
+------------------
+
+- Test on GitHub Actions on Plone 4.3-6.0.  [gotcha]
+
+- Fix isDefaultPage moved to a different interface module.
+  [Rudd-O]
 
 
 8.2.1 (2022-01-06)

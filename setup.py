@@ -19,8 +19,22 @@
 ##############################################################################
 
 from setuptools import setup, find_packages
+import sys
 
-version = "8.2.2.dev0"
+pytest_extras = [
+    "pytest",
+    "requests",
+]
+if sys.version_info[0] == 2:
+    pytest_extras.append("pathlib2")
+    pytest_extras.append("gocept.pytestlayer")
+if sys.version_info[0] == 3 and sys.version_info[1] <= 11:
+    pytest_extras.append("gocept.pytestlayer")
+if sys.version_info[0] == 3 and sys.version_info[1] >= 12:
+    pytest_extras.append("zope.pytestlayer")
+
+
+version = "8.3.2.dev0"
 
 setup(
     name="collective.searchandreplace",
@@ -34,10 +48,15 @@ setup(
         "Framework :: Plone :: 4.3",
         "Framework :: Plone :: 5.1",
         "Framework :: Plone :: 5.2",
+        "Framework :: Plone :: 6.0",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     keywords="batch search replace",
@@ -51,36 +70,33 @@ setup(
     namespace_packages=["collective"],
     include_package_data=True,
     zip_safe=False,
+    python_requires=">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*",
     install_requires=[
         "Acquisition",
-        "five.formlib",
+        "plone.api",
         "plone.app.layout",
         "plone.app.textfield",
+        "plone.autoform",
         "plone.resource",
         "Products.CMFCore",
         "Products.CMFPlone",
         "Products.statusmessages",
         "setuptools",
         "Zope2",
+        "z3c.form",
         "zope.component",
-        "zope.formlib",
+        "zope.contentprovider",
         "zope.i18nmessageid",
         "zope.interface",
         "zope.publisher",
         "zope.schema",
-        "plone.api",
     ],
     extras_require=dict(
         test=[
             "collective.dexteritytextindexer",
             "plone.app.testing",
         ],
-        pytest=[
-            "pytest",
-            "gocept.pytestlayer",
-            "pathlib2",
-            "requests",
-        ],
+        pytest=pytest_extras,
     ),
     entry_points="""
     # -*- Entry points: -*-

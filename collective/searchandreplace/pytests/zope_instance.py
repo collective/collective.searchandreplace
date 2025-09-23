@@ -2,7 +2,12 @@ import os
 import sys
 import time
 import subprocess
-import pathlib2 as pathlib
+
+try:
+    import pathlib
+except ImportError:
+    import pathlib2 as pathlib
+
 import socket
 from contextlib import closing
 
@@ -27,13 +32,11 @@ class ZopeInstance(object):
         ).parent.joinpath("buildout")
         package_path = pytestconfig.rootdir
         buildout_cfg = pathlib.Path(tmp_path, "buildout.cfg")
-        buildout = u"""
+        buildout = """
 [buildout]
 extends =  %(package_path)s/buildout.cfg
 develop =  %(package_path)s
-""" % dict(
-            package_path=package_path
-        )
+""" % dict(package_path=package_path)
         with buildout_cfg.open("w") as f:
             f.write(buildout)
         os.chdir(str(tmp_path))
