@@ -4,7 +4,9 @@ Changelog
 8.3.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Provide an uninstall profile.
+  Fixes `issue 54 <https://github.com/collective/collective.searchandreplace/issues/54>`_.
+  [spereverde, ale-rt]
 
 
 8.3.1 (2025-01-10)

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rolemap>
+  <permissions>
+    <!--
+        There is no remove for the rolemap.
+        See https://community.plone.org/t/install-and-uninstall-roles-through-a-product/6784/5
+    -->
+    <permission acquire="False"
+                name="collective.searchandreplace: Use Search And Replace"
+    />
+  </permissions>
+</rolemap>
