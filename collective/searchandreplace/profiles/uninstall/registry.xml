@@ -1,4 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <registry>
-  <records interface="collective.searchandreplace.interfaces.ISearchReplaceSettings" remove="True" />
+  <records interface="collective.searchandreplace.interfaces.ISearchReplaceSettings"
+           remove="True"
+  />
 </registry>
